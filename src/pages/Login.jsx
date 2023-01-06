@@ -1,35 +1,33 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { baseURL } from "../utils/baseURL";
+import { API_AUTH } from "../utils/baseURL";
 
 function Login() {
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [userLogin, setUserLogin] = useState({ email: "", password: "" });
-
-  const handleOnChange = (e) => {
-    setUserLogin((currUser) => {
-      return { ...currUser, [e.target.id]: e.target.value };
-    });
-  };
-
   const login = async (e) => {
     e.preventDefault();
+    const req = {
+      email: email,
+      password: password
+    }
+
     try {
-      const response = await fetch(`${baseURL}/login`, {
+      const { data, status } = await axios.post(`${API_AUTH}/login`, req, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userLogin),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (status == 200) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("id", data.user.id);
-        localStorage.setItem("email", data.user.email);
+        localStorage.setItem("id", data.userId);
 
         if (location.state) {
           navigate(`${location.state.from.pathname}`);
@@ -57,11 +55,11 @@ function Login() {
             <form action="" className="flex flex-col gap-4" onSubmit={login}>
               <input
                 className="p-2 mt-8 rounded-xl border  "
+                autoComplete="off"
                 type="email"
                 id="email"
                 placeholder="Email"
-                onChange={handleOnChange}
-                value={userLogin.email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <div className="relative">
@@ -70,8 +68,7 @@ function Login() {
                   type="password"
                   id="password"
                   placeholder="Password"
-                  onChange={handleOnChange}
-                  value={userLogin.password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <svg

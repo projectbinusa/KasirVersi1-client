@@ -1,32 +1,32 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { baseURL } from "../utils/baseURL";
+import { API_AUTH } from "../utils/baseURL";
 
 function Register() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const [userRegister, setUserRegister] = useState({ email: "", password: "", role: "admin" });
-
-  const handleOnChange = (e) => {
-    setUserRegister((currUser) => {
-      return { ...currUser, [e.target.id]: e.target.value };
-    });
-  };
 
   const register = async (e) => {
     e.preventDefault();
+    const req = {
+      username: username,
+      email: email,
+      password: password
+    }
     try {
-      const response = await fetch(`${baseURL}/register`, {
+      await axios.post(`${API_AUTH}/register`, req, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userRegister),
-      });
-
-      if (response.ok) {
+      }).then(() => {
         navigate("/login");
-      }
+      }).catch((error) => {
+        console.log(error);
+      })
     } catch (err) {
       console.log(err);
     }
@@ -45,11 +45,20 @@ function Register() {
             <form action="" className="flex flex-col gap-4" onSubmit={register}>
               <input
                 className="p-2 mt-8 rounded-xl border  "
+                autoComplete="off"
+                type="text"
+                id="username"
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <input
+                className="p-2 rounded-xl border  "
+                autoComplete="off"
                 type="email"
                 id="email"
                 placeholder="Email"
-                onChange={handleOnChange}
-                value={userRegister.email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <div className="relative">
@@ -58,8 +67,7 @@ function Register() {
                   type="password"
                   id="password"
                   placeholder="Password"
-                  onChange={handleOnChange}
-                  value={userRegister.password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <svg
@@ -74,7 +82,7 @@ function Register() {
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                 </svg>
               </div>
-              <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300">
+              <button type="submit" className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300">
                 Register
               </button>
             </form>
