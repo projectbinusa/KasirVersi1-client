@@ -1,19 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import PrivateRoute from "./utils/PrivateRoute";
+import React from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
-        <div>
-          <img src={reactLogo} alt="React logo" />
-        </div>
-    </div>
-    </div>
-  )
+    <React.Fragment>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/"
+          element={
+            // <PrivateRoute>
+              <Home />
+            // </PrivateRoute>
+          }
+        />
+        <Route path="/*" element={<h1>Page Not Found</h1>} />
+      </Routes>
+    </React.Fragment>
+  );
 }
 
-export default App
+export default App;
