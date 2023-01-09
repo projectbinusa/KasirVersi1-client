@@ -64,7 +64,7 @@ function Cart() {
   return (
     <div id="cart">
       <div id="nav-logo">
-        <div class="container mx-auto h-screen grid grid-cols-1 justify-between p-4">
+        <div className="container mx-auto h-screen grid grid-cols-1 justify-between p-4">
           <div>
             <h1 className="font-bold text-3xl">
               Order <span className="font-thin text-gray-500">Menu</span>

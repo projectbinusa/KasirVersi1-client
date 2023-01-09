@@ -5,6 +5,7 @@ import {
   faComment,
   faFileInvoice,
   faGear,
+  faBook,
   faArrowRightFromBracket
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,18 +24,18 @@ function Sidebar() {
     },
     {
       id: 3,
-      title: "Message",
-      icon: faComment
-    },
-    {
-      id: 4,
       title: "Bills",
       icon: faFileInvoice
     },
     {
-      id: 5,
+      id: 4,
       title: "Setting",
       icon: faGear
+    },
+    {
+      id: 5,
+      title: "Library",
+      icon: faBook
     },
     {
       id: 6,
@@ -55,7 +56,7 @@ function Sidebar() {
                 <div>
                   {len === i + 1 ? (
                     <>
-                    <div className='rounded-2xl mt-28 py-3 text-gray-400 hover:fill-blue-500 hover:text-[#FFFFFF] hover:bg-[#FF2A77] hover:shadow-lg hover:shadow-red-300'>
+                    <div className='rounded-2xl inset-x-0 bottom-0 py-3 text-gray-400 hover:fill-blue-500 hover:text-[#FFFFFF] hover:bg-[#06c931] hover:shadow-lg hover:shadow-red-300'>
                       <div className='flex justify-center'>
                       <FontAwesomeIcon
                             icon={data.icon}

@@ -1,0 +1,86 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "namaProduk": "Bakso Komplit",
+      "categori": "Makanan",
+      "jumlahTerjual": 10,
+      "harga": 15000
+    },
+    {
+      "id": 2,
+      "namaProduk": "Bakso Kosongan",
+      "categori": "Makanan",
+      "jumlahTerjual": 23,
+      "harga": 12000
+    },
+    {
+      "id": 3,
+      "namaProduk": "Mie Ayam",
+      "categori": "Makanan",
+      "jumlahTerjual": 5,
+      "harga": 14000
+    },
+    {
+      "id": 4,
+      "namaProduk": "Krupuk Emping",
+      "categori": "lainnya",
+      "jumlahTerjual": 11,
+      "harga": 5000
+    },{
+      "id": 5,
+      "namaProduk": "Krupuk Terung",
+      "categori": "lainnya",
+      "jumlahTerjual": 12,
+      "harga": 5000
+    },{
+      "id": 6,
+      "namaProduk": "Krupuk Bungkus",
+      "categori": "lainnya",
+      "jumlahTerjual": 6,
+      "harga": 4000
+    },
+    {
+      "id": 7,
+      "namaProduk": "Teh Tawar",
+      "categori": "Minuman",
+      "jumlahTerjual": 6,
+      "harga": 3000
+    },
+    {
+      "id": 8,
+      "namaProduk": "Es Teh",
+      "categori": "Minuman",
+      "jumlahTerjual": 15,
+      "harga": 4000
+    },
+    {
+      "id": 9,
+      "namaProduk": "Teh Hangat",
+      "categori": "Minuman",
+      "jumlahTerjual": 8,
+      "harga": 3000
+    },
+    {
+      "id": 10,
+      "namaProduk": "Jerul Hangat",
+      "categori": "Minuman",
+      "jumlahTerjual": 8,
+      "harga": 4000
+    },
+    {
+      "id": 11,
+      "namaProduk": "Es Jeruk",
+      "categori": "Minuman",
+      "jumlahTerjual": 10,
+      "harga": 5000
+    }
+  ],
+  "totalPesanan": [
+    {
+      "id":1,
+      "namaProduk": "Bakso Komplit",
+      "jumlah": 27
+    }
+  ]
+}
