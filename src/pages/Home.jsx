@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Cart from "../components/Cart";
+// import Dashboard from "../components/Dashboard";
 import Menu from "../components/Menu";
 import Sidebar from "../components/Sidebar";
 import { getAllData } from "../utils/controller";
+
 
 function Home() {
   const [dataSidebar, setDataSidebar] = useState([]);

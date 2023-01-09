@@ -3,6 +3,13 @@
     overflow-y: scroll;
 }
 
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 80px;
+    white-space: nowrap;
+}
+
 .cut::-webkit-scrollbar {
     display: none;
 }

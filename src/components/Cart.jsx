@@ -25,7 +25,6 @@ function Cart({ dataCart }) {
       setCount(count - 1);
     }
   };
-
   return (
     <div id="cart">
       <div id="nav-logo">
