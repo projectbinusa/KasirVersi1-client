@@ -7,48 +7,121 @@
       "id": 1
     }
   ],
+  "sidebar": [
+    {
+      "id": 1,
+      "title": "Home",
+      "icon": "fa-store"
+    },
+    {
+      "id": 2,
+      "title": "Dashboard",
+      "icon": "fa-chart-pie"
+    },
+    {
+      "id": 3,
+      "title": "Message",
+      "icon": "fa-comment"
+    },
+    {
+      "id": 4,
+      "title": "Bills",
+      "icon": "fa-file-invoice"
+    },
+    {
+      "id": 5,
+      "title": "Setting",
+      "icon": "fa-gear"
+    },
+    {
+      "id": 6,
+      "title": "Log out",
+      "icon": "fa-arrow-right-from-bracket"
+    }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "title": "Food",
+      "icon": "fa-bowl-food"
+    },
+    {
+      "id": 2,
+      "title": "Drink",
+      "icon": "fa-glass-water"
+    },
+    {
+      "id": 3,
+      "title": "Other",
+      "icon": "fa-ellipsis"
+    }
+  ],
   "list": [
     {
       "name": "Bakso",
       "deskripsi": "Lebih enak ketika di nikmati waktu hujan",
       "harga": 10000,
+      "category": "Food",
       "image": "https://resepkoki.id/wp-content/uploads/2016/04/Resep-Bakso-urat.jpg",
+      "id": 1
+    },
+    {
+      "name": "Jus Alpukat",
+      "deskripsi": "Minuman yang menyehatkan",
+      "harga": 10000,
+      "category": "Drink",
+      "image": "https://images.tokopedia.net/img/cache/500-square/product-1/2020/7/18/9149864/9149864_26c5205e-a37c-47eb-a393-0ca0d65455b6_719_719.jpg",
       "id": 2
     },
     {
       "name": "Cilok",
       "deskripsi": "Makanan yang cocok untuk cemilan",
       "harga": 5000,
+      "category": "Other",
       "image": "https://img.kurio.network/4KxPizCLRIHP5sYp4ZJXKp4-ZAY=/1200x1200/filters:quality(80)/https://kurio-img.kurioapps.com/22/04/05/c0741c32-6346-4329-bd8f-7f6600b84666.png",
+      "id": 3
+    },
+    {
+      "name": "Rendang",
+      "deskripsi": "Makanan khas Padang",
+      "harga": 20000,
+      "category": "Food",
+      "image": "https://images.tokopedia.net/img/JFrBQq/2022/8/9/bbeeca0f-bdd3-4b05-af82-8011730c932b.jpg",
+      "id": 4
+    }
+  ],
+  "cart": [
+    {
+      "name": "Bakso",
+      "deskripsi": "Lebih enak ketika di nikmati waktu hujan",
+      "harga": 10000,
+      "image":
+        "https://resepkoki.id/wp-content/uploads/2016/04/Resep-Bakso-urat.jpg",
+      "id": 2
+    },
+    {
+      "name": "Cilok",
+      "deskripsi": "Makanan yang cocok untuk cemilan",
+      "harga": 5000,
+      "image":
+        "https://img.kurio.network/4KxPizCLRIHP5sYp4ZJXKp4-ZAY=/1200x1200/filters:quality(80)/https://kurio-img.kurioapps.com/22/04/05/c0741c32-6346-4329-bd8f-7f6600b84666.png",
       "id": 3
     },
     {
       "name": "Jus Alpukat",
       "deskripsi": "Minuman yang menyehatkan",
       "harga": 10000,
-      "image": "https://images.tokopedia.net/img/cache/500-square/product-1/2020/7/18/9149864/9149864_26c5205e-a37c-47eb-a393-0ca0d65455b6_719_719.jpg",
+      "image":
+        "https://images.tokopedia.net/img/cache/500-square/product-1/2020/7/18/9149864/9149864_26c5205e-a37c-47eb-a393-0ca0d65455b6_719_719.jpg",
       "id": 5
     },
     {
       "name": "Rendang",
       "deskripsi": "Makanan khas Padang",
       "harga": 20000,
-      "image": "https://images.tokopedia.net/img/JFrBQq/2022/8/9/bbeeca0f-bdd3-4b05-af82-8011730c932b.jpg",
+      "image":
+        "https://images.tokopedia.net/img/JFrBQq/2022/8/9/bbeeca0f-bdd3-4b05-af82-8011730c932b.jpg",
       "id": 6
-    }
-  ],
-  "carts": [
-    {
-      "jumlah": 2,
-      "totalHarga": 10000,
-      "cart": {
-        "name": "Cilok",
-        "deskripsi": "Makanan yang cocok untuk cemilan",
-        "harga": 5000,
-        "image": "https://img.kurio.network/4KxPizCLRIHP5sYp4ZJXKp4-ZAY=/1200x1200/filters:quality(80)/https://kurio-img.kurioapps.com/22/04/05/c0741c32-6346-4329-bd8f-7f6600b84666.png",
-        "id": 3
-      },
-      "id": 2
     }
   ]
 }
