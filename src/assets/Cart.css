@@ -1,0 +1,8 @@
+.cut {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.cut::-webkit-scrollbar {
+    display: none;
+}
