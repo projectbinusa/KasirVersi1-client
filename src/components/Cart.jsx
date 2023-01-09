@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  faTrashCan,
+  faSquareMinus,
+  faSquarePlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../assets/Cart.css";
 
 function Cart() {
+  const [count, setCount] = useState(1);
   const datas = {
     list: [
       {
@@ -38,6 +45,22 @@ function Cart() {
       },
     ],
   };
+
+  const increment = () => {
+    if (count === 0) {
+      setCount(1);
+    } else {
+      setCount(count + 1);
+    }
+  };
+
+  const decrement = () => {
+    if (count === 1) {
+      setCount(1);
+    } else {
+      setCount(count - 1);
+    }
+  };
   return (
     <div id="cart">
       <div id="nav-logo">
@@ -48,7 +71,7 @@ function Cart() {
             </h1>
             <div className="grid grid-cols-1 my-6 gap-4 cut">
               {datas.list.map((dataa) => (
-                <div className="grid grid-cols-7 gap-4 items-center text-md">
+                <div className="grid grid-cols-9 gap-4 items-center text-md">
                   <div className="grid justify-center col-span-2">
                     <img
                       src={dataa.image}
@@ -57,12 +80,34 @@ function Cart() {
                     />
                   </div>
                   <div className="gird grid-cols-1 col-span-2">
-                    <div className="font-bold">{dataa.name}</div>
+                    <div className="font-bold cut-text">{dataa.name}</div>
                     <div className="text-gray-500">Rp.{dataa.harga}</div>
                   </div>
-                  <div className="text-gray-500 font-md">x2</div>
+                  <div className="grid grid-cols-3 col-span-2 text-gray-500 gap-2 font-md">
+                    <div className="flex items-center justify-center rounded cursor-pointer">
+                      <FontAwesomeIcon
+                        onClick={decrement}
+                        icon={faSquareMinus}
+                        className="w-5 h-5 text-gray-400  hover:text-red-400"
+                      />
+                    </div>
+                    <div className="">x{count}</div>
+                    <div className="flex items-center justify-center rounded cursor-pointer">
+                      <FontAwesomeIcon
+                        onClick={increment}
+                        icon={faSquarePlus}
+                        className="w-5 h-5 text-gray-400 hover:text-green-400"
+                      />
+                    </div>
+                  </div>
                   <div className="text-gray-500 font-semibold col-span-2">
-                    Rp.200.000
+                    Rp.{dataa.harga * count}
+                  </div>
+                  <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="w-4 h-5 text-red-500"
+                    />
                   </div>
                 </div>
               ))}
