@@ -7,6 +7,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import React from "react";
 import Dashboard from "./pages/Dashboard";
 import Hero from "./pages/Hero";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
           element={<Dashboard />}
         />
         </Route>
-        <Route path="/*" element={<h1>Page Not Found</h1>} />
+        <Route path="/*" element={<NotFound/>} />
       </Routes>
     </React.Fragment>
   );

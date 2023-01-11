@@ -7,19 +7,6 @@ function Menu({ dataCategory, dataMenu }) {
 
   const changeCategory = (category) => setSelectedCategory(category);
 
-
-  const dropdown = [
-      {
-        name: "Food",
-        value: "Food"
-      },
-      {
-        name: "Drink",
-        value: "Drink"
-      },
-  ]
-
-
   return (
     <div id="menu" className="px-3 space-y-10">
       <div id="header-page">
@@ -74,14 +61,11 @@ function Menu({ dataCategory, dataMenu }) {
               id="language"
               className="font-bold border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             >
-            {dropdown.map((data, index) => (
-              <option value={data.name}>{data.name}</option>
-          ))}
-              {/* <option value="popular" className="px-10 m-10">
+              <option value="popular" className="px-10 m-10">
                 Popular
               </option>
               <option value="timeAdded">Time Added</option>
-              <option value="alphabet">Alphabet</option> */}
+              <option value="alphabet">Alphabet</option>
             </select>
           </div>
         </div>
