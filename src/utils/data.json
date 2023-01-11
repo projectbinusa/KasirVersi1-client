@@ -106,22 +106,6 @@
       "image":
         "https://img.kurio.network/4KxPizCLRIHP5sYp4ZJXKp4-ZAY=/1200x1200/filters:quality(80)/https://kurio-img.kurioapps.com/22/04/05/c0741c32-6346-4329-bd8f-7f6600b84666.png",
       "id": 3
-    },
-    {
-      "name": "Jus Alpukat",
-      "deskripsi": "Minuman yang menyehatkan",
-      "harga": 10000,
-      "image":
-        "https://images.tokopedia.net/img/cache/500-square/product-1/2020/7/18/9149864/9149864_26c5205e-a37c-47eb-a393-0ca0d65455b6_719_719.jpg",
-      "id": 5
-    },
-    {
-      "name": "Rendang",
-      "deskripsi": "Makanan khas Padang",
-      "harga": 20000,
-      "image":
-        "https://images.tokopedia.net/img/JFrBQq/2022/8/9/bbeeca0f-bdd3-4b05-af82-8011730c932b.jpg",
-      "id": 6
     }
   ]
 }
