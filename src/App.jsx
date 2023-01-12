@@ -8,6 +8,7 @@ import React from "react";
 import Dashboard from "./pages/Dashboard";
 import Hero from "./pages/Hero";
 import NotFound from "./pages/NotFound";
+import Libraryy from "./pages/Libraryy";
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
         <Route
           path="Dashboard"
           element={<Dashboard />}
+        />
+         <Route
+          path="Library"
+          element={<Libraryy />}
         />
         </Route>
         <Route path="/*" element={<NotFound/>} />
