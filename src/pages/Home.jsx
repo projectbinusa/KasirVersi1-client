@@ -4,13 +4,13 @@ import Cart from "../components/Cart";
 import Dashboard from "./Dashboard";
 import Menu from "../components/Menu";
 import Sidebar from "../components/Sidebar";
-import { getAllData } from "../utils/controller";
+import { getAllDataSidebar } from "../utils/controller";
 
 function Home() {
   const [dataSidebar, setDataSidebar] = useState([]);
 
   useEffect(() => {
-    getAllData("sidebar", setDataSidebar);
+    getAllDataSidebar("all", setDataSidebar);
   }, []);
   
   return (
@@ -18,7 +18,7 @@ function Home() {
       id="home"
       className="grid grid-cols-10 gap-1 bg-white rounded-3xl shadow border m-3 min-h-screen"
     >
-      <div id="sidebar" className="p-2 col-span-1">
+      <div id="all" className="p-2 col-span-1">
         <Sidebar dataSidebar={dataSidebar} />
       </div>
       <div className="col-span-9">

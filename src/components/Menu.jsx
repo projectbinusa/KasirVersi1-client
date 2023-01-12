@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
 
-function Menu({ dataCategory, dataMenu }) {
+function Menu({ dataCategory, dataMenu, setDataCart }) {
   const [selectedCategory, setSelectedCategory] = useState("Food");
 
   const changeCategory = (category) => setSelectedCategory(category);
@@ -35,12 +35,12 @@ function Menu({ dataCategory, dataMenu }) {
             <div
               className="rounded-2xl py-3 px-3 w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500"
               key={`tab-${index}`}
-              onClick={() => changeCategory(data.title)}
+              onClick={() => changeCategory(data.name)}
             >
               <div className="bg-white p-3 rounded-2xl border">
                 <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
               </div>
-              <div className="mt-5 text-xs">{data.title}</div>
+              <div className="mt-5 text-xs">{data.name}</div>
             </div>
           );
         })}
@@ -75,9 +75,9 @@ function Menu({ dataCategory, dataMenu }) {
           {dataMenu.map((data, index) => (
             <section
               key={`tabpanel-${index}`}
-              hidden={selectedCategory !== data.category}
+              hidden={selectedCategory !== data.category.name}
             >
-              <Card key={index} data={data} />
+              <Card key={index} data={data} setDataCart={setDataCart} />
             </section>
           ))}
         </div>
