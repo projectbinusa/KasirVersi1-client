@@ -145,6 +145,9 @@ function Cart({ dataCart, setDataCart }) {
       product: {
         id: carts.product.id,
       },
+      user: {
+        id: localStorage.getItem("id"),
+      },
       totalPrice: carts.product.price * carts.quantity,
       totalProduct: carts.quantity,
     }));
@@ -247,7 +250,7 @@ function Cart({ dataCart, setDataCart }) {
               onClick={checkout}
               className="h-[60px] w-full rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
             >
-              Chackout
+              Checkout
             </button>
           </div>
         </div>

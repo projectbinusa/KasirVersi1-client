@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { API_CART } from '../utils/baseURL';
 import { getAllDataCart } from '../utils/controller';
+import { titik } from '../utils/NumberWithComa';
 
 function Card({data, setDataCart}) {
 
@@ -67,7 +68,7 @@ function Card({data, setDataCart}) {
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">{data.name}</div>
             <p className="text-gray-700 text-base">
-              {data.harga}
+              {titik(data.price)}
             </p>
           </div>
         </div>
