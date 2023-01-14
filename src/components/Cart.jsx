@@ -215,6 +215,8 @@ function Cart({ dataCart, setDataCart }) {
                           value={carts.quantity}
                           autoComplete="off"
                           className="w-[30px] ml-2"
+                          readOnly
+                          disabled
                         />
                       </div>
                       <div className="flex items-center justify-center rounded cursor-pointer">
