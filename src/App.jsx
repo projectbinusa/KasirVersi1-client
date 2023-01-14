@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Hero from "./pages/Hero";
 import NotFound from "./pages/NotFound";
 import Libraryy from "./pages/Libraryy";
+import Bils from "./pages/Bils";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
          <Route
           path="Library"
           element={<Libraryy />}
+        />
+         <Route
+          path="Bills"
+          element={<Bils />}
         />
         </Route>
         <Route path="/*" element={<NotFound/>} />

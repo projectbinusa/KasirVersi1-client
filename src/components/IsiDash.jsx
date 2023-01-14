@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 import { API_PRODUCT } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
-function IsiDash({ dataMenu, setDataMenu, sum }) {
+function IsiDash({ dataMenu, sum }) {
     const [totalPesanan, setTotalPesanan] = useState(0);
   const [presentase, setPresentase] = useState({
     options: {
@@ -159,21 +159,6 @@ function IsiDash({ dataMenu, setDataMenu, sum }) {
     },
   });
 
-  const deleteProduct = async (item) => {
-    await axios
-      .delete(`${API_PRODUCT}/delete/${item.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        getAllDataProduct("all", setDataMenu);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const getUserId = async () => {
     await axios
       .get(`${API_AUTH}/${localStorage.getItem("id")}`)
@@ -289,72 +274,7 @@ function IsiDash({ dataMenu, setDataMenu, sum }) {
             </div>
           </div>
           <div>
-            <div className="relative overflow-x-auto">
-              <table className="w-full bg-white text-sm text-left text-gray-500">
-                <thead className="text-xs text-center text-gray-700 bg-gray-50  ">
-                  <tr>
-                    <th scope="col" className="px-6 py-3">
-                      Nama Produk
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Categori
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Deskripsi
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Stok
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Jumlah Terjual
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Harga
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Aksi
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataMenu.map((item, index) => {
-                    return (
-                      <tr
-                        className="bg-white border-b text-center"
-                        key={item.id}
-                      >
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          {item.name}
-                        </th>
-                        <td className="px-6 py-4">{item.category.name}</td>
-                        <td className="px-6 py-4">{item.description}</td>
-                        <td className="px-6 py-4">{item.stock}</td>
-                        <td className="px-6 py-4">{item.jumlahTerjual}</td>
-                        <td className="px-6 py-4">{item.price}</td>
-                        <td className="px-6 py-4">
-                          <button
-                            type="button"
-                            className="w-20 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2.5 text-center mr-2 mb-2 "
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => deleteProduct(item)}
-                            type="button"
-                            className="w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm  py-2.5 text-center mr-2 mb-2 "
-                          >
-                            Hapus
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            
           </div>
         </div>
       </div>
