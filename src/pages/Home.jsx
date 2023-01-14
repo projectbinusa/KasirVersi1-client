@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Cart from "../components/Cart";
-import Dashboard from "./Dashboard";
-import Menu from "../components/Menu";
 import Sidebar from "../components/Sidebar";
 import { getAllDataSidebar } from "../utils/controller";
 

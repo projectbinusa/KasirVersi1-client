@@ -21,7 +21,7 @@ function Menu({ dataCategory, dataMenu, setDataCart }) {
               className="p-2 w-96 rounded-xl border"
               type="text"
               id="search"
-              placeholder="Search for food, coffe, etc..."
+              placeholder="🔍 Search for food, coffe, etc..."
             />
           </div>
         </div>
@@ -33,14 +33,23 @@ function Menu({ dataCategory, dataMenu, setDataCart }) {
         {dataCategory.map((data, index) => {
           return (
             <div
-              className="rounded-2xl py-3 px-3 w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500"
-              key={`tab-${index}`}
-              onClick={() => changeCategory(data.name)}
+              className="rounded-2xl hover:shadow-lg hover:shadow-red-300"
+              key={index}
             >
-              <div className="bg-white p-3 rounded-2xl border">
-                <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
+              <div
+                className={
+                  selectedCategory === `${data.name}`
+                    ? "rounded-2xl py-3 px-3 w-56 fill-blue-500 bg-[#ffe54f] "
+                    : "rounded-2xl py-3 px-3 w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
+                }
+                key={`tab-${index}`}
+                onClick={() => changeCategory(data.name)}
+              >
+                <div className="bg-white p-3 rounded-2xl border">
+                  <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
+                </div>
+                <div className="mt-5 text-xs">{data.name}</div>
               </div>
-              <div className="mt-5 text-xs">{data.name}</div>
             </div>
           );
         })}
