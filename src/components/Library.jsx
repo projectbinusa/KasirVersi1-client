@@ -3,16 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataCategory, getAllDataProduct } from "../utils/controller";
+import moment from "moment";
+import { titik } from '../utils/NumberWithComa';
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
-
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const [nameCategory, setNameCategory] = useState("");
   const [icon, setIcon] = useState("");
 
+  const [productId, setProductId] = useState(0);
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -28,9 +30,58 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
     };
 
     await axios
+      .post(`${API_CATEGORY}/add`, req, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then(() => {
         getAllDataCategory("all", setDataCategory);
         setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getProductId = async (id) => {
+    await axios
+      .get(`${API_PRODUCT}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setName(res.data.name);
+        setDescription(res.data.description);
+        setStock(res.data.stock);
+        setPrice(res.data.price);
+        setProductId(id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const updateProduct = async (e) => {
+    e.preventDefault();
+    const req = {
+      name: name,
+      description: description,
+      price: price,
+      stock: stock,
+      categoryId: categoryId,
+    };
+
+    await axios
+      .put(`${API_PRODUCT}/${productId}`, req, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() => {
+        getAllDataProduct("all", setDataMenu);
+        setShow(false);
       })
       .catch((error) => {
         console.log(error);
@@ -77,20 +128,26 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
       });
   };
 
+  const dateEvent = (item) => {
+    moment.locale("en");
+    return moment(item).format("DD-MM-YYYY hh:mm:ss");
+  };
+
   return (
     <div>
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
         <h1 className="font-bold text-4xl">Library</h1>
         <div className="my-5">
           <div className="p-2">
-            <p className="grid grid-cols-1 gap-4 content-center text-xl text-slate-700 uppercase">add to category</p>
+            <p className="grid grid-cols-1 gap-4 content-center text-xl text-slate-700 uppercase">
+              add to category
+            </p>
           </div>
           <div className="bg-slate-100 rounded-xl p-2 flex justify-between">
             <div className="flex">
               {dataCategory.map((data, index) => {
                 return (
-                  <div
-                    className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500">
+                  <div className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500">
                     <div className="bg-white text-center p-2  rounded-2xl border">
                       <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
                     </div>
@@ -105,10 +162,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                 type="button"
                 className="text-gray-900 text-sm focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 "
               >
-                <FontAwesomeIcon
-                  icon="fa-plus"
-                  className="w-7 h-7"
-                />
+                <FontAwesomeIcon icon="fa-plus" className="w-7 h-7" />
               </button>
             </div>
           </div>
@@ -116,14 +170,14 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
         <div>
           <div className="my-5">
             <div className="flex justify-between py-5">
-              <p className="grid grid-cols-1 content-center text-xl text-slate-700 uppercase">add to product</p>
+              <p className="grid grid-cols-1 content-center text-xl text-slate-700 uppercase">
+                add to product
+              </p>
               <button
                 onClick={() => setModal(true)}
-                className="bg-white w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700" >
-                <FontAwesomeIcon
-                  icon="fa-plus"
-                  className="w-7 h-7"
-                />
+                className="bg-white w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+              >
+                <FontAwesomeIcon icon="fa-plus" className="w-7 h-7" />
               </button>
             </div>
             <div className="mx-auto justify-center text-center">
@@ -159,22 +213,33 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataMenu.map((item, index) => {
+                      {dataMenu.map((item) => {
                         return (
-                          <tr className="bg-white border-b text-center" key={item.id}>
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                          <tr
+                            className="bg-white border-b text-center"
+                            key={item.id}
+                          >
+                            <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                            >
                               {item.name}
                             </th>
                             <td className="px-6 py-4">{item.category.name}</td>
                             <td className="px-6 py-4">{item.description}</td>
                             <td className="px-6 py-4">{item.stock}</td>
                             <td className="px-6 py-4">{item.jumlahTerjual}</td>
-                            <td className="px-6 py-4">{item.price}</td>
-                            <td className="px-6 py-4">{item.createdAt}</td>
+                            <td className="px-6 py-4">{titik(item.price)}</td>
+                            <td className="px-6 py-4">
+                              {dateEvent(item.createdAt)}
+                            </td>
 
                             <td className="px-6 py-4">
                               <button
-                                onClick={() => setShow(true)}
+                                onClick={() => {
+                                  setShow(true);
+                                  getProductId(item.id);
+                                }}
                                 type="button"
                                 className="w-20 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2.5 text-center mr-2 mb-2 "
                               >
@@ -195,12 +260,11 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                   </table>
                 </div>
               </section>
-
             </div>
           </div>
         </div>
       </div>
-     
+
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
@@ -285,7 +349,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
       ) : (
         <></>
       )}
-       {modal ? (
+      {modal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
             <div className="relative w-full h-full max-w-2xl md:h-auto">
@@ -430,8 +494,8 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
       )}
 
       {show ? (
-      <>
-       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
             <div className="relative w-full h-full max-w-2xl md:h-auto">
               <div className="relative bg-gray-100 rounded-lg shadow ">
                 <div className="flex items-start justify-between p-4 border-b rounded-t ">
@@ -461,26 +525,14 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                   </button>
                 </div>
                 <div className="p-6 space-y-6">
-                  <form onSubmit={addProduct}>
-                    <div className="relative z-0 w-full mb-6 group">
-                      <input
-                        type="file"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" "
-                        id="file"
-                        onChange={(e) => setImage(e.target.files[0])}
-                        required
-                      />
-                      <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Gambar
-                      </label>
-                    </div>
+                  <form onSubmit={updateProduct}>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
                         type="text"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="name"
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                       />
@@ -494,6 +546,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="price"
+                        value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         required
                       />
@@ -501,13 +554,14 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         Price
                       </label>
                     </div>
-                    <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="grid md:grid-cols-1 md:gap-6">
                       <div className="relative z-0 w-full mb-6 group">
                         <input
                           type="number"
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="stock"
+                          value={stock}
                           onChange={(e) => setStock(e.target.value)}
                           required
                         />
@@ -515,7 +569,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                           Stock
                         </label>
                       </div>
-                      <div className="relative z-0 w-full mb-6 group">
+                      {/* <div className="relative z-0 w-full mb-6 group">
                         <select
                           id="category"
                           name="category"
@@ -530,7 +584,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                             </option>
                           ))}
                         </select>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="grid md:gap-6">
                       <div className="relative z-0 w-full mb-6 group">
@@ -538,6 +592,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="description"
+                          value={description}
                           onChange={(e) => setDescription(e.target.value)}
                           required
                         />
@@ -568,9 +623,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
               </div>
             </div>
           </div>
-      </>)
-      :(<></>)}
-
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
