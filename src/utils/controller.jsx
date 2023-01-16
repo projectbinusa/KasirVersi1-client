@@ -3,6 +3,7 @@ import {
   API_CART,
   API_CATEGORY,
   API_DUMMY,
+  API_HISTORY,
   API_PRODUCT,
   API_Sidebar,
 } from "./baseURL";
@@ -50,6 +51,21 @@ export const getAllDataCategory = async (path, setPath) => {
 export const getAllDataProduct = async (path, setPath) => {
   await axios
     .get(`${API_PRODUCT}/${path}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      setPath(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getAllHistoryOrder = async (path, setPath) => {
+  await axios
+    .get(`${API_HISTORY}/${path}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
