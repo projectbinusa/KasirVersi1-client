@@ -6,21 +6,10 @@ import { getAllDataProduct } from "../utils/controller";
 
 function IsiDash({ dataMenu, sum }) {
   const [totalPesanan, setTotalPesanan] = useState(0);
+  const [product, setProduct] = useState([]);
   const [presentase, setPresentase] = useState({
     options: {
-      labels: [
-        "Bakso Komplit",
-        "Bakso Kosongan",
-        "Mie Ayam ",
-        "Krupuk Emping",
-        "Krupuk Terung",
-        "Krupuk Bungkus",
-        "Teh Tawar",
-        "Es Teh ",
-        "Es Jeruk",
-        "Teh Panas",
-        "Jeruk Panas",
-      ],
+      labels: [],
       colors: [
         "#00ff00",
         "#b50595",
@@ -35,7 +24,7 @@ function IsiDash({ dataMenu, sum }) {
         "lightblue",
       ],
     },
-    series: [2],
+    series: [],
   });
 
   const [grafik, setGrafik] = useState({
@@ -162,7 +151,32 @@ function IsiDash({ dataMenu, sum }) {
       });
   };
 
+  const getAllProduct = async () => {
+    const result = product.map((x) => x.name);
+    const ress = product.map((x) => x.jumlahTerjual);
+    await axios
+      .get(`${API_PRODUCT}/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setProduct(res.data);
+        setPresentase((prev) => ({
+          ...prev,
+          options: {
+            labels: result,
+          },
+          series: ress
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
+    getAllProduct();
     getUserId();
   }, []);
 
@@ -209,17 +223,11 @@ function IsiDash({ dataMenu, sum }) {
                     </h3>
                   </a>
                   <ol className="mt-2 text-sm text-gray-700">
-                    <li>Bakso Komplit = ... </li>
-                    <li>Bakso Kosongan = ... </li>
-                    <li>Mie Ayam = ... </li>
-                    <li>Krupuk Emping = ... </li>
-                    <li>Krupuk Terung = ... </li>
-                    <li>Krupuk Bungkus = ... </li>
-                    <li>Teh Tawar = ... </li>
-                    <li>Es Teh = ... </li>
-                    <li>Es Jeruk = ... </li>
-                    <li>Teh Panas = ... </li>
-                    <li>Jeruk Panas = ... </li>
+                    {dataMenu.map((list) => (
+                      <li key={list.id}>
+                        {list.name} = {list.jumlahTerjual}
+                      </li>
+                    ))}
                   </ol>
                 </div>
               </div>
