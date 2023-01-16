@@ -252,7 +252,7 @@ function Cart({ dataCart, setDataCart }) {
               onClick={checkout}
               className="h-[60px] w-full rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
             >
-              Checkout
+              ORDER NOW
             </button>
           </div>
         </div>

@@ -187,28 +187,28 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                     <thead className="text-xs text-center text-gray-700 bg-slate-100  ">
                       <tr>
                         <th scope="col" className="px-6 py-3">
-                          Nama Produk
+                          Product Name
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Categori
+                          Category
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Deskripsi
+                          Description
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Stok
+                          Stock
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Jumlah Terjual
+                          Total Sold
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Harga
+                          Price
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Tanggal Di Tambahkan
+                          Date Added
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Aksi
+                          Action
                         </th>
                       </tr>
                     </thead>
@@ -250,7 +250,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                                 type="button"
                                 className="w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm  py-2.5 text-center mr-2 mb-2 "
                               >
-                                Hapus
+                                Delete
                               </button>
                             </td>
                           </tr>
@@ -308,7 +308,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Name Icon
+                        Icon Name
                       </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
@@ -321,7 +321,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Name Category
+                        Category Name
                       </label>
                     </div>
                     <div className="flex items-center justify-between space-x-2 rounded-b">
@@ -392,7 +392,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Gambar
+                        Image
                       </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
@@ -405,7 +405,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Name Product
+                        Product Name
                       </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
@@ -537,7 +537,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Name Product
+                        Product Name
                       </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">

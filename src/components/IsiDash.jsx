@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { API_PRODUCT } from "../utils/baseURL";
+import { API_AUTH, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
 function IsiDash({ dataMenu, sum }) {
-    const [totalPesanan, setTotalPesanan] = useState(0);
+  const [totalPesanan, setTotalPesanan] = useState(0);
   const [presentase, setPresentase] = useState({
     options: {
       labels: [
@@ -56,13 +56,9 @@ function IsiDash({ dataMenu, sum }) {
       stroke: {
         curve: "straight",
       },
-      title: {
-        text: "jumlah pesanan perhari",
-        align: "left",
-      },
       grid: {
         row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"],
           opacity: 0.5,
         },
       },
@@ -152,10 +148,6 @@ function IsiDash({ dataMenu, sum }) {
           show: false,
         },
       },
-      title: {
-        text: "jumlah pelanggan perhari",
-        align: "left",
-      },
     },
   });
 
@@ -172,7 +164,7 @@ function IsiDash({ dataMenu, sum }) {
 
   useEffect(() => {
     getUserId();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -186,20 +178,22 @@ function IsiDash({ dataMenu, sum }) {
           <div className="flex w-full justify-around gap-3">
             <div className="rounded-lg p-5 w-full border bg-white hover:shadow-xl text-black hover:text-gray-500">
               <div className="py-5 text-center">
-                <p className="pb-2.5 text-lg">Jumlah Product Terjual</p>
-                <p className="font-bold text-center">{sum} Product</p>
+                <p className="pb-2.5 text-lg">Total Products Sold</p>
+                <p className="font-bold text-center">{sum} Products</p>
               </div>
             </div>
             <div className="rounded-lg p-5 w-full border bg-white hover:shadow-xl text-black hover:text-gray-500">
               <div className="py-5 text-center">
-                <p className="text-lg  ">Jumlah Total Pesanan </p>
-                <p className="font-bold text-center">{totalPesanan} Product</p>
+                <p className="text-lg  ">Order Totals</p>
+                <p className="font-bold text-center">{totalPesanan} Products</p>
               </div>
             </div>
             <div className="rounded-lg p-5 w-full border bg-white hover:shadow-xl text-black hover:text-gray-500">
               <div className="py-5 text-center">
-                <p className="text-lg  ">Jumlah Product</p>
-                <p className="font-bold text-center">{dataMenu.length} Product</p>
+                <p className="text-lg  ">Total Products</p>
+                <p className="font-bold text-center">
+                  {dataMenu.length} Products
+                </p>
               </div>
             </div>
           </div>
@@ -211,24 +205,22 @@ function IsiDash({ dataMenu, sum }) {
                 <div className="border-l border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
                   <a href="#">
                     <h3 className="font-bold uppercase text-gray-900">
-                      Presentase Total Product terjual
+                      PRESENTATION OF TOTAL PRODUCT Sold
                     </h3>
                   </a>
-                  <p className="mt-2 text-sm text-gray-700">
-                    <ol>
-                      <li>Bakso Komplit = ... </li>
-                      <li>Bakso Kosongan = ... </li>
-                      <li>Mie Ayam = ... </li>
-                      <li>Krupuk Emping = ... </li>
-                      <li>Krupuk Terung = ... </li>
-                      <li>Krupuk Bungkus = ... </li>
-                      <li>Teh Tawar = ... </li>
-                      <li>Es Teh = ... </li>
-                      <li>Es Jeruk = ... </li>
-                      <li>Teh Panas = ... </li>
-                      <li>Jeruk Panas = ... </li>
-                    </ol>
-                  </p>
+                  <ol className="mt-2 text-sm text-gray-700">
+                    <li>Bakso Komplit = ... </li>
+                    <li>Bakso Kosongan = ... </li>
+                    <li>Mie Ayam = ... </li>
+                    <li>Krupuk Emping = ... </li>
+                    <li>Krupuk Terung = ... </li>
+                    <li>Krupuk Bungkus = ... </li>
+                    <li>Teh Tawar = ... </li>
+                    <li>Es Teh = ... </li>
+                    <li>Es Jeruk = ... </li>
+                    <li>Teh Panas = ... </li>
+                    <li>Jeruk Panas = ... </li>
+                  </ol>
                 </div>
               </div>
               <div className="hidden sm:block sm:basis-56">
@@ -247,6 +239,9 @@ function IsiDash({ dataMenu, sum }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <article className="my-5 border bg-white transition hover:shadow-xl">
+                <h3 className="mt-3 ml-6 font-bold uppercase text-gray-900">
+                  total orders per day
+                </h3>
                 <div className="">
                   <div className="py-10 flex justify-center">
                     <Chart
@@ -261,6 +256,9 @@ function IsiDash({ dataMenu, sum }) {
             </div>
             <div>
               <article className="my-5 border bg-white transition hover:shadow-xl">
+                <h3 className="mt-3 ml-6 font-bold uppercase text-gray-900">
+                  total customer per day
+                </h3>
                 <div className="py-10 flex justify-center">
                   <Chart
                     options={pelanggan.options}
@@ -273,9 +271,7 @@ function IsiDash({ dataMenu, sum }) {
               </article>
             </div>
           </div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
