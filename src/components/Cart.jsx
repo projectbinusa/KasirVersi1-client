@@ -12,9 +12,13 @@ import { titik } from "../utils/NumberWithComa";
 import { getAllDataCart } from "../utils/controller";
 
 function Cart({ dataCart, setDataCart }) {
-  const [show, setShow] = useState(false)
-  const [modal, setModal] = useState(false)
+  const [show, setShow] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [cash, setCash] = useState(0);
 
+  const pay = () => {
+    setCash();
+  };
   const increment = async (carts) => {
     if (carts.quantity === carts.product.stock) {
       await axios
@@ -267,9 +271,7 @@ function Cart({ dataCart, setDataCart }) {
             <div className="relative w-full h-full max-w-2xl md:h-auto">
               <div className="relative bg-gray-50 rounded-lg shadow ">
                 <div className="flex items-start justify-between p-4 border-b rounded-t ">
-                  <h3 className="text-xl font-semibold text-gray-900 ">
-                    Total Bayar
-                  </h3>
+                  <h3 className="text-xl font-semibold text-gray-900 ">Bill</h3>
                   <button
                     onClick={() => setShow(false)}
                     type="button"
@@ -294,34 +296,36 @@ function Cart({ dataCart, setDataCart }) {
                 </div>
                 <div className="p-6 space-y-6">
                   <div className="text-xl py-5 ">
-                    Daftar Pesanan
-                    <div className="flex justify-between text-lg">
-                      <div>
-                        bakso
+                    Order List
+                    {dataCart.cartItem.map((carts) => (
+                      <div
+                        key={carts.id}
+                        className="flex justify-between text-lg mt-3"
+                      >
+                        <div>
+                          {carts.product.name}{" "}
+                          <span className="text-lg text-gray-500">
+                            x{carts.quantity}
+                          </span>
+                        </div>
+                        <div>{titik(carts.product.price * carts.quantity)}</div>
                       </div>
-                      <div>
-                        :
-                      </div>
-                      <div>
-                        Rp. 20.000
-                      </div>
-                    </div>
+                    ))}
                   </div>
                   <div className="flex border-t border-black justify-between text-xl py-2">
+                    <div className="text-xl py-5 ">Total Pay</div>
                     <div className="text-xl py-5 ">
-                      Jumlah Pesanan
-                    </div>
-                    <div className="text-xl py-5 ">
-                      Rp. 20.000
+                      {titik(dataCart.totalPrice)}
                     </div>
                   </div>
-                  <form>
+                  <form onSubmit={pay}>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
                         type="number"
                         className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
-                        id="name"
+                        id="cash"
+                        onChange={(e) => setCash(e.target.value)}
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -340,7 +344,10 @@ function Cart({ dataCart, setDataCart }) {
                       <button
                         data-modal-hide="defaultModal"
                         type="submit"
-                        onClick={() => setModal(true)(setShow(false))}
+                        onClick={() => {
+                          setModal(true);
+                          setShow(false);
+                        }}
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Next
@@ -351,158 +358,109 @@ function Cart({ dataCart, setDataCart }) {
               </div>
             </div>
           </div>
-        </>) : (<></>)}
-      {modal ? (<>
-        <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
-        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
-          <div className="relative w-full h-full max-w-lg md:h-auto">
-            <div className="relative bg-white rounded-lg border border-black shadow ">
-              <div className="items-start justify-center p-4 border-b border-black border-dashed rounded-t ">
-                <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                  NAMA_TOKO
-                </h3>
-                <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                  ALAMAT_TOKO
-                </h3>
-              </div>
-              <div className="p-6 space-y-6">
-                <table className="w-full text-sm text-left">
-                  <tbody>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 text-sm text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 font-medium text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 font-medium text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 font-medium text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 font-medium text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <th scope="row" className="px-6 py-4 font-medium text-black">
-                        NAMA_PRODUK
-                      </th>
-                      <td className="px-6 py-4">
-                        QTT
-                      </td>
-                      <td className="px-6 py-4">
-                        HARGA
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        TOTAL_HARGA
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="pr-3 flex justify-end">
-                  <div className="grid grid-cols-3">
-                    <div>Total</div>
-                    <div>:</div>
-                    <div>Rp. 60.000</div>
+        </>
+      ) : (
+        <></>
+      )}
+      {modal ? (
+        <>
+          <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
+            <div className="relative w-full h-full max-w-lg md:h-auto">
+              <div className="relative bg-white rounded-lg border border-black shadow ">
+                <div className="items-start justify-center p-4 rounded-t ">
+                  <h3 className="text-xl text-center font-semibold text-gray-900 ">
+                    NAMA_TOKO
+                  </h3>
+                  <h3 className="text-xl text-center font-semibold text-gray-900 ">
+                    ALAMAT_TOKO
+                  </h3>
+                </div>
+                <div className="px-4">
+                  <hr className="border border-black border-dashed" />
+                  <div className="flex justify-end">
+                    <span className="mx-2 my-2">09/11/2023</span>
+                  </div>
+                  <hr className="border border-black border-dashed" />
+                </div>
+                <div className="p-6 space-y-6">
+                  <table className="w-full text-sm text-left">
+                    <tbody>
+                      {dataCart.cartItem.map((carts) => (
+                        <tr key={carts.id} className="bg-white border-b">
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-black"
+                          >
+                            {carts.product.name}
+                          </th>
+                          <td className="px-6 py-4">x{carts.quantity}</td>
+                          <td className="px-6 py-4">
+                            {titik(carts.product.price)}
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            {titik(carts.product.price * carts.quantity)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="pr-3 flex justify-end">
+                    <div className="w-[200px] flex justify-between">
+                      <div>Total :</div>
+                      <div>Rp. {dataCart.totalPrice}</div>
+                    </div>
+                  </div>
+                  <div className="pr-3 flex justify-end">
+                    <div className="w-[200px] flex justify-between border-b border-black">
+                      <div>Tunai :</div>
+                      <div>Rp. {titik(cash)}</div>
+                    </div>
+                  </div>
+                  <div className="pr-3 flex justify-end">
+                    <div className="w-[200px] flex justify-between">
+                      <div>Kembali :</div>
+                      <div>{titik(dataCart.totalPrice - cash)}</div>
+                    </div>
                   </div>
                 </div>
-                <div className="pr-3 flex  justify-end">
-                  <div className="grid border-b border-black grid-cols-3">
-                    <div>Tunai</div>
-                    <div>:</div>
-                    <div>Rp. 60.000</div>
-                  </div>
+                <div className="font-bold text-center pt-2">
+                  TERIMA KASIH. SELAMAT BELANJA KEMBALI
                 </div>
-                <div className="pr-3 flex justify-end">
-                  <div className="grid grid-cols-3">
-                    <div>Kembali</div>
-                    <div>:</div>
-                    <div>Rp. 60.000</div>
-                  </div>
+                <div className="font-bold text-center pb-2">
+                  ==== LAYANAN ABANG BAKSO ====
                 </div>
               </div>
-              <div className="font-bold text-center">
-               TERIMA KASIH
-              </div>
-            </div>
-            <div className="border-b border-dashed"></div>
-            <div>
-              <div className="flex justify-between space-x-2 rounded-b">
-                <button
-                  onClick={() => setModal(false)(setShow(true))}
-                  data-modal-hide="defaultModal"
-                  type="button"
-                  className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                >
-                  Back
-                </button>
-                <button
-                  data-modal-hide="defaultModal"
-                  type="submit"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  cetak struk
-                </button>
+              <div className="border-b border-dashed"></div>
+              <div className="mt-4">
+                <div className="flex justify-between space-x-2 rounded-b">
+                  <button
+                    onClick={() => {
+                      setModal(false);
+                      setShow(true);
+                    }}
+                    data-modal-hide="defaultModal"
+                    type="button"
+                    className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={checkout}
+                    data-modal-hide="defaultModal"
+                    type="submit"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    cetak struk
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </>) : (<></>)}
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
