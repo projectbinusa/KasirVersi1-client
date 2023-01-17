@@ -366,89 +366,89 @@ function Cart({ dataCart, setDataCart }) {
                 </h3>
               </div>
               <div className="p-6 space-y-6">
-                <table class="w-full text-sm text-left">
+                <table className="w-full text-sm text-left">
                   <tbody>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 text-sm text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 text-sm text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 font-medium text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 font-medium text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 font-medium text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 font-medium text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 font-medium text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 font-medium text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 font-medium text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 font-medium text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
-                    <tr class="bg-white border-b">
-                      <th scope="row" class="px-6 py-4 font-medium text-black">
+                    <tr className="bg-white border-b">
+                      <th scope="row" className="px-6 py-4 font-medium text-black">
                         NAMA_PRODUK
                       </th>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         QTT
                       </td>
-                      <td class="px-6 py-4">
+                      <td className="px-6 py-4">
                         HARGA
                       </td>
-                      <td class="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right">
                         TOTAL_HARGA
                       </td>
                     </tr>
