@@ -379,7 +379,7 @@ function Cart({ dataCart, setDataCart }) {
                 <div className="px-4">
                   <hr className="border border-black border-dashed" />
                   <div className="flex justify-end">
-                    <span className="mx-2 my-2">09/11/2023</span>
+                    <span className="mx-2 my-2">{new Date().toLocaleString("en-US", { day : '2-digit', month : "2-digit", year : "numeric"})}</span>
                   </div>
                   <hr className="border border-black border-dashed" />
                 </div>
