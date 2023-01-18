@@ -532,7 +532,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="name"
-                        value={name}
+                        defaultValue={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                       />
@@ -546,7 +546,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="price"
-                        value={price}
+                        defaultValue={price}
                         onChange={(e) => setPrice(e.target.value)}
                         required
                       />
@@ -561,7 +561,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="stock"
-                          value={stock}
+                          defaultValue={stock}
                           onChange={(e) => setStock(e.target.value)}
                           required
                         />
@@ -579,7 +579,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         >
                           <option>Select Category</option>
                           {dataCategory.map((data) => (
-                            <option key={data.id} value={data.id}>
+                            <option key={data.id} defaultValue={data.id}>
                               {data.name}
                             </option>
                           ))}
@@ -592,7 +592,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="description"
-                          value={description}
+                          defaultValue={description}
                           onChange={(e) => setDescription(e.target.value)}
                           required
                         />

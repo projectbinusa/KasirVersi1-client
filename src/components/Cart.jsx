@@ -219,7 +219,7 @@ function Cart({ dataCart, setDataCart }) {
                         <input
                           type="number"
                           id="Quantity"
-                          value={carts.quantity}
+                          defaultValue={carts.quantity}
                           autoComplete="off"
                           className="w-[30px] ml-2"
                           readOnly
