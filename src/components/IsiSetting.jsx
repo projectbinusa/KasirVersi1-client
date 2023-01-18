@@ -37,7 +37,7 @@ function IsiSetting() {
       };
   
       await axios
-        .put(`${API_TOKO}/add`, req, {
+        .post(`${API_TOKO}/add`, req, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
