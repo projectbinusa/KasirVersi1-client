@@ -23,19 +23,17 @@ function Cart({ dataCart, setDataCart }) {
   const reportTemplateRef = useRef(null);
 
   const handleGeneratePdf = () => {
-    const doc = new jsPDF({
-      format: "a4",
-      unit: "px",
-    });
-
-    // Adding the fonts.
-    doc.setFont("Inter-Regular", "normal");
-
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        await doc.save("document");
-      },
-    });
+    // const doc = new jsPDF({
+    //   format: "a4",
+    //   unit: "px",
+    // });
+    // // Adding the fonts.
+    // doc.setFont("Inter-Regular", "normal");
+    // doc.html(reportTemplateRef.current, {
+    //   async callback(doc) {
+    //     await doc.save("document");
+    //   },
+    // });
   };
 
   const pay = () => {
@@ -197,6 +195,18 @@ function Cart({ dataCart, setDataCart }) {
       totalPrice: carts.product.price * carts.quantity,
       totalProduct: carts.quantity,
     }));
+    const doc = new jsPDF({
+      format: "a4",
+      unit: "px",
+    });
+    // Adding the fonts.
+    doc.setFont("Inter-Regular", "normal");
+
+    doc.html(reportTemplateRef.current, {
+      async callback(doc) {
+        await doc.save("document");
+      },
+    });
     await axios
       .post(`${API_HISTORY}/add`, req, {
         headers: {
@@ -212,6 +222,7 @@ function Cart({ dataCart, setDataCart }) {
           })
           .then(() => {
             getAllDataCart("list", setDataCart);
+            setModal(false);
           })
           .catch((error) => {
             console.log(error);
@@ -480,6 +491,7 @@ function Cart({ dataCart, setDataCart }) {
                     </div>
                   </div>
                 </div>
+                <hr className="mx-4 border border-black border-dashed" />
                 <div className="font-bold text-center pt-2">
                   TERIMA KASIH. SELAMAT BELANJA KEMBALI
                 </div>
@@ -502,10 +514,7 @@ function Cart({ dataCart, setDataCart }) {
                     Back
                   </button>
                   <button
-                    onClick={() => {
-                      handleGeneratePdf;
-                      checkout;
-                    }}
+                    onClick={checkout}
                     data-modal-hide="defaultModal"
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
