@@ -147,7 +147,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
             <div className="flex">
               {dataCategory.map((data, index) => {
                 return (
-                  <div className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500">
+                  <div className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500" key={index}>
                     <div className="bg-white text-center p-2  rounded-2xl border">
                       <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
                     </div>

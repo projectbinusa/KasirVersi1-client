@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ReactApexChart from "react-apexcharts";
 import Chart from "react-apexcharts";
 import { API_AUTH, API_PRODUCT } from "../utils/baseURL";
-import { getAllDataProduct } from "../utils/controller";
 
 function IsiDash({ dataMenu, sum }) {
   const [totalPesanan, setTotalPesanan] = useState(0);
@@ -181,8 +181,7 @@ function IsiDash({ dataMenu, sum }) {
   }, []);
 
   return (
-    <div>
-      <div className="m-5">
+      <div className="m-5" >
         <div>
           <div className="font-bold text-4xl">
             <p>Dashboard</p>
@@ -233,12 +232,11 @@ function IsiDash({ dataMenu, sum }) {
               </div>
               <div className="hidden sm:block sm:basis-56">
                 <div className="py-5 flex justify-center">
-                  <Chart
+                  <ReactApexChart
                     options={presentase.options}
                     series={presentase.series}
                     type="pie"
-                    width="400"
-                    height=""
+                    width={400}
                   />
                 </div>
               </div>
@@ -282,7 +280,6 @@ function IsiDash({ dataMenu, sum }) {
           <div></div>
         </div>
       </div>
-    </div>
   );
 }
 
