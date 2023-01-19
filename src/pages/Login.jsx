@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -7,9 +8,44 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordType, setPasswordType] = useState("password");
+  const [active, setActive] = useState("fa-solid fa-eye-slash");
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const Alert = ({ setIsOpen }) => {
+    return (
+      <div className="darkBG" onClick={() => setIsOpen(false)}>
+        <div className="flex mt-10 justify-center items-center mx-auto">
+          <div
+            class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+            role="alert"
+          >
+            <div class="flex">
+              <div class="py-1">
+                <svg
+                  class="fill-current h-6 w-6 text-teal-500 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">Incorrect username or password</p>
+                <p class="text-sm">Make sure you fill out the form correctly</p>
+              </div>
+              <div onClick={() => setIsOpen(false)} className="mx-2">
+                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const login = async (e) => {
     e.preventDefault();
@@ -40,19 +76,23 @@ function Login() {
       }
     } catch (err) {
       console.log(err);
+      setIsOpen(true);
     }
   };
 
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
+      setActive("fa-solid fa-eye");
       return;
     }
     setPasswordType("password");
+    setActive("fa-solid fa-eye-slash");
   };
 
   return (
     <div id="login">
+      {isOpen && <Alert setIsOpen={setIsOpen} />}
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
           <div className="md:w-1/2 px-8 md:px-16">
@@ -64,7 +104,6 @@ function Login() {
             <form action="" className="flex flex-col gap-4" onSubmit={login}>
               <input
                 className="p-2 mt-8 rounded-xl border  "
-                autoComplete="off"
                 type="email"
                 id="email"
                 placeholder="Email"
@@ -80,18 +119,11 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <svg
-                  onClick={togglePassword}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="gray"
+                <FontAwesomeIcon
+                  icon={active}
                   className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                </svg>
+                  onClick={togglePassword}
+                />
               </div>
               <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300">
                 Login
@@ -148,7 +180,7 @@ function Login() {
           <div className="md:block hidden w-1/2">
             <img
               className="rounded-2xl"
-              src="https://images.unsplash.com/photo-1616606103915-dea7be788566?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
+              src="https://static.vecteezy.com/system/resources/previews/008/545/339/original/indonesian-famous-food-bakso-illustration-vector.jpg"
             />
           </div>
         </div>
