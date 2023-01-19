@@ -10,6 +10,7 @@ import Hero from "./pages/Hero";
 import NotFound from "./pages/NotFound";
 import Libraryy from "./pages/Libraryy";
 import Bils from "./pages/Bils";
+import Setting from "./pages/Setting";
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
          <Route
           path="Bills"
           element={<Bils />}
+        />
+         <Route
+          path="Setting"
+          element={<Setting />}
         />
         </Route>
         <Route path="/*" element={<NotFound/>} />

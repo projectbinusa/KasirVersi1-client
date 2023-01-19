@@ -70,11 +70,11 @@ function Menu({ dataCategory, dataMenu, setDataCart }) {
               id="language"
               className="font-bold border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             >
-              <option value="popular" className="px-10 m-10">
+              <option defaultValue="popular" className="px-10 m-10">
                 Popular
               </option>
-              <option value="timeAdded">Time Added</option>
-              <option value="alphabet">Alphabet</option>
+              <option defaultValue="timeAdded">Time Added</option>
+              <option defaultValue="alphabet">Alphabet</option>
             </select>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   faTrashCan,
   faSquareMinus,
@@ -6,15 +6,35 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../assets/Cart.css";
-import { API_CART, API_HISTORY } from "../utils/baseURL";
+import { API_CART, API_HISTORY, API_TOKO } from "../utils/baseURL";
 import axios from "axios";
 import { titik } from "../utils/NumberWithComa";
 import { getAllDataCart } from "../utils/controller";
+import jsPDF from "jspdf";
 
 function Cart({ dataCart, setDataCart }) {
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
   const [cash, setCash] = useState(0);
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+
+  const reportTemplateRef = useRef(null);
+
+  const handleGeneratePdf = () => {
+    // const doc = new jsPDF({
+    //   format: "a4",
+    //   unit: "px",
+    // });
+    // // Adding the fonts.
+    // doc.setFont("Inter-Regular", "normal");
+    // doc.html(reportTemplateRef.current, {
+    //   async callback(doc) {
+    //     await doc.save("document");
+    //   },
+    // });
+  };
 
   const pay = () => {
     setCash();
@@ -146,6 +166,23 @@ function Cart({ dataCart, setDataCart }) {
       });
   };
 
+  const getToko = async () => {
+    await axios
+      .get(`${API_TOKO}/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setName(res.data.name);
+        setPhoneNumber(res.data.phoneNumber);
+        setAddress(res.data.address);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const checkout = async (e) => {
     e.preventDefault();
     const req = dataCart.cartItem.map((carts) => ({
@@ -158,6 +195,18 @@ function Cart({ dataCart, setDataCart }) {
       totalPrice: carts.product.price * carts.quantity,
       totalProduct: carts.quantity,
     }));
+    const doc = new jsPDF({
+      format: "a4",
+      unit: "px",
+    });
+    // Adding the fonts.
+    doc.setFont("Inter-Regular", "normal");
+
+    doc.html(reportTemplateRef.current, {
+      async callback(doc) {
+        await doc.save("document");
+      },
+    });
     await axios
       .post(`${API_HISTORY}/add`, req, {
         headers: {
@@ -173,6 +222,7 @@ function Cart({ dataCart, setDataCart }) {
           })
           .then(() => {
             getAllDataCart("list", setDataCart);
+            setModal(false);
           })
           .catch((error) => {
             console.log(error);
@@ -182,6 +232,10 @@ function Cart({ dataCart, setDataCart }) {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    getToko();
+  }, []);
   return (
     <div id="cart">
       <div id="nav-logo">
@@ -219,7 +273,7 @@ function Cart({ dataCart, setDataCart }) {
                         <input
                           type="number"
                           id="Quantity"
-                          value={carts.quantity}
+                          defaultValue={carts.quantity}
                           autoComplete="off"
                           className="w-[30px] ml-2"
                           readOnly
@@ -366,25 +420,34 @@ function Cart({ dataCart, setDataCart }) {
         <>
           <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
-            <div className="relative w-full h-full max-w-lg md:h-auto">
-              <div className="relative bg-white rounded-lg border border-black shadow ">
+            <div className="relative w-[450px] h-full max-w-lg md:h-auto">
+              <div
+                ref={reportTemplateRef}
+                className="relative bg-white rounded-lg shadow "
+              >
                 <div className="items-start justify-center p-4 rounded-t ">
                   <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                    NAMA_TOKO
+                    {name}
                   </h3>
-                  <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                    ALAMAT_TOKO
+                  <h3 className="text-md text-center text-gray-900 ">
+                    {address}
                   </h3>
                 </div>
                 <div className="px-4">
                   <hr className="border border-black border-dashed" />
                   <div className="flex justify-end">
-                    <span className="mx-2 my-2">{new Date().toLocaleString("en-US", { day : '2-digit', month : "2-digit", year : "numeric"})}</span>
+                    <span className="mx-2 my-2">
+                      {new Date().toLocaleString("en-US", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
                   <hr className="border border-black border-dashed" />
                 </div>
                 <div className="p-6 space-y-6">
-                  <table className="w-full text-sm text-left">
+                  <table className="text-sm text-left">
                     <tbody>
                       {dataCart.cartItem.map((carts) => (
                         <tr key={carts.id} className="bg-white border-b">
@@ -405,25 +468,30 @@ function Cart({ dataCart, setDataCart }) {
                       ))}
                     </tbody>
                   </table>
-                  <div className="pr-3 flex justify-end">
-                    <div className="w-[200px] flex justify-between">
-                      <div>Total :</div>
-                      <div>Rp. {dataCart.totalPrice}</div>
-                    </div>
-                  </div>
-                  <div className="pr-3 flex justify-end">
-                    <div className="w-[200px] flex justify-between border-b border-black">
-                      <div>Tunai :</div>
-                      <div>Rp. {titik(cash)}</div>
+                  <div className="flex justify-end">
+                    <div className="py-2 w-[220px] border-b border-black">
+                      <div className="pr-3 flex justify-end">
+                        <div className="w-[200px] flex justify-between">
+                          <div>Total :</div>
+                          <div>Rp. {dataCart.totalPrice}</div>
+                        </div>
+                      </div>
+                      <div className="pr-3 flex justify-end">
+                        <div className="w-[200px] flex justify-between">
+                          <div>Tunai :</div>
+                          <div>Rp. {titik(cash)}</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="pr-3 flex justify-end">
                     <div className="w-[200px] flex justify-between">
                       <div>Kembali :</div>
-                      <div>{titik(dataCart.totalPrice - cash)}</div>
+                      <div>{titik(cash - dataCart.totalPrice)}</div>
                     </div>
                   </div>
                 </div>
+                <hr className="mx-4 border border-black border-dashed" />
                 <div className="font-bold text-center pt-2">
                   TERIMA KASIH. SELAMAT BELANJA KEMBALI
                 </div>
