@@ -3,6 +3,7 @@ import {
   faTrashCan,
   faSquareMinus,
   faSquarePlus,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../assets/Cart.css";
@@ -204,7 +205,7 @@ function Cart({ dataCart, setDataCart }) {
 
     doc.html(reportTemplateRef.current, {
       async callback(doc) {
-        await doc.save("document");
+        await doc.save("receipt");
       },
     });
     await axios
@@ -446,11 +447,11 @@ function Cart({ dataCart, setDataCart }) {
                   </div>
                   <hr className="border border-black border-dashed" />
                 </div>
-                <div className="p-6 space-y-6">
+                <div className="space-y-6">
                   <table className="text-sm text-left">
                     <tbody>
                       {dataCart.cartItem.map((carts) => (
-                        <tr key={carts.id} className="bg-white border-b">
+                        <tr key={carts.id} className="bg-white">
                           <th
                             scope="row"
                             className="px-6 py-4 font-medium text-black"
@@ -468,15 +469,15 @@ function Cart({ dataCart, setDataCart }) {
                       ))}
                     </tbody>
                   </table>
-                  <div className="flex justify-end">
-                    <div className="py-2 w-[220px] border-b border-black">
+                  <div className="flex justify-end mr-4">
+                    <div className="py-2 w-[210px] border-b border-black">
                       <div className="pr-3 flex justify-end">
                         <div className="w-[200px] flex justify-between">
                           <div>Total :</div>
                           <div>Rp. {dataCart.totalPrice}</div>
                         </div>
                       </div>
-                      <div className="pr-3 flex justify-end">
+                      <div className="pr-3 my-4 flex justify-end">
                         <div className="w-[200px] flex justify-between">
                           <div>Tunai :</div>
                           <div>Rp. {titik(cash)}</div>
@@ -484,7 +485,7 @@ function Cart({ dataCart, setDataCart }) {
                       </div>
                     </div>
                   </div>
-                  <div className="pr-3 flex justify-end">
+                  <div className="pr-6 pb-4 flex justify-end">
                     <div className="w-[200px] flex justify-between">
                       <div>Kembali :</div>
                       <div>{titik(cash - dataCart.totalPrice)}</div>
