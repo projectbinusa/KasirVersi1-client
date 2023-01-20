@@ -310,12 +310,21 @@ function Cart({ dataCart, setDataCart }) {
             </div>
           </div>
           <div className="flex items-end mx-6">
-            <button
-              onClick={() => setShow(true)}
-              className="h-[60px] w-full rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
-            >
-              ORDER NOW
-            </button>
+            {dataCart.quantity === 0 ? (
+              <button
+              disabled
+                className="h-[60px] w-full cursor-not-allowed rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
+              >
+                ORDER NOW
+              </button>
+            ) : (
+              <button
+                onClick={() => setShow(true)}
+                className="h-[60px] w-full rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
+              >
+                ORDER NOW
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -396,7 +405,14 @@ function Cart({ dataCart, setDataCart }) {
                       >
                         Cancel
                       </button>
-                      <button
+                      {cash === 0 ? (<><button
+                        data-modal-hide="defaultModal"
+                        type="submit"
+                        disabled
+                        className="text-white cursor-not-allowed bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Next
+                      </button></>) : (<> <button
                         data-modal-hide="defaultModal"
                         type="submit"
                         onClick={() => {
@@ -407,6 +423,7 @@ function Cart({ dataCart, setDataCart }) {
                       >
                         Next
                       </button>
+                     </>)}
                     </div>
                   </form>
                 </div>
