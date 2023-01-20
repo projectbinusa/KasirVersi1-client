@@ -31,24 +31,24 @@ function IsiSetting() {
   const addToko = async (e) => {
     e.preventDefault()
     const req = {
-        name: name,
-        phoneNumber: phoneNumber,
-        address: address,
-      };
-  
-      await axios
-        .post(`${API_TOKO}/add`, req, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then(() => {
-          getToko();
-          setShowAdd(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      name: name,
+      phoneNumber: phoneNumber,
+      address: address,
+    };
+
+    await axios
+      .post(`${API_TOKO}/add`, req, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() => {
+        getToko();
+        setShowAdd(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   const updateToko = async (e) => {
@@ -82,36 +82,61 @@ function IsiSetting() {
       <h1 className="font-bold text-4xl">Setting App</h1>
       <div>
         {name === undefined ? (
-          <button
-            onClick={() => setShowAdd(true)}
-            className="bg-gray-300 text-black border-black my-5"
-          >
-            Add
-          </button>
+          <>
+            <div className="py-10">
+              <div className="grid grid-cols-6">
+                <div className="cols col-span-3">
+                  <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-626.jpg?w=2000" alt="angjay" />
+                </div>
+                <div className="cols col-span-3">
+                  There is no store description yet
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <button className="w-72" onClick={() => setShowAdd(true)}>CREATE</button>
+            </div>
+          </>
         ) : (
           <>
-            <table className="my-5">
-              <tbody>
-                <tr>
-                  <th className="text-left w-[150px]">Shop Name</th>
-                  <td>{name}</td>
-                </tr>
-                <tr>
-                  <th className="text-left w-[150px]">Phone Number</th>
-                  <td>{phoneNumber}</td>
-                </tr>
-                <tr>
-                  <th className="text-left w-[150px]">Address</th>
-                  <td>{address}</td>
-                </tr>
-              </tbody>
-            </table>
-            <button
-              onClick={() => setShow(true)}
-              className="bg-gray-300 text-black border-black"
-            >
-              Edit
-            </button>
+            <div className="py-10">
+              <div className="relative block bg-slate-100 justify-center overflow-hidden rounded-lg border border-gray-100 p-8">
+                <span
+                  className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-red-300 via-pink-500 to-red-300"
+                ></span>
+                <div>
+                  <div className="justify-center pb-5 sm:flex">
+                    <h3 className="text-center text-gray-900">
+                    <div className="text-2xl font-bold">Name Shop</div>
+                    <div className="text-xl">{name}</div>
+                    <hr />
+                    </h3>
+                  </div>
+                  <div className="justify-center pb-5 sm:flex">
+                    <h3 className="text-center text-gray-900">
+                    <div className="text-2xl font-bold">Number Phone</div>
+                    <div className="text-xl">{phoneNumber}</div>
+                    <hr />
+                    </h3>
+                  </div>
+                  <div className="justify-center pb-5 sm:flex">
+                    <h3 className="text-center text-gray-900">
+                    <div className="text-2xl font-bold">Addres</div>
+                    <div className="text-xl">{address}</div>
+                    <hr />
+                    </h3>
+                  </div>
+                </div>
+              <div className="flex justify-center">
+                  <button
+                    onClick={() => setShow(true)}
+                    className="w-48 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-lg py-2.5 text-center "
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
           </>
         )}
       </div>
@@ -179,7 +204,7 @@ function IsiSetting() {
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                       <textarea
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="address"
                         onChange={(e) => setAddress(e.target.value)}
@@ -201,7 +226,6 @@ function IsiSetting() {
                       <button
                         data-modal-hide="defaultModal"
                         type="submit"
-                        onClick={() => setShowAdd(false)}
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Save
@@ -304,7 +328,6 @@ function IsiSetting() {
                       <button
                         data-modal-hide="defaultModal"
                         type="submit"
-                        onClick={() => setShow(false)}
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Save
