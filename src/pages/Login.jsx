@@ -11,6 +11,7 @@ function Login() {
   const [active, setActive] = useState("fa-solid fa-eye-slash");
 
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function Login() {
                 </svg>
               </div>
               <div>
-                <p class="font-bold">Incorrect username or password</p>
+                <p class="font-bold">{errorMessage.data}</p>
                 <p class="text-sm">Make sure you fill out the form correctly</p>
               </div>
               <div onClick={() => setIsOpen(false)} className="mx-2">
@@ -54,30 +55,27 @@ function Login() {
       password: password,
     };
 
-    try {
-      const { data, status } = await axios.post(`${API_AUTH}/login`, req, {
+    await axios
+      .post(`${API_AUTH}/login`, req, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-      });
-
-      if (status == 200) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("id", data.userId);
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.data.token);
+        localStorage.setItem("id", res.data.data.userId);
 
         if (location.state) {
           navigate(`${location.state.from.pathname}`);
         } else {
           navigate("/");
         }
-      } else {
-        alert("Incorrect username or password");
-      }
-    } catch (err) {
-      console.log(err);
-      setIsOpen(true);
-    }
+      })
+      .catch((err) => {
+        setErrorMessage(err.response.data);
+        setIsOpen(true);
+      });
   };
 
   const togglePassword = () => {
@@ -108,7 +106,6 @@ function Login() {
                 id="email"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
               <div className="relative">
                 <input
@@ -117,7 +114,6 @@ function Login() {
                   id="password"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
                 <FontAwesomeIcon
                   icon={active}

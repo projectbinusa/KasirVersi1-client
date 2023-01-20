@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +10,42 @@ function Register() {
   const [password, setPassword] = useState("");
   const [passwordType, setPasswordType] = useState("password");
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
+
   const navigate = useNavigate();
+
+  const Alert = ({ setIsOpen }) => {
+    return (
+      <div className="darkBG" onClick={() => setIsOpen(false)}>
+        <div className="flex mt-10 justify-center items-center mx-auto">
+          <div
+            class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+            role="alert"
+          >
+            <div class="flex">
+              <div class="py-1">
+                <svg
+                  class="fill-current h-6 w-6 text-teal-500 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">{errorMessage.data}</p>
+                <p class="text-sm">Make sure you fill out the form correctly</p>
+              </div>
+              <div onClick={() => setIsOpen(false)} className="mx-2">
+                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const register = async (e) => {
     e.preventDefault();
@@ -29,8 +65,9 @@ function Register() {
         .then(() => {
           navigate("/login");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          setErrorMessage(err.response.data);
+          setIsOpen(true);
         });
     } catch (err) {
       console.log(err);
@@ -47,6 +84,7 @@ function Register() {
 
   return (
     <div id="login">
+      {isOpen && <Alert setIsOpen={setIsOpen} />}
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
           <div className="md:w-1/2 px-8 md:px-16">
@@ -63,7 +101,6 @@ function Register() {
                 id="username"
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
-                required
               />
               <input
                 className="p-2 rounded-xl border  "
@@ -72,7 +109,6 @@ function Register() {
                 id="email"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
               <div className="relative">
                 <input
@@ -81,7 +117,6 @@ function Register() {
                   id="password"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
                 <svg
                   onClick={togglePassword}
