@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataCategory, getAllDataProduct } from "../utils/controller";
 import moment from "moment";
-import { titik } from '../utils/NumberWithComa';
+import { titik } from "../utils/NumberWithComa";
+import Pagination from "./Padination";
+import TableLibrary from "./TableLibrary";
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const [show, setShow] = useState(false);
@@ -21,6 +23,14 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(5);
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = dataMenu.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(dataMenu.length / recordsPerPage);
 
   const addCategory = async (e) => {
     e.preventDefault();
@@ -133,6 +143,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
     return moment(item).format("DD-MM-YYYY hh:mm:ss");
   };
 
+  useEffect(() => {
+    getAllDataProduct("all", setDataMenu);
+  }, []);
+
   return (
     <div>
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
@@ -147,7 +161,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
             <div className="flex">
               {dataCategory.map((data, index) => {
                 return (
-                  <div className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500" key={index}>
+                  <div
+                    className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500"
+                    key={index}
+                  >
                     <div className="bg-white text-center p-2  rounded-2xl border">
                       <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
                     </div>
@@ -212,54 +229,23 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {dataMenu.map((item) => {
-                        return (
-                          <tr
-                            className="bg-white border-b text-center"
-                            key={item.id}
-                          >
-                            <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                            >
-                              {item.name}
-                            </th>
-                            <td className="px-6 py-4">{item.category.name}</td>
-                            <td className="px-6 py-4">{item.description}</td>
-                            <td className="px-6 py-4">{item.stock}</td>
-                            <td className="px-6 py-4">{item.jumlahTerjual}</td>
-                            <td className="px-6 py-4">{titik(item.price)}</td>
-                            <td className="px-6 py-4">
-                              {dateEvent(item.createdAt)}
-                            </td>
-
-                            <td className="px-6 py-4">
-                              <button
-                                onClick={() => {
-                                  setShow(true);
-                                  getProductId(item.id);
-                                }}
-                                type="button"
-                                className="w-20 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2.5 text-center mr-2 mb-2 "
-                              >
-                                Edit
-                              </button>
-                              <button
-                                onClick={() => deleteProduct(item)}
-                                type="button"
-                                className="w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm  py-2.5 text-center mr-2 mb-2 "
-                              >
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
+                    <TableLibrary
+                      dataMenu={currentRecords}
+                      dateEvent={dateEvent}
+                      setShow={setShow}
+                      getProductId={getProductId}
+                      deleteProduct={deleteProduct}
+                    />
                   </table>
                 </div>
               </section>
+              <div className="py-4">
+                <Pagination
+                  nPages={nPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
             </div>
           </div>
         </div>
