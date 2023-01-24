@@ -23,20 +23,6 @@ function Cart({ dataCart, setDataCart }) {
 
   const reportTemplateRef = useRef(null);
 
-  const handleGeneratePdf = () => {
-    // const doc = new jsPDF({
-    //   format: "a4",
-    //   unit: "px",
-    // });
-    // // Adding the fonts.
-    // doc.setFont("Inter-Regular", "normal");
-    // doc.html(reportTemplateRef.current, {
-    //   async callback(doc) {
-    //     await doc.save("document");
-    //   },
-    // });
-  };
-
   const pay = () => {
     setCash();
   };
@@ -312,7 +298,7 @@ function Cart({ dataCart, setDataCart }) {
           <div className="flex items-end mx-6">
             {dataCart.quantity === 0 ? (
               <button
-              disabled
+                disabled
                 className="h-[60px] w-full cursor-not-allowed rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
               >
                 ORDER NOW
@@ -405,25 +391,33 @@ function Cart({ dataCart, setDataCart }) {
                       >
                         Cancel
                       </button>
-                      {cash === 0 ? (<><button
-                        data-modal-hide="defaultModal"
-                        type="submit"
-                        disabled
-                        className="text-white cursor-not-allowed bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Next
-                      </button></>) : (<> <button
-                        data-modal-hide="defaultModal"
-                        type="submit"
-                        onClick={() => {
-                          setModal(true);
-                          setShow(false);
-                        }}
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Next
-                      </button>
-                     </>)}
+                      {cash === 0 ? (
+                        <>
+                          <button
+                            data-modal-hide="defaultModal"
+                            type="submit"
+                            disabled
+                            className="text-white cursor-not-allowed bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Next
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <button
+                            data-modal-hide="defaultModal"
+                            type="submit"
+                            onClick={() => {
+                              setModal(true);
+                              setShow(false);
+                            }}
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Next
+                          </button>
+                        </>
+                      )}
                     </div>
                   </form>
                 </div>
@@ -453,14 +447,25 @@ function Cart({ dataCart, setDataCart }) {
                 </div>
                 <div className="px-4">
                   <hr className="border border-black border-dashed" />
-                  <div className="flex justify-end">
-                    <span className="mx-2 my-2">
-                      {new Date().toLocaleString("en-US", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                      })}
-                    </span>
+                  <div className="grid mx-2 my-2 grid-cols-2">
+                    <div className="flex items-center justify-start gap-2">
+                      <span>Order Time :</span>
+                      <span className="">
+                        {new Date().toLocaleString("en-US", {
+                          hour: "2-digit"
+                        })}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-end">
+                      <span>Date Time :</span>
+                      <span className="">
+                        {new Date().toLocaleString("en-US", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
                   </div>
                   <hr className="border border-black border-dashed" />
                 </div>
@@ -497,7 +502,7 @@ function Cart({ dataCart, setDataCart }) {
                       <div className="pr-3 my-4 flex justify-end">
                         <div className="w-[200px] flex justify-between">
                           <div>Tunai :</div>
-                          <div>Rp. {titik(cash)}</div>
+                          <div>Rp. {cash}</div>
                         </div>
                       </div>
                     </div>
@@ -505,7 +510,7 @@ function Cart({ dataCart, setDataCart }) {
                   <div className="pr-6 pb-4 flex justify-end">
                     <div className="w-[200px] flex justify-between">
                       <div>Kembali :</div>
-                      <div>{titik(cash - dataCart.totalPrice)}</div>
+                      <div>Rp. {cash - dataCart.totalPrice}</div>
                     </div>
                   </div>
                 </div>
