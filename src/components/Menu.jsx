@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
+import Dropdown from "./Dropdown";
 
 function Menu({ dataCategory, dataMenu, setDataCart }) {
   const [selectedCategory, setSelectedCategory] = useState("Food");
-
   const changeCategory = (category) => setSelectedCategory(category);
+
+  const options = [
+    {
+      id: 0,
+      title: "Popular",
+    },
+    {
+      id: 1,
+      title: "Time Added",
+    },
+    {
+      id: 2,
+      title: "Alphabet",
+    },
+  ];
 
   return (
     <div id="menu" className="px-3 space-y-10">
@@ -65,17 +80,7 @@ function Menu({ dataCategory, dataMenu, setDataCart }) {
             <label htmlFor="language" className="font-thin text-gray-500 mr-2">
               Sort by
             </label>
-            <select
-              name="language"
-              id="language"
-              className="font-bold border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
-            >
-              <option defaultValue="popular" className="px-10 m-10">
-                Popular
-              </option>
-              <option defaultValue="timeAdded">Time Added</option>
-              <option defaultValue="alphabet">Alphabet</option>
-            </select>
+            <Dropdown options={options} />
           </div>
         </div>
       </div>

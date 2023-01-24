@@ -205,7 +205,7 @@ function Cart({ dataCart, setDataCart }) {
 
     doc.html(reportTemplateRef.current, {
       async callback(doc) {
-        await doc.save("receipt");
+        await doc.save("struk");
       },
     });
     await axios
