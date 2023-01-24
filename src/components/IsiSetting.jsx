@@ -29,7 +29,7 @@ function IsiSetting() {
   };
 
   const addToko = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const req = {
       name: name,
       phoneNumber: phoneNumber,
@@ -49,7 +49,7 @@ function IsiSetting() {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   const updateToko = async (e) => {
     e.preventDefault();
@@ -83,51 +83,64 @@ function IsiSetting() {
       <div>
         {name === undefined ? (
           <>
-            <div className="py-10">
-              <div className="grid grid-cols-6">
-                <div className="cols col-span-3">
-                  <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-626.jpg?w=2000" alt="angjay" />
-                </div>
-                <div className="cols col-span-3">
-                  There is no store description yet
+            <div className="lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
+              <div className="xl:pt-24 w-full xl:w-1/2 relative pb-12 lg:pb-0">
+                <div className="relative">
+                  <div className="absolute">
+                    <div className="">
+                      <h1 className="my-2 text-gray-800 font-bold text-2xl">
+                        There is no store description yet
+                      </h1>
+                      <p className="my-2 text-gray-800">
+                        Sorry about that! Please create a new store
+                      </p>
+                    </div>
+                    <button
+                      className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+                      onClick={() => setShowAdd(true)}
+                    >
+                      Create Store
+                    </button>
+                  </div>
+                  <div>
+                    <img src="https://i.ibb.co/G9DC8S0/404-2.png" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex justify-center">
-              <button className="w-72" onClick={() => setShowAdd(true)}>CREATE</button>
+              <div>
+                <img src="https://i.ibb.co/ck1SGFJ/Group.png" />
+              </div>
             </div>
           </>
         ) : (
           <>
             <div className="py-10">
               <div className="relative block bg-slate-100 justify-center overflow-hidden rounded-lg border border-gray-100 p-8">
-                <span
-                  className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-red-300 via-pink-500 to-red-300"
-                ></span>
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-red-300 via-pink-500 to-red-300"></span>
                 <div>
                   <div className="justify-center pb-5 sm:flex">
                     <h3 className="text-center text-gray-900">
-                    <div className="text-2xl font-bold">Name Shop</div>
-                    <div className="text-xl">{name}</div>
-                    <hr />
+                      <div className="text-2xl font-bold">Name Shop</div>
+                      <div className="text-xl">{name}</div>
+                      <hr />
                     </h3>
                   </div>
                   <div className="justify-center pb-5 sm:flex">
                     <h3 className="text-center text-gray-900">
-                    <div className="text-2xl font-bold">Number Phone</div>
-                    <div className="text-xl">{phoneNumber}</div>
-                    <hr />
+                      <div className="text-2xl font-bold">Number Phone</div>
+                      <div className="text-xl">{phoneNumber}</div>
+                      <hr />
                     </h3>
                   </div>
                   <div className="justify-center pb-5 sm:flex">
                     <h3 className="text-center text-gray-900">
-                    <div className="text-2xl font-bold">Addres</div>
-                    <div className="text-xl">{address}</div>
-                    <hr />
+                      <div className="text-2xl font-bold">Addres</div>
+                      <div className="text-xl">{address}</div>
+                      <hr />
                     </h3>
                   </div>
                 </div>
-              <div className="flex justify-center">
+                <div className="flex justify-center">
                   <button
                     onClick={() => setShow(true)}
                     className="w-48 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-lg py-2.5 text-center "

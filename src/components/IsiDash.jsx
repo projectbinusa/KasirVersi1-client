@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
 import Chart from "react-apexcharts";
 import { API_AUTH, API_PRODUCT } from "../utils/baseURL";
 
@@ -232,7 +231,7 @@ function IsiDash({ dataMenu, sum }) {
               </div>
               <div className="hidden sm:block sm:basis-56">
                 <div className="py-5 flex justify-center">
-                  <ReactApexChart
+                  <Chart
                     options={presentase.options}
                     series={presentase.series}
                     type="pie"
