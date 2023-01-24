@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../assets/Cart.css";
 import { API_CART, API_HISTORY, API_TOKO } from "../utils/baseURL";
 import axios from "axios";
-import { titik } from "../utils/NumberWithComa";
 import { getAllDataCart } from "../utils/controller";
 import jsPDF from "jspdf";
 

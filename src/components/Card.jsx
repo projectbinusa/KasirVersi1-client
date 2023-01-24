@@ -5,6 +5,7 @@ import { getAllDataCart } from "../utils/controller";
 import { titik } from "../utils/NumberWithComa";
 
 function Card({ data, setDataCart }) {
+  const titik = new Intl.NumberFormat("en-us");
   const addToCart = async (id) => {
     await axios
       .get(
@@ -71,7 +72,7 @@ function Card({ data, setDataCart }) {
         </div>
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{data.name}</div>
-          <p className="text-gray-700 text-base">{titik(data.price)}</p>
+          <p className="text-gray-700 text-base">Rp. {titik.format(data.price)}</p>
         </div>
       </div>
     </div>

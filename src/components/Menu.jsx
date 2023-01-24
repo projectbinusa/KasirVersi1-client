@@ -108,16 +108,16 @@ function Menu({
             hidden={selectedOption !== "Popular"}
           >
             {productPopular.map((data, index) => (
-              <section hidden={selectedCategory !== data.category.name}>
-                <Card key={index} data={data} setDataCart={setDataCart} />
+              <section hidden={selectedCategory !== data.category.name} key={index}>
+                <Card data={data} setDataCart={setDataCart} />
               </section>
             ))}
           </div>
         ) : selectedOption === "Time Added" ? (
           <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
             {productTimeAdded.map((data, index) => (
-              <section hidden={selectedCategory !== data.category.name}>
-                <Card key={index} data={data} setDataCart={setDataCart} />
+              <section hidden={selectedCategory !== data.category.name}  key={index}>
+                <Card data={data} setDataCart={setDataCart} />
               </section>
             ))}
           </div>
@@ -135,7 +135,7 @@ function Menu({
                 key={`tabpanel-${index}`}
                 hidden={selectedCategory !== data.category.name}
               >
-                <Card key={index} data={data} setDataCart={setDataCart} />
+                <Card data={data} setDataCart={setDataCart} />
               </section>
             ))}
           </div>
