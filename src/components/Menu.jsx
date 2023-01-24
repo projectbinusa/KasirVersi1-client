@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
-import Dropdown from "./Dropdown";
 
-function Menu({ dataCategory, dataMenu, setDataCart }) {
+function Menu({
+  dataCategory,
+  dataMenu,
+  setDataCart,
+  productPopular,
+  productTimeAdded,
+}) {
   const [selectedCategory, setSelectedCategory] = useState("Food");
+  const [selectedOption, setSelectedOption] = useState("Popular");
+
   const changeCategory = (category) => setSelectedCategory(category);
 
   const options = [
@@ -80,21 +87,59 @@ function Menu({ dataCategory, dataMenu, setDataCart }) {
             <label htmlFor="language" className="font-thin text-gray-500 mr-2">
               Sort by
             </label>
-            <Dropdown options={options} />
+            <select
+              className="font-bold border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+            >
+              {options.map((o, index) => (
+                <option key={index} value={o.value} className="px-10 m-10">
+                  {o.title}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
       <div id="menu">
-        <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center">
-          {dataMenu.map((data, index) => (
-            <section
-              key={`tabpanel-${index}`}
-              hidden={selectedCategory !== data.category.name}
-            >
-              <Card key={index} data={data} setDataCart={setDataCart} />
-            </section>
-          ))}
-        </div>
+        {selectedOption === "Popular" ? (
+          <div
+            className="grid grid-cols-3 gap-4 mx-auto justify-center text-center"
+            hidden={selectedOption !== "Popular"}
+          >
+            {productPopular.map((data, index) => (
+              <section hidden={selectedCategory !== data.category.name}>
+                <Card key={index} data={data} setDataCart={setDataCart} />
+              </section>
+            ))}
+          </div>
+        ) : selectedOption === "Time Added" ? (
+          <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
+            {productTimeAdded.map((data, index) => (
+              <section hidden={selectedCategory !== data.category.name}>
+                <Card key={index} data={data} setDataCart={setDataCart} />
+              </section>
+            ))}
+          </div>
+        ) : selectedOption === "Alphabet" ? (
+          <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Alphabet"}>
+            <h1>Alphabet</h1>
+          </div>
+        ) : (
+          <div
+            className="grid grid-cols-3 gap-4 mx-auto justify-center text-center"
+            hidden={selectedOption !== "Popular"}
+          >
+            {dataMenu.map((data, index) => (
+              <section
+                key={`tabpanel-${index}`}
+                hidden={selectedCategory !== data.category.name}
+              >
+                <Card key={index} data={data} setDataCart={setDataCart} />
+              </section>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

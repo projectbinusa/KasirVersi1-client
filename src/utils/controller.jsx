@@ -63,6 +63,36 @@ export const getAllDataProduct = async (path, setPath) => {
     });
 };
 
+export const getProductPopular = async (path, setPath) => {
+  await axios
+    .get(`${API_PRODUCT}/${path}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      setPath(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getProductTimeAdded = async (path, setPath) => {
+  await axios
+    .get(`${API_PRODUCT}/${path}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      setPath(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const getAllHistoryOrder = async (path, setPath) => {
   await axios
     .get(`${API_HISTORY}/${path}`, {
