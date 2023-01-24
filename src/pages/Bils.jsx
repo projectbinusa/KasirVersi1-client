@@ -6,7 +6,7 @@ function Bils() {
   const [bils, setBils] = useState([]);
 
   useEffect(() => {
-    getAllHistoryOrder("list", setBils);
+    getAllHistoryOrder("time-added", setBils);
   }, [])
   return (
     <div>
