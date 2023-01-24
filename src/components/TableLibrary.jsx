@@ -1,8 +1,9 @@
 import React from "react";
-import { titik } from "../utils/NumberWithComa";
+
 
 function TableLibrary({dataMenu, dateEvent, setShow, getProductId, deleteProduct}) {
-  const titik = new Intl.NumberFormat("en-us");
+    const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
+
   return (
     <tbody>
       {dataMenu.map((item) => {
@@ -18,7 +19,7 @@ function TableLibrary({dataMenu, dateEvent, setShow, getProductId, deleteProduct
             <td className="px-6 py-4">{item.description}</td>
             <td className="px-6 py-4">{item.stock}</td>
             <td className="px-6 py-4">{item.jumlahTerjual}</td>
-            <td className="px-6 py-4">Rp. {titik.format(item.price)}</td>
+            <td className="px-6 py-4"> {titik.format(item.price)}</td>
             <td className="px-6 py-4">{dateEvent(item.createdAt)}</td>
 
             <td className="px-6 py-4">

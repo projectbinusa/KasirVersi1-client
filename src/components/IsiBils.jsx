@@ -1,8 +1,8 @@
 import moment from "moment";
 import React from "react";
-// import { titik } from "../utils/NumberWithComa";
 function IsiBils({ bils }) {
-  const titik = new Intl.NumberFormat("en-us");
+    const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
+
   const dateEvent = (list) => {
     moment.locale("en");
     return moment(list).format("DD-MM-YYYY");
@@ -43,7 +43,9 @@ function IsiBils({ bils }) {
                   </th>
                   <td className="px-6 py-4">{list.totalProduct}</td>
                   <td className="px-6 py-4">{list.product.category.name}</td>
-                  <td className="px-6 py-4">Rp. {titik.format(list.totalPrice)}</td>
+                  <td className="px-6 py-4">
+                     {titik.format(list.totalPrice)}
+                  </td>
                   <td className="px-6 py-4">{dateEvent(list.createdAt)}</td>
                 </tr>
               ))}

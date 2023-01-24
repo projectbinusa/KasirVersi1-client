@@ -4,12 +4,13 @@ import axios from "axios";
 import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataCategory, getAllDataProduct } from "../utils/controller";
 import moment from "moment";
-import { titik } from "../utils/NumberWithComa";
+
 import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
-  const titik = new Intl.NumberFormat("en-us");
+    const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
+
 
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
@@ -201,8 +202,8 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
             </div>
             <div className="mx-auto justify-center text-center">
               <section>
-                <div className="relative overflow-x-auto">
-                  <table className="w-full bg-white text-sm text-left text-gray-500">
+              <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                  <table className="w-full bg-white text-sm text-left text-gray-500 ">
                     <thead className="text-xs text-center text-gray-700 bg-slate-100  ">
                       <tr>
                         <th scope="col" className="px-6 py-3">
