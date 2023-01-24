@@ -23,19 +23,7 @@ function Cart({ dataCart, setDataCart }) {
 
   const reportTemplateRef = useRef(null);
 
-  const handleGeneratePdf = () => {
-    // const doc = new jsPDF({
-    //   format: "a4",
-    //   unit: "px",
-    // });
-    // // Adding the fonts.
-    // doc.setFont("Inter-Regular", "normal");
-    // doc.html(reportTemplateRef.current, {
-    //   async callback(doc) {
-    //     await doc.save("document");
-    //   },
-    // });
-  };
+  const titik = new Intl.NumberFormat("en-us");
 
   const pay = () => {
     setCash();
@@ -291,7 +279,7 @@ function Cart({ dataCart, setDataCart }) {
                     </div>
                   </div>
                   <div className="text-end text-gray-500 font-semibold col-span-2">
-                    {titik(carts.product.price * carts.quantity)}
+                    Rp. {titik.format(carts.product.price * carts.quantity)}
                   </div>
                   <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
                     <FontAwesomeIcon
@@ -306,7 +294,7 @@ function Cart({ dataCart, setDataCart }) {
             <hr className="mx-6" />
             <div className="flex justify-between items-center mx-6 my-4">
               <div className="text-gray-400 font-semibold">Sub Total</div>
-              <div className="font-bold">{titik(dataCart.totalPrice)}</div>
+              <div className="font-bold">Rp. {titik.format(dataCart.totalPrice)}</div>
             </div>
           </div>
           <div className="flex items-end mx-6">
@@ -372,14 +360,14 @@ function Cart({ dataCart, setDataCart }) {
                             x{carts.quantity}
                           </span>
                         </div>
-                        <div>{titik(carts.product.price * carts.quantity)}</div>
+                        <div>Rp. {titik.format(carts.product.price * carts.quantity)}</div>
                       </div>
                     ))}
                   </div>
                   <div className="flex border-t border-black justify-between text-xl py-2">
                     <div className="text-xl py-5 ">Total Pay</div>
                     <div className="text-xl py-5 ">
-                      {titik(dataCart.totalPrice)}
+                      Rp. {titik.format(dataCart.totalPrice)}
                     </div>
                   </div>
                   <form onSubmit={pay}>
@@ -477,10 +465,10 @@ function Cart({ dataCart, setDataCart }) {
                           </th>
                           <td className="px-6 py-4">x{carts.quantity}</td>
                           <td className="px-6 py-4">
-                            {titik(carts.product.price)}
+                            Rp. {titik.format(carts.product.price)}
                           </td>
                           <td className="px-6 py-4 text-right">
-                            {titik(carts.product.price * carts.quantity)}
+                            Rp. {titik.format(carts.product.price * carts.quantity)}
                           </td>
                         </tr>
                       ))}
@@ -491,13 +479,13 @@ function Cart({ dataCart, setDataCart }) {
                       <div className="pr-3 flex justify-end">
                         <div className="w-[200px] flex justify-between">
                           <div>Total :</div>
-                          <div>Rp. {dataCart.totalPrice}</div>
+                          <div>Rp. {titik.format(dataCart.totalPrice)}</div>
                         </div>
                       </div>
                       <div className="pr-3 my-4 flex justify-end">
                         <div className="w-[200px] flex justify-between">
                           <div>Tunai :</div>
-                          <div>Rp. {titik(cash)}</div>
+                          <div>Rp. {titik.format(cash)}</div>
                         </div>
                       </div>
                     </div>
@@ -505,7 +493,7 @@ function Cart({ dataCart, setDataCart }) {
                   <div className="pr-6 pb-4 flex justify-end">
                     <div className="w-[200px] flex justify-between">
                       <div>Kembali :</div>
-                      <div>{titik(cash - dataCart.totalPrice)}</div>
+                      <div>Rp. {titik.format(cash - dataCart.totalPrice)}</div>
                     </div>
                   </div>
                 </div>

@@ -9,6 +9,8 @@ import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
+  const titik = new Intl.NumberFormat("en-us");
+
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);

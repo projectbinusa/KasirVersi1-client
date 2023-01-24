@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Dropdown({options}) {
 const [selectedOption, setSelectedOption] = useState("Popular");
-console.log(selectedOption);
 
   return (
     <React.Fragment>
