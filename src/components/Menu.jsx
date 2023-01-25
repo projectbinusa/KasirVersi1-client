@@ -132,7 +132,7 @@ function Menu({
         ) : (
           <div
             className="grid grid-cols-3 gap-4 mx-auto justify-center text-center"
-            hidden={selectedOption !== "Popular"}
+            hidden={selectedOption !== "All Product"}
           >
             {dataMenu.map((data, index) => (
               <section
