@@ -10,21 +10,25 @@ function Menu({
   productTimeAdded,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("Food");
-  const [selectedOption, setSelectedOption] = useState("Popular");
+  const [selectedOption, setSelectedOption] = useState("All Product");
 
   const changeCategory = (category) => setSelectedCategory(category);
 
   const options = [
     {
       id: 0,
-      title: "Popular",
+      title: "All Product",
     },
     {
       id: 1,
-      title: "Time Added",
+      title: "Popular",
     },
     {
       id: 2,
+      title: "Time Added",
+    },
+    {
+      id: 4,
       title: "Alphabet",
     },
   ];
