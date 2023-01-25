@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { API_AUTH, API_TOKO } from "../utils/baseURL";
@@ -101,7 +102,7 @@ function IsiSetting() {
 
   return (
     <div className="m-5">
-      <h1 className="font-bold text-4xl">Setting App</h1>
+      {/* <h1 className="font-bold text-4xl">Setting App</h1> */}
       <div>
         {name === undefined ? (
           <>
@@ -176,10 +177,10 @@ function IsiSetting() {
         <section className="relative block" style={{ height: "500px" }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
-            // style={{
-            //   backgroundImage:
-            //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')"
-            // }}
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')"
+            }}
           >
             <span
               id="blackOverlay"
@@ -215,7 +216,7 @@ function IsiSetting() {
                     <div className="relative">
                       <img
                         alt="..."
-                        src="https://raw.githubusercontent.com/creativetimofficial/tailwind-starter-kit/main/Profile%20Page/react-profile-page/src/assets/img/team-2-800x800.jpg"
+                        src="https://t3.ftcdn.net/jpg/02/40/93/66/360_F_240936643_lbL2jWTNXDuL3qB3IP6DdrrxAErjgn4I.jpg"
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                         style={{ maxWidth: "150px" }}
                       />
@@ -227,8 +228,9 @@ function IsiSetting() {
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                         type="button"
                         style={{ transition: "all .15s ease" }}
+                        onClick={() => setShow(true)}
                       >
-                        Connect
+                        Edit
                       </button>
                     </div>
                   </div>
@@ -260,35 +262,20 @@ function IsiSetting() {
                   {name}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
+                    <FontAwesomeIcon icon="fas fa-map-marker-alt" className="mr-2 text-lg text-gray-500"/>{" "}
                     {address}
                   </div>
                   <div className="mb-2 text-gray-700 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
-                    Solution Manager - Creative Tim Officer
-                  </div>
-                  <div className="mb-2 text-gray-700">
-                    <i className="fas fa-university mr-2 text-lg text-gray-500"></i>
-                    University of Computer Science
+                    <FontAwesomeIcon icon="fas fa-phone" className="mr-2 text-lg text-gray-500"/  >
+                    {phoneNumber}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-gray-300 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
+                      <p className="mb-4 text-lg leading-relaxed text-gray-800 bg-gray-200 rounded-md p-2  shadow-md">
+                        Hello World
                       </p>
-                      <a
-                        href="#pablo"
-                        className="font-normal text-pink-500"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Show more
-                      </a>
                     </div>
                   </div>
                 </div>
