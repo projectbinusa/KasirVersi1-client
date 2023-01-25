@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
+import SearchBox from "./SearchBox";
 
 function Menu({
   dataCategory,
@@ -43,12 +44,7 @@ function Menu({
             </h1>
           </div>
           <div className="header-search">
-            <input
-              className="p-2 w-96 rounded-xl border"
-              type="text"
-              id="search"
-              placeholder="🔍 Search for food, coffe, etc..."
-            />
+            <SearchBox/>
           </div>
         </div>
       </div>
