@@ -1,7 +1,20 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
+import Pagination from "./Padination";
+import TableBills from "./TableBills";
 function IsiBils({ bils }) {
-    const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(10);
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = bils.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(bils.length / recordsPerPage);
+
+  const titik = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
 
   const dateEvent = (list) => {
     moment.locale("en");
@@ -32,25 +45,19 @@ function IsiBils({ bils }) {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {bils.map((list, i) => (
-                <tr className="bg-white border-b " key={i}>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                  >
-                    {list.product.name}
-                  </th>
-                  <td className="px-6 py-4">{list.totalProduct}</td>
-                  <td className="px-6 py-4">{list.product.category.name}</td>
-                  <td className="px-6 py-4">
-                     {titik.format(list.totalPrice)}
-                  </td>
-                  <td className="px-6 py-4">{dateEvent(list.createdAt)}</td>
-                </tr>
-              ))}
-            </tbody>
+            <TableBills
+              dateEvent={dateEvent}
+              bils={currentRecords}
+              titik={titik}
+            />
           </table>
+        </div>
+        <div className="py-4">
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>

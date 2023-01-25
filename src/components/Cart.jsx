@@ -393,7 +393,7 @@ function Cart({ dataCart, setDataCart }) {
                       >
                         Cancel
                       </button>
-                      {cash === 0 ? (
+                      {cash < dataCart.totalPrice ? (
                         <>
                           <button
                             data-modal-hide="defaultModal"

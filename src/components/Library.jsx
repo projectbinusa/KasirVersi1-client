@@ -9,8 +9,10 @@ import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
-    const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
-
+  const titik = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
 
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
@@ -202,7 +204,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
             </div>
             <div className="mx-auto justify-center text-center">
               <section>
-              <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full bg-white text-sm text-left text-gray-500 ">
                     <thead className="text-xs text-center text-gray-700 bg-slate-100  ">
                       <tr>
