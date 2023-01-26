@@ -3,7 +3,7 @@ import { useState } from "react";
 import { API_CART } from "../utils/baseURL";
 import { getAllDataCart } from "../utils/controller";
 
-const AutoComplete = ({ data, setDataCart }) => {
+const AutoComplete = ({ setDataCart }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
@@ -66,12 +66,16 @@ const AutoComplete = ({ data, setDataCart }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/product?name=${query}`
+        `http://localhost:8080/api/product?name=${query}&user=${localStorage.getItem("id")}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
       );
 
       if (query.length > 1 && response.ok) {
         const data = await response.json();
-
         setSuggestions(data.data);
         setSuggestionsActive(true);
       } else {
@@ -121,7 +125,10 @@ const AutoComplete = ({ data, setDataCart }) => {
               key={index}
               onClick={handleClick}
             >
-              <div className="flex items-center cursor-pointer px-5 py-4 hover:bg-yellow-300 rounded-lg" onClick={() => addToCart(suggestion.id)}>
+              <div
+                className="flex items-center cursor-pointer px-5 py-4 hover:bg-yellow-300 rounded-lg"
+                onClick={() => addToCart(suggestion.id)}
+              >
                 <img
                   width={35}
                   height={35}
