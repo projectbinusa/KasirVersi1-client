@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import IsiDash from "../components/IsiDash";
-import { getAllDataProduct } from "../utils/controller";
+import Diagram from "../components/Diagram";
+import { getAllDataProduct, getAllHistoryOrder } from "../utils/controller";
 
 function Dashboard() {
-  const [dataMenu, setDataMenu] = useState([]);
+  const [dataMenus, setDataMenus] = useState([]);
+  const [dataHistory, setDataHistory] = useState([]);
 
-  const result = dataMenu.map((x) => x.jumlahTerjual);
+  const result = dataMenus.map((x) => x.jumlahTerjual);
 
   const sum = result.reduce((a, b) => a + b, 0);
 
   useEffect(() => {
-    getAllDataProduct("all", setDataMenu);
+    getAllDataProduct("all", setDataMenus);
+    getAllHistoryOrder("list", setDataHistory);
   }, []);
   return (
     <div>
       <div
         id="menu"
-        className="bg-gray-50 p-2 h-screen overflow-y-auto scroll-none"
-      >
-        <div className="">
-          <IsiDash dataMenu={dataMenu} setDataMenu={setDataMenu} sum={sum} />
-        </div>
+        className="bg-gray-50 p-2 h-screen overflow-y-auto scroll-none">
+      <div>
+        <Diagram dataMenus={dataMenus} setDataMenus={setDataMenus} 
+        dataHistory={dataHistory} sum={sum} />
+      </div>
       </div>
     </div>
   );
