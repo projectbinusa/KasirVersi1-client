@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
-import SearchBox from "./SearchBox";
+import AutoComplete from "./AutoComplete";
 
 function Menu({
   dataCategory,
@@ -44,7 +44,7 @@ function Menu({
             </h1>
           </div>
           <div className="header-search">
-            <SearchBox/>
+            <AutoComplete data={dataMenu} setDataCart={setDataCart}/>
           </div>
         </div>
       </div>
