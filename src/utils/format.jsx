@@ -4,6 +4,5 @@ export const titik = (x) => {
 
 export const getMonthName = (x) => {
     const date = new Date();
-  
     return date.toLocaleString('en-US', { month: 'short' });
   }

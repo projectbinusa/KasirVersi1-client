@@ -6,6 +6,7 @@ import './index.css'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import AOS from 'aos';
+import { Chart as ChartJS } from "chart.js/auto"; 
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
 const iconList = Object.keys(Icons)
