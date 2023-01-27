@@ -4,9 +4,9 @@ import axios from "axios";
 import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataCategory, getAllDataProduct } from "../utils/controller";
 import moment from "moment";
-
 import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
+import TableCategory from "./TableCategory";
 
 function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const titik = new Intl.NumberFormat("id-ID", {
@@ -35,6 +35,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = dataMenu.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentCategory = dataCategory.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(dataMenu.length / recordsPerPage);
 
   const addCategory = async (e) => {
@@ -155,81 +156,84 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   return (
     <div>
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
-        <h1 className="font-bold text-4xl">Library</h1>
+        <h1 className="font-bold text-2xl text-center md:text-left md:text-4xl">Library</h1>
         <div className="my-5">
-          <div className="p-2">
-            <p className="grid grid-cols-1 gap-4 content-center text-xl text-slate-700 uppercase">
-              add to category
-            </p>
-          </div>
-          <div className="bg-slate-100 rounded-xl p-2 flex justify-between">
-            <div className="flex">
-              {dataCategory.map((data, index) => {
-                return (
-                  <div
-                    className="rounded-2xl py-3 px-3 w-24 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f] hover:shadow-lg hover:shadow-red-300 active:bg-yellow-500"
-                    key={index}
-                  >
-                    <div className="bg-white text-center p-2  rounded-2xl border">
-                      <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
-                    </div>
-                    <div className="mt-5 text-xs">{data.name}</div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex justify-center">
+        <div className="flex justify-between py-5">
+              <p className="grid grid-cols-1 content-center text-sm md:text-xl text-slate-700 uppercase">
+                add to category
+              </p>
               <button
                 onClick={() => setShowModal(true)}
-                type="button"
-                className="text-gray-900 text-sm focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 "
+                className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
               >
-                <FontAwesomeIcon icon="fa-plus" className="w-7 h-7" />
+                <FontAwesomeIcon icon="fa-plus" className="w-5 md:w-7 h-5 md:h-7" />
               </button>
             </div>
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-center text-gray-500 ">
+              <thead class="text-xs text-gray-700 bg-gray-200 ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Category
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Icon
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Image
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+                <TableCategory
+                  dataCategory={currentCategory}
+                />
+            </table>
           </div>
         </div>
         <div>
           <div className="my-5">
             <div className="flex justify-between py-5">
-              <p className="grid grid-cols-1 content-center text-xl text-slate-700 uppercase">
+              <p className="grid grid-cols-1 content-center text-sm md:text-xl text-slate-700 uppercase">
                 add to product
               </p>
               <button
                 onClick={() => setModal(true)}
-                className="bg-white w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+                className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
               >
-                <FontAwesomeIcon icon="fa-plus" className="w-7 h-7" />
+                <FontAwesomeIcon icon="fa-plus" className="w-5 md:w-7 h-5 md:h-7" />
               </button>
             </div>
             <div className="mx-auto justify-center text-center">
               <section>
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full bg-white text-sm text-left text-gray-500 ">
-                    <thead className="text-xs text-center text-gray-700 bg-slate-100  ">
+                    <thead className="text-xs text-center text-gray-700 bg-gray-200  ">
                       <tr>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Product Name
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Category
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Description
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Stock
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Total Sold
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Price
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Date Added
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-2 md:px-6 py-3">
                           Action
                         </th>
                       </tr>
