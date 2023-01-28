@@ -12,7 +12,7 @@ import Libraryy from "./pages/Libraryy";
 import Bils from "./pages/Bils";
 import Setting from "./pages/Setting";
 
-function App() {
+function App({iconList}) {
   return (
     <React.Fragment>
       <Routes>
@@ -48,7 +48,7 @@ function App() {
         />
          <Route
           path="Setting"
-          element={<Setting />}
+          element={<Setting iconList={iconList}/>}
         />
         </Route>
         <Route path="/*" element={<NotFound/>} />

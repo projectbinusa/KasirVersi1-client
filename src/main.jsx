@@ -10,8 +10,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
 const iconList = Object.keys(Icons)
-  .filter((key) => key !== "fas" && key !== "prefix")
-  .map((icon) => Icons[icon]);
+  .filter((key) => key !== "far" && key !== "prefix").map((icon) => Icons[icon]);
 
 library.add(...iconList);
 
@@ -20,7 +19,7 @@ AOS.init();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App iconList={iconList}/>
     </BrowserRouter>
   </React.StrictMode>,
 )

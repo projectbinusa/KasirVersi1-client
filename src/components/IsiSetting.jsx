@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { API_AUTH, API_TOKO } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
-function IsiSetting() {
+function IsiSetting({iconList}) {
   const [show, setShow] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [tokoId, setTokoId] = useState(0);
@@ -14,6 +14,8 @@ function IsiSetting() {
 
   const [dataMenu, setDataMenu] = useState([]);
   const [totalPesanan, setTotalPesanan] = useState(0);
+
+  // const [icons, setIcon] = useState([]);
 
   const result = dataMenu.map((x) => x.jumlahTerjual);
 
@@ -98,11 +100,30 @@ function IsiSetting() {
     getToko();
     getAllDataProduct("all", setDataMenu);
     getUserId();
+    // getIcon();
   }, []);
+
+  // console.log(iconList);
+
 
   return (
     <div className="m-5">
       {/* <h1 className="font-bold text-4xl">Setting App</h1> */}
+      <select
+        id="category"
+        name="category"
+        autoComplete="category-name"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+      >
+        <option>Select Category</option>
+        {iconList.map((icon, i) => (
+          <option key={i} value={icon}>
+             <FontAwesomeIcon icon={icon}>
+              {icon}
+             </FontAwesomeIcon>
+          </option>
+        ))}
+      </select>
       <div>
         {name === undefined ? (
           <>
@@ -137,153 +158,121 @@ function IsiSetting() {
           </>
         ) : (
           <>
-            {/* <div className="py-10">
-              <div className="relative block bg-slate-100 justify-center overflow-hidden rounded-lg border border-gray-100 p-8">
-                <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-red-300 via-pink-500 to-red-300"></span>
-                <div>
-                  <div className="justify-center pb-5 sm:flex">
-                    <h3 className="text-center text-gray-900">
-                      <div className="text-2xl font-bold">Name Shop</div>
-                      <div className="text-xl">{name}</div>
-                      <hr />
-                    </h3>
-                  </div>
-                  <div className="justify-center pb-5 sm:flex">
-                    <h3 className="text-center text-gray-900">
-                      <div className="text-2xl font-bold">Number Phone</div>
-                      <div className="text-xl">{phoneNumber}</div>
-                      <hr />
-                    </h3>
-                  </div>
-                  <div className="justify-center pb-5 sm:flex">
-                    <h3 className="text-center text-gray-900">
-                      <div className="text-2xl font-bold">Addres</div>
-                      <div className="text-xl">{address}</div>
-                      <hr />
-                    </h3>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => setShow(true)}
-                    className="w-48 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-lg py-2.5 text-center "
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>
-            </div> */}
             <main className="profile-page">
-        <section className="relative block" style={{ height: "500px" }}>
-          <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')"
-            }}
-          >
-            <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-50 bg-black"
-            ></span>
-          </div>
-          <div
-            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-            style={{ height: "70px" }}
-          >
-            <svg
-              className="absolute bottom-0 overflow-hidden"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon
-                className="text-gray-300 fill-current"
-                points="2560 0 2560 100 0 100"
-              ></polygon>
-            </svg>
-          </div>
-        </section>
-        <section className="relative py-16 bg-gray-300">
-          <div className="container mx-auto px-4">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-              <div className="px-6">
-                <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div className="relative">
-                      <img
-                        alt="..."
-                        src="https://t3.ftcdn.net/jpg/02/40/93/66/360_F_240936643_lbL2jWTNXDuL3qB3IP6DdrrxAErjgn4I.jpg"
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                        style={{ maxWidth: "150px" }}
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                    <div className="py-6 px-3 mt-32 sm:mt-0">
-                      <button
-                        className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                        type="button"
-                        style={{ transition: "all .15s ease" }}
-                        onClick={() => setShow(true)}
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          {sum}
-                        </span>
-                        <span className="text-sm text-gray-500">Total Products Sold</span>
+              <section className="relative block" style={{ height: "500px" }}>
+                <div
+                  className="absolute top-0 w-full h-full bg-center bg-cover"
+                  style={{
+                    backgroundImage:
+                      "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+                  }}
+                >
+                  <span
+                    id="blackOverlay"
+                    className="w-full h-full absolute opacity-50 bg-black"
+                  ></span>
+                </div>
+                <div
+                  className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+                  style={{ height: "70px" }}
+                >
+                  <svg
+                    className="absolute bottom-0 overflow-hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                    version="1.1"
+                    viewBox="0 0 2560 100"
+                    x="0"
+                    y="0"
+                  >
+                    <polygon
+                      className="text-gray-300 fill-current"
+                      points="2560 0 2560 100 0 100"
+                    ></polygon>
+                  </svg>
+                </div>
+              </section>
+              <section className="relative py-16 bg-gray-300">
+                <div className="container mx-auto px-4">
+                  <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+                    <div className="px-6">
+                      <div className="flex flex-wrap justify-center">
+                        <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                          <div className="relative">
+                            <img
+                              alt="..."
+                              src="https://t3.ftcdn.net/jpg/02/40/93/66/360_F_240936643_lbL2jWTNXDuL3qB3IP6DdrrxAErjgn4I.jpg"
+                              className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
+                              style={{ maxWidth: "150px" }}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+                          <div className="py-6 px-3 mt-32 sm:mt-0">
+                            <button
+                              className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                              type="button"
+                              style={{ transition: "all .15s ease" }}
+                              onClick={() => setShow(true)}
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </div>
+                        <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                          <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                            <div className="mr-4 p-3 text-center">
+                              <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
+                                {sum}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                Total Products Sold
+                              </span>
+                            </div>
+                            <div className="mr-4 p-3 text-center">
+                              <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
+                                {totalPesanan}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                Order Totals
+                              </span>
+                            </div>
+                            <div className="lg:mr-4 p-3 text-center">
+                              <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
+                                {dataMenu.length}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                Total Products
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          {totalPesanan}
-                        </span>
-                        <span className="text-sm text-gray-500">Order Totals</span>
+                      <div className="text-center mt-12">
+                        <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800">
+                          {name}
+                        </h3>
+                        <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
+                          {address}
+                        </div>
+                        <div className="mb-2 text-gray-700 mt-10">
+                          {phoneNumber}
+                        </div>
                       </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                        {dataMenu.length}
-                        </span>
-                        <span className="text-sm text-gray-500">Total Products</span>
+                      <div className="mt-10 py-10 border-t border-gray-300 text-center">
+                        <div className="flex flex-wrap justify-center">
+                          <div className="w-full lg:w-9/12 px-4">
+                            <p className="mb-4 text-lg leading-relaxed text-gray-800 bg-gray-200 rounded-md p-2  shadow-md">
+                              Hello World
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800">
-                  {name}
-                  </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <FontAwesomeIcon icon="fas fa-map-marker-alt" className="mr-2 text-lg text-gray-500"/>{" "}
-                    {address}
-                  </div>
-                  <div className="mb-2 text-gray-700 mt-10">
-                    <FontAwesomeIcon icon="fas fa-phone" className="mr-2 text-lg text-gray-500"/  >
-                    {phoneNumber}
-                  </div>
-                </div>
-                <div className="mt-10 py-10 border-t border-gray-300 text-center">
-                  <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-gray-800 bg-gray-200 rounded-md p-2  shadow-md">
-                        Hello World
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+              </section>
+            </main>
           </>
         )}
       </div>

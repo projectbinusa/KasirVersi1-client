@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Cart from "../components/Cart";
 import Menu from "../components/Menu";
 import {
-  getAllData,
   getAllDataCart,
   getAllDataProduct,
   getAllDataCategory,

@@ -22,8 +22,10 @@ function Cart({ dataCart, setDataCart }) {
 
   const reportTemplateRef = useRef(null);
 
-  const titik = new Intl.NumberFormat("id-ID", {style:"currency", currency:"IDR"});
-
+  const titik = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
 
   const pay = () => {
     setCash();
@@ -279,7 +281,7 @@ function Cart({ dataCart, setDataCart }) {
                     </div>
                   </div>
                   <div className="text-end text-gray-500 font-semibold col-span-2">
-                     {titik.format(carts.product.price * carts.quantity)}
+                    {titik.format(carts.product.price * carts.quantity)}
                   </div>
                   <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
                     <FontAwesomeIcon
@@ -294,7 +296,10 @@ function Cart({ dataCart, setDataCart }) {
             <hr className="mx-6" />
             <div className="flex justify-between items-center mx-6 my-4">
               <div className="text-gray-400 font-semibold">Sub Total</div>
-              <div className="font-bold"> {titik.format(dataCart.totalPrice)}</div>
+              <div className="font-bold">
+                {" "}
+                {titik.format(dataCart.totalPrice)}
+              </div>
             </div>
           </div>
           <div className="flex items-end mx-6">
@@ -360,14 +365,17 @@ function Cart({ dataCart, setDataCart }) {
                             x{carts.quantity}
                           </span>
                         </div>
-                        <div> {titik.format(carts.product.price * carts.quantity)}</div>
+                        <div>
+                          {" "}
+                          {titik.format(carts.product.price * carts.quantity)}
+                        </div>
                       </div>
                     ))}
                   </div>
                   <div className="flex border-t border-black justify-between text-xl py-2">
                     <div className="text-xl py-5 ">Total Pay</div>
                     <div className="text-xl py-5 ">
-                       {titik.format(dataCart.totalPrice)}
+                      {titik.format(dataCart.totalPrice)}
                     </div>
                   </div>
                   <form onSubmit={pay}>
@@ -381,7 +389,7 @@ function Cart({ dataCart, setDataCart }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      Customer Money
+                        Customer Money
                       </label>
                     </div>
                     <div className="flex justify-between space-x-2 rounded-b">
@@ -444,78 +452,101 @@ function Cart({ dataCart, setDataCart }) {
                     {name}
                   </h3>
                   <h3 className="text-md text-center text-gray-900 ">
+                    Telp (024) 3561560
+                  </h3>
+                  <h3 className="text-md text-center text-gray-900 ">
+                    HP / WA : {phoneNumber}
+                  </h3>
+                  <h3 className="text-md text-center text-gray-900 ">
                     {address}
                   </h3>
+                  <h3 className="text-md text-center text-gray-900 ">
+                    NPWP: 03.220.355.6-508.000
+                  </h3>
+                  <h3 className="text-md text-center text-gray-900 ">
+                    BARANG KENA PAJAK SUDAH TERMASUK PPM
+                  </h3>
+                  <h3 className="text-md text-center text-gray-900 ">
+                    12006.58552/ADE/Tunai/UMUM/ASLI
+                  </h3>
                 </div>
-                <div className="px-4">
-                  <hr className="border border-black border-dashed" />
-                  <div className="grid mx-2 my-2 grid-cols-2">
-                    <div className="flex items-center justify-start gap-2">
-                      <span>Order Time :</span>
-                      <span className="">
-                      {moment().format('LT')}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-end">
-                      <span>Date Time :</span>
-                      <span className="">
-                      {moment().format('L')}
-                      </span>
-                    </div>
-                  </div>
-                  <hr className="border border-black border-dashed" />
-                </div>
-                <div className="space-y-6">
+                <div className="">
+                  <hr className="border border-black border-dashed mx-4" />
+                  {/* <div className="grid mx-2 my-2 grid-cols-2"> */}
                   <table className="text-sm text-left">
                     <tbody>
                       {dataCart.cartItem.map((carts) => (
                         <tr key={carts.id} className="bg-white">
+                          <td className="px-6 py-4">x{carts.quantity}</td>
                           <th
                             scope="row"
-                            className="px-6 py-4 font-medium text-black"
+                            className="font-medium text-black"
                           >
                             {carts.product.name}
                           </th>
-                          <td className="px-6 py-4">x{carts.quantity}</td>
-                          <td className="px-6 py-4">
-                             {titik.format(carts.product.price)}
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                             {titik.format(carts.product.price * carts.quantity)}
-                          </td>
+                          <div className="">
+                            <td className="px-6 py-4">
+                              {titik.format(carts.product.price)}
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                              {titik.format(
+                                carts.product.price * carts.quantity
+                              )}
+                            </td>
+                          </div>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                  {/* </div> */}
+                </div>
+                <div className="">
+                  {/* <hr className="border border-black border-dashed w-56 left mx-2 right-0 " /> */}
                   <div className="flex justify-end mr-4">
-                    <div className="py-2 w-[210px] border-b border-black">
+                    <div className="py-2 w-[210px] border-t border-black border-dashed">
                       <div className="pr-3 flex justify-end">
                         <div className="w-[200px] flex justify-between">
-                          <div>Total :</div>
+                          <div>Total</div>
+                          <div>:</div>
                           <div> {titik.format(dataCart.totalPrice)}</div>
                         </div>
                       </div>
                       <div className="pr-3 my-4 flex justify-end">
                         <div className="w-[200px] flex justify-between">
-                          <div>Cash :</div>
+                          <div>Cash</div>
+                          <div>:</div>
                           <div> {titik.format(cash)}</div>
+                        </div>
+                      </div>
+                      <div className="pr-3 mt-4 flex justify-end">
+                        <div className="w-[200px] flex justify-between">
+                          <div>Change</div>
+                          <div>:</div>
+                          <div> {titik.format(cash - dataCart.totalPrice)}</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="pr-6 pb-4 flex justify-end">
-                    <div className="w-[200px] flex justify-between">
-                      <div>Change :</div>
-                      <div> {titik.format(cash - dataCart.totalPrice)}</div>
-                    </div>
-                  </div>
+                  <div className="flex justify-end"></div>
                 </div>
-                <hr className="mx-4 border border-black border-dashed" />
+                <hr className="mx-4 " />
                 <div className="font-bold text-center pt-2">
                   THANK YOU. HAPPY SHOPPING
                 </div>
                 <div className="font-bold text-center pb-2">
                   ==== ABANG TUKANG BAKSO ====
+                </div>
+                <div className="text-center">
+                  {phoneNumber} / {phoneNumber}
+                </div>
+                <div className="text-center">
+                  Email: abangbakso@gmail.com
+                </div>
+                <div className="text-center">
+                  Buy Your Bakso Online
+                </div>
+                <div className="text-center">
+                  -------- {moment().format("L")}, {moment().format("LT")} --------
                 </div>
               </div>
               <div className="border-b border-dashed"></div>
