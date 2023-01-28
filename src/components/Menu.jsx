@@ -39,7 +39,7 @@ function Menu({
       <div id="header-page">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <div className="header-text">
-            <h1 className="font-bold text-4xl">
+            <h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
               Order <span className="font-thin text-gray-500">Menu</span>
             </h1>
           </div>
@@ -50,7 +50,7 @@ function Menu({
       </div>
       <div
         id="category"
-        className="flex flex-wrap text-center space-x-3 justify-center mx-auto"
+        className="flex text-center space-x-3 justify-center mx-auto"
       >
         {dataCategory.map((data, index) => {
           return (
@@ -61,14 +61,14 @@ function Menu({
               <div
                 className={
                   selectedCategory === `${data.name}`
-                    ? "rounded-2xl py-3 px-3 w-56 fill-blue-500 bg-[#ffe54f] "
-                    : "rounded-2xl py-3 px-3 w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
+                    ? "rounded-2xl py-3 px-3 w-24 sm:w-36 md:w-56 fill-blue-500 bg-[#ffe54f] "
+                    : "rounded-2xl py-3 px-3 w-24 sm:w-44 md:w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
                 }
                 key={`tab-${index}`}
                 onClick={() => changeCategory(data.name)}
               >
                 <div className="bg-white p-3 rounded-2xl border">
-                  <FontAwesomeIcon icon={data.icon} className="w-8 h-8 " />
+                  <FontAwesomeIcon icon={data.icon} className="w-3 sm:w-5 md:w-8 h-3 sm:h-5 md:h-8 " />
                 </div>
                 <div className="mt-5 text-xs">{data.name}</div>
               </div>
@@ -79,7 +79,7 @@ function Menu({
       <div id="header-menu">
         <div className="container flex flex-wrap items-center justify-between mt-5">
           <div className="header-text">
-            <h1 className="font-bold text-4xl">
+            <h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
               Order <span className="font-thin text-gray-500">Menu</span>
             </h1>
           </div>
@@ -104,7 +104,7 @@ function Menu({
       <div id="menu">
         {selectedOption === "Popular" ? (
           <div
-            className="grid grid-cols-3 gap-4 mx-auto justify-center text-center"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "Popular"}
           >
             {productPopular.map((data, index) => (
@@ -114,7 +114,7 @@ function Menu({
             ))}
           </div>
         ) : selectedOption === "Time Added" ? (
-          <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
             {productTimeAdded.map((data, index) => (
               <section hidden={selectedCategory !== data.category.name}  key={index}>
                 <Card data={data} setDataCart={setDataCart} />
@@ -122,12 +122,12 @@ function Menu({
             ))}
           </div>
         ) : selectedOption === "Alphabet" ? (
-          <div className="grid grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Alphabet"}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Alphabet"}>
             <h1>Alphabet</h1>
           </div>
         ) : (
           <div
-            className="grid grid-cols-3 gap-4 mx-auto justify-center text-center"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "All Product"}
           >
             {dataMenu.map((data, index) => (

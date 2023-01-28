@@ -61,11 +61,11 @@ function Card({ data, setDataCart }) {
     <div id="card">
       <div
         onClick={() => addToCart(data.id)}
-        className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer"
+        className="max-w-sm max-h-sm rounded overflow-hidden shadow-lg cursor-pointer"
       >
         <div id="card-image">
           <img
-            className="w-40 h-40 mb-3 rounded-full shadow-lg mx-auto"
+            className="w-16 sm:w-24 lg:w-40 md:w-40 h-16 sm:h-24 lg:h-40 md:h-40 mb-3 rounded-full shadow-lg mx-auto"
             src={data.image}
             alt={data.image}
           />

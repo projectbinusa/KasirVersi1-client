@@ -301,7 +301,7 @@ function Cart({ dataCart, setDataCart }) {
             {dataCart.quantity === 0 ? (
               <button
                 disabled
-                className="h-[60px] w-full cursor-not-allowed rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
+                className="h-[h-35] sm:h-[h-40] md:h-[60px] w-full cursor-not-allowed rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
               >
                 ORDER NOW
               </button>
