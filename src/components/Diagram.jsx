@@ -49,9 +49,9 @@ function Chart({ dataMenus, dataHistory, sum }) {
     valuesHari.push(dataHistory.filter((x) => x.createdDay === i).length);
     hari.push(i);
   }
+
   const bulan = [];
   const valuesBulan = [];
-
   for (let i = now.getMonth(); i <= now.getMonth(); i++) {
     valuesBulan.push(dataHistory.filter((x) => x.createdMonth === i).length);
     console.log(valuesBulan);
@@ -81,7 +81,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
           "#1746A2"
         ],
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
@@ -92,14 +92,22 @@ function Chart({ dataMenus, dataHistory, sum }) {
       {
         data: valuesBulan,
         backgroundColor: [
-          "#1746A2",
+          "#CF0A0A",
           "#E8F9FD",
           "#59CE8F",
           "#000000",
           "#C70A80",
+          "#D8D9CF",
+          "#EF5B0C",
+          "#F1DDBF",
+          "#A1B57D",
+          "#7900FF",
+          "#B000B9",
+          "#3A6351",
+
         ],
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
@@ -117,7 +125,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
           "#2a71d0",
         ],
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
@@ -163,7 +171,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
           <div>
             <Totalterjual chartData={dataJumlahTerjual} itemTerjual={itemTerjual} />
           </div>
-          <div className='py-3 grid grid-cols-1 gap-2 md:grid-cols-3'>
+          <div className='py-3 grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-3'>
             <div>
               <Perhari chartData={perHari} />
             </div>

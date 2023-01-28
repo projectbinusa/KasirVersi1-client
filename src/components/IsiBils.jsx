@@ -22,11 +22,11 @@ function IsiBils({ bils }) {
   };
   return (
     <div className="m-5">
-      <h1 className="font-bold text-4xl">Purchase History</h1>
-      <div className=' p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none"'>
+      <h1 className="font-bold text-xl text-center sm:text-center sm:text-2xl md:text-left md:text-4xl">Purchase History</h1>
+      <div className='md:p-5 bg-gray-50 col-span-9 h-auto overflow-y-auto scroll-none"'>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
+            <thead className="text-xs text-center text-gray-700 uppercase bg-gray-200 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Product Name
@@ -52,7 +52,7 @@ function IsiBils({ bils }) {
             />
           </table>
         </div>
-        <div className="py-4">
+        <div className="py-6">
           <Pagination
             nPages={nPages}
             currentPage={currentPage}
