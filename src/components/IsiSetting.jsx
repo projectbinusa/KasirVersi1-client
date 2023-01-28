@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { API_AUTH, API_TOKO } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
-function IsiSetting({iconList}) {
+function IsiSetting() {
   const [show, setShow] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [tokoId, setTokoId] = useState(0);
@@ -14,8 +14,6 @@ function IsiSetting({iconList}) {
 
   const [dataMenu, setDataMenu] = useState([]);
   const [totalPesanan, setTotalPesanan] = useState(0);
-
-  // const [icons, setIcon] = useState([]);
 
   const result = dataMenu.map((x) => x.jumlahTerjual);
 
@@ -103,27 +101,9 @@ function IsiSetting({iconList}) {
     // getIcon();
   }, []);
 
-  // console.log(iconList);
-
-
   return (
     <div className="m-5">
       {/* <h1 className="font-bold text-4xl">Setting App</h1> */}
-      <select
-        id="category"
-        name="category"
-        autoComplete="category-name"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-      >
-        <option>Select Category</option>
-        {iconList.map((icon, i) => (
-          <option key={i} value={icon}>
-             <FontAwesomeIcon icon={icon}>
-              {icon}
-             </FontAwesomeIcon>
-          </option>
-        ))}
-      </select>
       <div>
         {name === undefined ? (
           <>

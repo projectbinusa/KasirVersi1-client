@@ -7,7 +7,7 @@ import {
 
 
 
-function Libraryy() {
+function Libraryy({iconList}) {
     const [dataMenu, setDataMenu] = useState([]);
     const [dataCategory, setDataCategory] = useState([]);
 
@@ -22,7 +22,7 @@ function Libraryy() {
         className="bg-gray-50 p-2 h-screen overflow-y-auto scroll-none"
       >
         <div className="">
-          <Library dataCategory={dataCategory} dataMenu={dataMenu} setDataMenu={setDataMenu} setDataCategory={setDataCategory} />
+          <Library dataCategory={dataCategory} dataMenu={dataMenu} setDataMenu={setDataMenu} setDataCategory={setDataCategory} iconList={iconList}/>
         </div>
       </div>
     </div>

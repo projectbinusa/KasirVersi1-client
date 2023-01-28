@@ -7,35 +7,19 @@ import moment from "moment";
 import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
+import Select, { components } from "react-select";
 
-function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
+function Library({
+  dataCategory,
+  dataMenu,
+  setDataMenu,
+  setDataCategory,
+  iconList,
+}) {
   const titik = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
   });
-
-  const icons = [
-    {
-      id: 1,
-      name: "fa-bowl-food",
-    },
-    {
-      id: 2,
-      name: "fa-glass-water",
-    },
-    {
-      id: 3,
-      name: "fa-ellipsis",
-    },
-    {
-      id: 4,
-      name: "fa-gear",
-    },
-    {
-      id: 5,
-      name: "fa-store",
-    },
-  ]
 
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
@@ -43,7 +27,7 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const [showModals, setShowModals] = useState(false);
 
   const [nameCategory, setNameCategory] = useState("");
-  const [icon, setIcon] = useState("");
+  const [icon, setIcon] = useState([]);
 
   const [productId, setProductId] = useState(0);
   const [image, setImage] = useState(null);
@@ -59,7 +43,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = dataMenu.slice(indexOfFirstRecord, indexOfLastRecord);
-  const currentCategory = dataCategory.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentCategory = dataCategory.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
   const nPages = Math.ceil(dataMenu.length / recordsPerPage);
 
   const addCategory = async (e) => {
@@ -90,20 +77,22 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }).then((res) => {
+      })
+      .then((res) => {
         setNameCategory(res.data.nameCategory);
         setIcon(res.data.icon);
-        setCategoryId(id)
-      }).catch((err) => {
-        console.log(err);
+        setCategoryId(id);
       })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const updateCategory = async (e) => {
     e.preventDefault();
     const reqs = {
       name: nameCategory,
-      icon: icon
+      icon: icon,
     };
 
     await axios
@@ -111,12 +100,14 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }).then(() => {
+      })
+      .then(() => {
         getAllDataCategory("all", setDataCategory);
         setShowModals(false);
-      }).catch((err) => {
-        console.log(err);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // const deleteCategory = async (item) => {
@@ -226,10 +217,31 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
     getAllDataCategory("all", setDataCategory);
   }, []);
 
+  const Placeholder = (props) => {
+    return <components.Placeholder {...props} />;
+  };
+
+  const CaretDownIcon = () => {
+    return <FontAwesomeIcon icon="fa-caret-down" />;
+  };
+
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <CaretDownIcon />
+      </components.DropdownIndicator>
+    );
+  };
   return (
     <div>
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
-        <h1 className="font-bold text-2xl text-center md:text-left md:text-4xl">Library</h1>
+        {/* <Select
+          components={{ Placeholder, DropdownIndicator }}
+          options={iconList}
+        /> */}
+        <h1 className="font-bold text-2xl text-center md:text-left md:text-4xl">
+          Library
+        </h1>
         <div className="my-5">
           <div className="flex justify-between py-5">
             <p className="grid grid-cols-1 content-center text-sm md:text-xl text-slate-700 uppercase">
@@ -239,7 +251,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
               onClick={() => setShowModal(true)}
               className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
             >
-              <FontAwesomeIcon icon="fa-plus" className="w-5 md:w-7 h-5 md:h-7" />
+              <FontAwesomeIcon
+                icon="fa-plus"
+                className="w-5 md:w-7 h-5 md:h-7"
+              />
             </button>
           </div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -279,7 +294,10 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                 onClick={() => setModal(true)}
                 className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
               >
-                <FontAwesomeIcon icon="fa-plus" className="w-5 md:w-7 h-5 md:h-7" />
+                <FontAwesomeIcon
+                  icon="fa-plus"
+                  className="w-5 md:w-7 h-5 md:h-7"
+                />
               </button>
             </div>
             <div className="mx-auto justify-center text-center">
@@ -465,12 +483,13 @@ function Library({ dataCategory, dataMenu, setDataMenu, setDataCategory }) {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                       >
                         <option>Select Category</option>
-                        {icons.map((data) => (
-                          <option key={data.id} value={data.name}>
-                            <div >
-                            <FontAwesomeIcon icon={data.name} className="w-4 h-4 text-gray-500"
-                        />
-                        </div>
+                        {iconList.map((icons, i) => (
+                          <option key={i} value={icons.iconName}>
+                            <p>fa-{icons.iconName}</p>
+                              <FontAwesomeIcon
+                              icon={icons.iconName}
+                              className="w-4 h-4 text-gray-500"
+                            />
                           </option>
                         ))}
                       </select>

@@ -40,7 +40,7 @@ function App({iconList}) {
         />
          <Route
           path="Library"
-          element={<Libraryy />}
+          element={<Libraryy iconList={iconList}/>}
         />
          <Route
           path="Bills"
@@ -48,7 +48,7 @@ function App({iconList}) {
         />
          <Route
           path="Setting"
-          element={<Setting iconList={iconList}/>}
+          element={<Setting />}
         />
         </Route>
         <Route path="/*" element={<NotFound/>} />

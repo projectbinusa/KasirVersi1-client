@@ -1,6 +1,6 @@
 .text-vertical {
   writing-mode: vertical-rl;
-text-orientation: mixed;
+  text-orientation: mixed;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -34,3 +34,10 @@ text-orientation: mixed;
   transform: translate(-50%, -50%);
   position: absolute;
 }
+
+.star:before {
+	font-family: 'Font Awesome 5 Free';
+	content: "\f005";
+  font-weight: 900; 
+}
+
