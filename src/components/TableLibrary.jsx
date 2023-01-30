@@ -34,9 +34,9 @@ function TableLibrary({dataMenu, dateEvent, setShow, getProductId, deleteProduct
                 Edit
               </button>
               </div>
-              <div className="p-1">
+              <div className="p-1 hidden">
               <button
-                onClick={() => deleteProduct(item)}
+                onClick={() => deleteProduct(item.id)}
                 type="button"
                 className="w-16 md:w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs md:text-sm py-2 text-center"
               >

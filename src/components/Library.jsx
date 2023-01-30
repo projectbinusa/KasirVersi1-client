@@ -7,7 +7,7 @@ import moment from "moment";
 import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
-import Select, { components } from "react-select";
+// import Select, { components } from "react-select";
 
 function Library({
   dataCategory,

@@ -50,19 +50,19 @@ function Menu({
       </div>
       <div
         id="category"
-        className="flex text-center space-x-3 justify-center mx-auto"
+        className="flex text-center space-x-3 mx-auto overflow-x-auto"
       >
         {dataCategory.map((data, index) => {
           return (
             <div
-              className="rounded-2xl hover:shadow-lg hover:shadow-red-300"
+              className="rounded-2xl mb-5 hover:shadow-lg hover:shadow-red-300"
               key={index}
             >
               <div
                 className={
                   selectedCategory === `${data.name}`
-                    ? "rounded-2xl py-3 px-3 w-24 sm:w-36 md:w-56 fill-blue-500 bg-[#ffe54f] "
-                    : "rounded-2xl py-3 px-3 w-24 sm:w-44 md:w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
+                    ? "rounded-2xl  py-3 px-3 w-24 sm:w-36 md:w-56 fill-blue-500 bg-[#ffe54f] "
+                    : "rounded-2xl py-3 px-3 w-24 sm:w-36 md:w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
                 }
                 key={`tab-${index}`}
                 onClick={() => changeCategory(data.name)}

@@ -50,7 +50,7 @@ function TableCategory({ dataCategory, getCategoryId, setShowModals, setDataCate
                   Edit
                 </button>
               </div>
-              <div className="p-2">
+              <div className="p-2 hidden">
                 <button
                   onClick={() => deleteCategory(item.id)}
                   type="button"
