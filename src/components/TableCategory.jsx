@@ -10,6 +10,8 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
   const [icon, setIcon] = useState([]);
   const [nameCategory, setNameCategory] = useState("");
   const [categoryId, setCategoryId] = useState(0);
+  const [iconId, setIconId] = useState(0);
+
 
   const getCategoryId = async (id) => {
     await axios
@@ -22,6 +24,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
         setNameCategory(res.data.nameCategory);
         setIcon(res.data.icon);
         setCategoryId(id);
+        setIconId(id);
       })
       .catch((err) => {
         console.log(err);
@@ -146,6 +149,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
                         id="category"
                         name="category"
                         autoComplete="category-name"
+                        defaultValue={iconId}
                         onChange={(e) => setIcon(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                       >
