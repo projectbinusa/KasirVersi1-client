@@ -32,7 +32,7 @@ function App({iconList}) {
         >          
         <Route
           path="Home"
-          element={<Hero />}
+          element={<Hero iconList={iconList}/>}
         />
         <Route
           path="Dashboard"

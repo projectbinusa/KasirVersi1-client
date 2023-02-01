@@ -153,7 +153,7 @@ const AutoComplete = ({ setDataCart }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         className="p-2 w-96 rounded-xl border"
-        placeholder="🔍 Search for food, coffe, etc..."
+        placeholder="🔍 Cari untuk makanan, dll"
       />
       {suggestionsActive && <Suggestions />}
     </div>

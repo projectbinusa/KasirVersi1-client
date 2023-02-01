@@ -11,27 +11,23 @@ function Menu({
   productTimeAdded,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("Food");
-  const [selectedOption, setSelectedOption] = useState("All Product");
+  const [selectedOption, setSelectedOption] = useState("Semua");
 
   const changeCategory = (category) => setSelectedCategory(category);
 
   const options = [
     {
       id: 0,
-      title: "All Product",
+      title: "Semua",
     },
     {
       id: 1,
-      title: "Popular",
+      title: "Populer",
     },
     {
       id: 2,
-      title: "Time Added",
-    },
-    {
-      id: 4,
-      title: "Alphabet",
-    },
+      title: "Terbaru",
+    }
   ];
 
   return (
@@ -40,7 +36,7 @@ function Menu({
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <div className="header-text">
             <h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
-              Order <span className="font-thin text-gray-500">Menu</span>
+              Aplikasi <span className="font-thin text-gray-500">Kasir </span>
             </h1>
           </div>
           <div className="header-search">
@@ -80,12 +76,12 @@ function Menu({
         <div className="container flex flex-wrap items-center justify-between mt-5">
           <div className="header-text">
             <h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
-              Order <span className="font-thin text-gray-500">Menu</span>
+              Menu <span className="font-thin text-gray-500">Pesanan</span>
             </h1>
           </div>
           <div className="header-search">
             <label htmlFor="language" className="font-thin text-gray-500 mr-2">
-              Sort by
+              Sortir dengan
             </label>
             <select
               className="font-bold border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
@@ -102,7 +98,7 @@ function Menu({
         </div>
       </div>
       <div id="menu">
-        {selectedOption === "Popular" ? (
+        {selectedOption === "Populer" ? (
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "Popular"}
@@ -113,7 +109,7 @@ function Menu({
               </section>
             ))}
           </div>
-        ) : selectedOption === "Time Added" ? (
+        ) : selectedOption === "Terbaru" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
             {productTimeAdded.map((data, index) => (
               <section hidden={selectedCategory !== data.category.name}  key={index}>
@@ -121,14 +117,10 @@ function Menu({
               </section>
             ))}
           </div>
-        ) : selectedOption === "Alphabet" ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Alphabet"}>
-            <h1>Alphabet</h1>
-          </div>
         ) : (
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
-            hidden={selectedOption !== "All Product"}
+            hidden={selectedOption !== "Semua"}
           >
             {dataMenu.map((data, index) => (
               <section

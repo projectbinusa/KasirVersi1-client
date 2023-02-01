@@ -7,6 +7,7 @@ import moment from "moment";
 import Pagination from "./Padination";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
+import ReactSelect from "react-select";
 // import Select, { components } from "react-select";
 
 function Library({
@@ -267,7 +268,7 @@ function Library({
                 <div className="p-6 space-y-6">
                   <form onSubmit={addCategory}>
                     <div className="relative z-0 w-full mb-6 group">
-                      <select
+                      {/* <select
                         id="category"
                         name="category"
                         autoComplete="category-name"
@@ -284,7 +285,21 @@ function Library({
                             />
                           </option>
                         ))}
-                      </select>
+                      </select> */}
+                      <ReactSelect
+                        onChange={(e) => setIcon(e.target.value)}
+                        value={iconList.iconName}
+                        options={iconList}
+                        isSearchable
+                        formatOptionLabel={icons => (
+                          <div className="country-option flex">
+                            <span> 
+                            {icons.iconName}
+                            <FontAwesomeIcon icon={icons.iconName} className="w-4 h-4 text-gray-500" />
+                            </span>
+                          </div>
+                        )} 
+                      />
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                       <input

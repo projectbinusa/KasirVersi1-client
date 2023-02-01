@@ -6,11 +6,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../assets/Cart.css";
-import { API_CART, API_HISTORY, API_TOKO } from "../utils/baseURL";
+import { API_CART, API_TOKO } from "../utils/baseURL";
 import axios from "axios";
 import { getAllDataCart } from "../utils/controller";
-import jsPDF from "jspdf";
-import moment from "moment";
+import Receipt from "./Receipt";
 
 function Cart({ dataCart, setDataCart }) {
   const [show, setShow] = useState(false);
@@ -19,8 +18,6 @@ function Cart({ dataCart, setDataCart }) {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-
-  const reportTemplateRef = useRef(null);
 
   const titik = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -174,56 +171,6 @@ function Cart({ dataCart, setDataCart }) {
       });
   };
 
-  const checkout = async (e) => {
-    e.preventDefault();
-    const req = dataCart.cartItem.map((carts) => ({
-      product: {
-        id: carts.product.id,
-      },
-      user: {
-        id: localStorage.getItem("id"),
-      },
-      totalPrice: carts.product.price * carts.quantity,
-      totalProduct: carts.quantity,
-    }));
-    const doc = new jsPDF({
-      format: "a4",
-      unit: "px",
-    });
-    // Adding the fonts.
-    doc.setFont("Inter-Regular", "normal");
-
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        await doc.save("struk");
-      },
-    });
-    await axios
-      .post(`${API_HISTORY}/add`, req, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        axios
-          .delete(`${API_CART}/delete`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then(() => {
-            getAllDataCart("list", setDataCart);
-            setModal(false);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     getToko();
   }, []);
@@ -233,7 +180,7 @@ function Cart({ dataCart, setDataCart }) {
         <div className="container mx-auto h-screen grid grid-cols-1 justify-between p-4">
           <div>
             <h1 className="font-bold text-3xl">
-              Order <span className="font-thin text-gray-500">Menu</span>
+              Keranjang <span className="font-thin text-gray-500">Pesanan</span>
             </h1>
             <div className="grid grid-cols-1 my-6 gap-4 cut">
               {dataCart.cartItem.map((carts) => (
@@ -308,14 +255,14 @@ function Cart({ dataCart, setDataCart }) {
                 disabled
                 className="h-[h-35] sm:h-[h-40] md:h-[60px] w-full cursor-not-allowed rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
               >
-                ORDER NOW
+                Checkout
               </button>
             ) : (
               <button
                 onClick={() => setShow(true)}
                 className="h-[60px] w-full rounded-2xl font-bold bg-[#FF2A77] text-white shadow-lg shadow-red-300"
               >
-                ORDER NOW
+                Checkout
               </button>
             )}
           </div>
@@ -328,7 +275,7 @@ function Cart({ dataCart, setDataCart }) {
             <div className="relative w-full h-full max-w-2xl md:h-auto">
               <div className="relative bg-gray-50 rounded-lg shadow ">
                 <div className="flex items-start justify-between p-4 border-b rounded-t ">
-                  <h3 className="text-xl font-semibold text-gray-900 ">Bill</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 ">Tagihan</h3>
                   <button
                     onClick={() => setShow(false)}
                     type="button"
@@ -353,7 +300,7 @@ function Cart({ dataCart, setDataCart }) {
                 </div>
                 <div className="p-6 space-y-6">
                   <div className="text-xl py-5 ">
-                    Order List
+                    Daftar Pesanan
                     {dataCart.cartItem.map((carts) => (
                       <div
                         key={carts.id}
@@ -373,7 +320,7 @@ function Cart({ dataCart, setDataCart }) {
                     ))}
                   </div>
                   <div className="flex border-t border-black justify-between text-xl py-2">
-                    <div className="text-xl py-5 ">Total Pay</div>
+                    <div className="text-xl py-5 ">Total Pembayaran</div>
                     <div className="text-xl py-5 ">
                       {titik.format(dataCart.totalPrice)}
                     </div>
@@ -389,7 +336,7 @@ function Cart({ dataCart, setDataCart }) {
                         required
                       />
                       <label className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Customer Money
+                        Uang Pelanggan
                       </label>
                     </div>
                     <div className="flex justify-between space-x-2 rounded-b">
@@ -399,7 +346,7 @@ function Cart({ dataCart, setDataCart }) {
                         type="button"
                         className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
-                        Cancel
+                        Batal
                       </button>
                       {cash < dataCart.totalPrice ? (
                         <>
@@ -409,7 +356,7 @@ function Cart({ dataCart, setDataCart }) {
                             disabled
                             className="text-white cursor-not-allowed bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           >
-                            Next
+                            Lanjut
                           </button>
                         </>
                       ) : (
@@ -424,7 +371,7 @@ function Cart({ dataCart, setDataCart }) {
                             }}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           >
-                            Next
+                            Lanjut
                           </button>
                         </>
                       )}
@@ -440,141 +387,7 @@ function Cart({ dataCart, setDataCart }) {
       )}
       {modal ? (
         <>
-          <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
-            <div className="relative w-[450px] h-full max-w-lg md:h-auto">
-              <div
-                ref={reportTemplateRef}
-                className="relative bg-white rounded-lg shadow "
-              >
-                <div className="items-start justify-center p-4 rounded-t ">
-                  <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                    {name}
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    Telp (024) 3561560
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    HP / WA : {phoneNumber}
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    {address}
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    NPWP: 03.220.355.6-508.000
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    BARANG KENA PAJAK SUDAH TERMASUK PPM
-                  </h3>
-                  <h3 className="text-md text-center text-gray-900 ">
-                    12006.58552/ADE/Tunai/UMUM/ASLI
-                  </h3>
-                </div>
-                <div className="">
-                  <hr className="border border-black border-dashed mx-4" />
-                  {/* <div className="grid mx-2 my-2 grid-cols-2"> */}
-                  <table className="text-sm text-left">
-                    <tbody>
-                      {dataCart.cartItem.map((carts) => (
-                        <tr key={carts.id} className="bg-white">
-                          <td className="px-6 py-4">x{carts.quantity}</td>
-                          <th
-                            scope="row"
-                            className="font-medium text-black"
-                          >
-                            {carts.product.name}
-                          </th>
-                          <div className="">
-                            <td className="px-6 py-4">
-                              {titik.format(carts.product.price)}
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                              {titik.format(
-                                carts.product.price * carts.quantity
-                              )}
-                            </td>
-                          </div>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  {/* </div> */}
-                </div>
-                <div className="">
-                  {/* <hr className="border border-black border-dashed w-56 left mx-2 right-0 " /> */}
-                  <div className="flex justify-end mr-4">
-                    <div className="py-2 w-[210px] border-t border-black border-dashed">
-                      <div className="pr-3 flex justify-end">
-                        <div className="w-[200px] flex justify-between">
-                          <div>Total</div>
-                          <div>:</div>
-                          <div> {titik.format(dataCart.totalPrice)}</div>
-                        </div>
-                      </div>
-                      <div className="pr-3 my-4 flex justify-end">
-                        <div className="w-[200px] flex justify-between">
-                          <div>Cash</div>
-                          <div>:</div>
-                          <div> {titik.format(cash)}</div>
-                        </div>
-                      </div>
-                      <div className="pr-3 mt-4 flex justify-end">
-                        <div className="w-[200px] flex justify-between">
-                          <div>Change</div>
-                          <div>:</div>
-                          <div> {titik.format(cash - dataCart.totalPrice)}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-end"></div>
-                </div>
-                <hr className="mx-4 " />
-                <div className="font-bold text-center pt-2">
-                  THANK YOU. HAPPY SHOPPING
-                </div>
-                <div className="font-bold text-center pb-2">
-                  ==== ABANG TUKANG BAKSO ====
-                </div>
-                <div className="text-center">
-                  {phoneNumber} / {phoneNumber}
-                </div>
-                <div className="text-center">
-                  Email: abangbakso@gmail.com
-                </div>
-                <div className="text-center">
-                  Buy Your Bakso Online
-                </div>
-                <div className="text-center">
-                  -------- {moment().format("L")}, {moment().format("LT")} --------
-                </div>
-              </div>
-              <div className="border-b border-dashed"></div>
-              <div className="mt-4">
-                <div className="flex justify-between space-x-2 rounded-b">
-                  <button
-                    onClick={() => {
-                      setModal(false);
-                      setShow(true);
-                    }}
-                    data-modal-hide="defaultModal"
-                    type="button"
-                    className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  >
-                    Back
-                  </button>
-                  <button
-                    onClick={checkout}
-                    data-modal-hide="defaultModal"
-                    type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    cetak struk
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Receipt name={name} phoneNumber={phoneNumber} address={address} dataCart={dataCart} cash={cash} setModal={setModal} setShow={setShow} setDataCart={setDataCart}/>
         </>
       ) : (
         <></>
