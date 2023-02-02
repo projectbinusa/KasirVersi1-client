@@ -33,7 +33,7 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('invoice-001.pdf');
+            pdf.save('struk.pdf');
           })
         
         await axios
