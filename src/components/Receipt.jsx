@@ -3,13 +3,16 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
 import React from "react";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import { API_CART, API_HISTORY } from "../utils/baseURL";
 import { getAllDataCart } from "../utils/controller";
 
 function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow, setDataCart }) {
 
-    const checkout = async (e) => {
-        e.preventDefault();
+  const refus = useRef();
+
+    const checkout = async () => {
         const req = dataCart.cartItem.map((carts) => ({
           product: {
             id: carts.product.id,
@@ -21,20 +24,22 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
           totalProduct: carts.quantity,
         }));
 
-        html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png', 1.0);
-            const pdf = new jsPDF({
-              orientation: 'portrait',
-              unit: 'pt',
-              format: [58, 3276]
-            });
-            pdf.internal.scaleFactor = 1;
-            const imgProps= pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('struk.pdf');
-          })
+        // html2canvas(document.querySelector("#invoiceCapture"), {
+        //   scale: 2,
+        // }).then((canvas) => {
+        //     const imgData = canvas.toDataURL('image/png', 1.0);
+        //     const pdf = new jsPDF({
+        //       orientation: 'portrait',
+        //       unit: 'pt',
+        //       format: [150, 3276]
+        //     });
+        //     pdf.internal.scaleFactor = 5;
+        //     const imgProps= pdf.getImageProperties(imgData);
+        //     const pdfWidth = pdf.internal.pageSize.getWidth();
+        //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        //     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        //     pdf.save('struk.pdf');
+        //   })
         
         await axios
           .post(`${API_HISTORY}/add`, req, {
@@ -51,7 +56,6 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
               })
               .then(() => {
                 getAllDataCart("list", setDataCart);
-                setModal(false);
               })
               .catch((error) => {
                 console.log(error);
@@ -62,58 +66,52 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
           });
       };
 
-      const titik = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-      });
-    
+        const handlePrint = useReactToPrint({
+          content: () => refus.current,
+          documentTitle: "struk",
+          onAfterPrint: () => alert("Success!"),
+        })
+
+      const titik = new Intl.NumberFormat("id-ID");
+
+      const checkoutReceipt = (e) => {
+        e.preventDefault();
+        checkout();
+        handlePrint();
+        setModal(false);
+      }
   return (
     <div>
       {" "}
       <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
-        <div className="relative w-[450px] h-full max-w-lg md:h-auto">
+        <div className="relative w-[250px] h-full max-w-lg md:h-auto">
         <div
+            ref={refus}
             id="invoiceCapture"
-            className="relative bg-white rounded-lg"
+            className="relative bg-white rounded-lg text-xs"
           >
-            <div className="items-start justify-center p-4 rounded-t ">
+            <div className="items-start justify-center rounded-t ">
               <p className="text-center font-semibold text-gray-900 ">
                 {name}
               </p>
-              <p className=" text-center text-gray-900 ">
-                Telp (024) 3561560
-              </p>
-              <p className=" text-center text-gray-900 ">
+              <p className=" text-center text-gray-900">
                 HP / WA : {phoneNumber}
               </p>
-              <p className=" text-center text-gray-900 ">{address}</p>
-              <p className=" text-center text-gray-900 ">
-                NPWP: 03.220.355.6-508.000
-              </p>
-              <p className=" text-center text-gray-900 ">
-                BARANG KENA PAJAK SUDAH TERMASUK PPM
-              </p>
-              <p className=" text-center text-gray-900 ">
-                12006.58552/ADE/Tunai/UMUM/ASLI
-              </p>
+              <p className=" text-center text-gray-900">{address}</p>
             </div>
             <div className="">
               <hr className="border border-black border-dashed mx-4" />
-              {/* <div className="grid mx-2 my-2 grid-cols-2"> */}
               <table className="text-sm text-left">
                 <tbody>
                   {dataCart.cartItem.map((carts) => (
                     <tr key={carts.id} className="bg-white">
-                      <td className="px-6 py-4">x{carts.quantity}</td>
-                      <th scope="row" className="font-medium text-black">
+                      <td className="px-2 mx-10 py-4 text-xs">{carts.quantity}x</td>
+                      <th scope="row" className="font-medium text-black text-xs">
                         {carts.product.name}
                       </th>
                       <div className="">
-                        <td className="px-6 py-4">
-                          {titik.format(carts.product.price)}
-                        </td>
-                        <td className="px-6 py-4 text-right">
+                        <td className="px-6 py-4 text-right text-xs">
                           {titik.format(carts.product.price * carts.quantity)}
                         </td>
                       </div>
@@ -121,28 +119,26 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
                   ))}
                 </tbody>
               </table>
-              {/* </div> */}
             </div>
             <div className="">
-              {/* <hr className="border border-black border-dashed w-56 left mx-2 right-0 " /> */}
               <div className="flex justify-end mr-4">
-                <div className="py-2 w-[210px] border-t border-black border-dashed">
-                  <div className="pr-3 flex justify-end">
-                    <div className="w-[200px] flex justify-between">
+                <div className="border-t border-black border-dashed">
+                  <div className="flex justify-end my-2">
+                    <div className="w-[150px] flex justify-between">
                       <div>Total</div>
                       <div>:</div>
                       <div> {titik.format(dataCart.totalPrice)}</div>
                     </div>
                   </div>
-                  <div className="pr-3 my-4 flex justify-end">
-                    <div className="w-[200px] flex justify-between">
+                  <div className="flex justify-end my-2">
+                    <div className="w-[150px] flex justify-between">
                       <div>Uang Tunai</div>
                       <div>:</div>
                       <div> {titik.format(cash)}</div>
                     </div>
                   </div>
-                  <div className="pr-3 mt-4 flex justify-end">
-                    <div className="w-[200px] flex justify-between">
+                  <div className="flex justify-end my-2">
+                    <div className="w-[150px] flex justify-between">
                       <div>Kembalian</div>
                       <div>:</div>
                       <div> {titik.format(cash - dataCart.totalPrice)}</div>
@@ -153,17 +149,14 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
               <div className="flex justify-end"></div>
             </div>
             <hr className="mx-4 " />
+
             <div className="font-bold text-center pt-2">
               TERIMA KASIH. SELAMAT BERBELANJA
             </div>
             <div className="font-bold text-center pb-2">
-              ==== ABANG TUKANG BAKSO ====
-            </div>
-            <div className="text-center">
-              {phoneNumber} / {phoneNumber}
+              == ABANG TUKANG BAKSO ==
             </div>
             <div className="text-center">Email: abangbakso@gmail.com</div>
-            <div className="text-center">Beli Bakso Anda Online</div>
             <div className="text-center">
               -------- {moment().format("L")}, {moment().format("LT")} --------
             </div>
@@ -183,7 +176,7 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
                 Back
               </button>
               <button
-                onClick={checkout}
+                onClick={checkoutReceipt}
                 data-modal-hide="defaultModal"
                 type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
