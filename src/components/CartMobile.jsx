@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import moment from "moment";
 import jsPDF from "jspdf";
 import {
@@ -8,9 +8,9 @@ import {
     faSquareMinus,
     faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { API_CART } from '../utils/baseURL';
+import { API_CART, API_TOKO } from '../utils/baseURL';
 import { getAllDataCart } from "../utils/controller";
-
+import ReceiptMobile from "./ReceiptMobile";
 
 function CartMobile({ dataCart, setDataCart }) {
     const [show, setShow] = useState(false);
@@ -83,55 +83,22 @@ function CartMobile({ dataCart, setDataCart }) {
         }
     };
 
-    const checkout = async (e) => {
-        e.preventDefault();
-        const req = dataCart.cartItem.map((carts) => ({
-            product: {
-                id: carts.product.id,
-            },
-            user: {
-                id: localStorage.getItem("id"),
-            },
-            totalPrice: carts.product.price * carts.quantity,
-            totalProduct: carts.quantity,
-        }));
-        const doc = new jsPDF({
-            format: "a4",
-            unit: "px",
-        });
-        // Adding the fonts.
-        doc.setFont("Inter-Regular", "normal");
-
-        doc.html(reportTemplateRef.current, {
-            async callback(doc) {
-                await doc.save("struk");
-            },
-        });
+    const getToko = async () => {
         await axios
-            .post(`${API_HISTORY}/add`, req, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then(() => {
-                axios
-                    .delete(`${API_CART}/delete`, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    })
-                    .then(() => {
-                        getAllDataCart("list", setDataCart);
-                        setModal(false);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+          .get(`${API_TOKO}/all`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            setName(res.data.name);
+            setPhoneNumber(res.data.phoneNumber);
+            setAddress(res.data.address);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
 
     const deleteCart = async (carts) => {
         await axios
@@ -155,6 +122,10 @@ function CartMobile({ dataCart, setDataCart }) {
                     });
             });
     };
+
+    useEffect(() => {
+        getToko();
+      }, []);      
     return (
         <>
             <div>
@@ -381,141 +352,7 @@ function CartMobile({ dataCart, setDataCart }) {
                 <></>
             )}
             {modal ? (
-                <>
-                    <div className="justify-center items-center flex bg-slate-100 opacity-70 overflow-x-hidden overflow-y-auto fixed inset-0 z-40"></div>
-                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 pb-20 z-50">
-                        <div className="relative w-[450px] h-full max-w-lg md:h-auto">
-                            <div ref={reportTemplateRef} className="relative top-0 pb-48 bg-white rounded-lg shadow">
-                                <div className="items-start justify-center p-4 rounded-t ">
-                                    <h3 className="text-xl text-center font-semibold text-gray-900 ">
-                                        {name}
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        Telp (024) 3561560
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        HP / WA : {phoneNumber}
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        {address}
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        NPWP: 03.220.355.6-508.000
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        BARANG KENA PAJAK SUDAH TERMASUK PPM
-                                    </h3>
-                                    <h3 className="text-md text-center text-gray-900 ">
-                                        12006.58552/ADE/Tunai/UMUM/ASLI
-                                    </h3>
-                                </div>
-                                <div className="">
-                                    <hr className="border border-black border-dashed mx-4" />
-                                    {/* <div className="grid mx-2 my-2 grid-cols-2"> */}
-                                    <table className="text-sm text-left">
-                                        <tbody>
-                                            {dataCart.cartItem.map((carts) => (
-                                                <tr key={carts.id} className="bg-white">
-                                                    <td className="px-6 py-4">x{carts.quantity}</td>
-                                                    <th
-                                                        scope="row"
-                                                        className="font-medium text-black"
-                                                    >
-                                                        {carts.product.name}
-                                                    </th>
-                                                    <div className="">
-                                                        <td className="px-6 py-4">
-                                                            {titik.format(carts.product.price)}
-                                                        </td>
-                                                        <td className="px-6 py-4 text-right">
-                                                            {titik.format(
-                                                                carts.product.price * carts.quantity
-                                                            )}
-                                                        </td>
-                                                    </div>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    {/* </div> */}
-                                </div>
-                                <div className="">
-                                    {/* <hr className="border border-black border-dashed w-56 left mx-2 right-0 " /> */}
-                                    <div className="flex justify-end mr-4">
-                                        <div className="py-2 w-[210px] border-t border-black border-dashed">
-                                            <div className="pr-3 flex justify-end">
-                                                <div className="w-[200px] flex justify-between">
-                                                    <div>Total</div>
-                                                    <div>:</div>
-                                                    <div> {titik.format(dataCart.totalPrice)}</div>
-                                                </div>
-                                            </div>
-                                            <div className="pr-3 my-4 flex justify-end">
-                                                <div className="w-[200px] flex justify-between">
-                                                    <div>Cash</div>
-                                                    <div>:</div>
-                                                    <div> {titik.format(cash)}</div>
-                                                </div>
-                                            </div>
-                                            <div className="pr-3 mt-4 flex justify-end">
-                                                <div className="w-[200px] flex justify-between">
-                                                    <div>Change</div>
-                                                    <div>:</div>
-                                                    <div> {titik.format(cash - dataCart.totalPrice)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-end"></div>
-                                </div>
-                                <hr className="mx-4 " />
-                                <div className="font-bold text-center pt-2">
-                                    THANK YOU. HAPPY SHOPPING
-                                </div>
-                                <div className="font-bold text-center pb-2">
-                                    ==== ABANG TUKANG BAKSO ====
-                                </div>
-                                <div className="text-center">
-                                    {phoneNumber} / {phoneNumber}
-                                </div>
-                                <div className="text-center">
-                                    Email: abangbakso@gmail.com
-                                </div>
-                                <div className="text-center">
-                                    Buy Your Bakso Online
-                                </div>
-                                <div className="text-center">
-                                    -------- {moment().format("L")}, {moment().format("LT")} --------
-                                </div>
-                            </div>
-                            <div className="border-b border-dashed"></div>
-
-                        </div>
-                            <div className="fixed bottom-20 bg-white w-full">
-                                <div className="flex justify-between  p-5 space-x-2 rounded-b">
-                                    <button
-                                        onClick={() => {
-                                            setModal(false);
-                                            setShow(true);
-                                        }}
-                                        data-modal-hide="defaultModal"
-                                        type="button"
-                                        className="h-[60px] rounded-2xl w-full font-bold bg-gray-700 text-white"
-                                    >
-                                        Kembali
-                                    </button>
-                                    <button
-                                        onClick={checkout}
-                                        data-modal-hide="defaultModal"
-                                        type="submit"
-                                        className="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-2xl text-lg text-center"
-                                    >
-                                        Cetak Struk
-                                    </button>
-                                </div>
-                            </div>
-                    </div>
-                </>
+                <><ReceiptMobile name={name} phoneNumber={phoneNumber} address={address} dataCart={dataCart} cash={cash} setModal={setModal} setShow={setShow} setDataCart={setDataCart}/></>
             ) : (
                 <></>
             )}

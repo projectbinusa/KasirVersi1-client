@@ -71,6 +71,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
     labels: hari,
     datasets: [
       {
+        label:[''],
         data: valuesHari,
         backgroundColor: [
           "#480032",
@@ -90,6 +91,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
       {
+        label:[''],
         data: valuesBulan,
         backgroundColor: [
           "#CF0A0A",
@@ -116,6 +118,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
     labels: tahun,
     datasets: [
       {
+        label: '',
         data: valuesTahun,
         backgroundColor: [
           "rgba(75,192,192,1)",
