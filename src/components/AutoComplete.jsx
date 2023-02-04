@@ -118,7 +118,7 @@ const AutoComplete = ({ setDataCart }) => {
   const Suggestions = () => {
     return (<>
     <div classNam="absolute w-full">
-    <ul className="suggestions w-auto bg-white rounded-lg mt-1">
+    <ul className="suggestions w-96 bg-white rounded-lg mt-1">
         {suggestions.map((suggestion, index) => {
           return (
             <div
@@ -157,7 +157,7 @@ const AutoComplete = ({ setDataCart }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         className="p-2 w-full rounded-xl border"
-        placeholder="🔍 Cari Bakso, Esteh dll..."
+        placeholder="🔍 Cari untuk makanan, dll"
       />
       {suggestionsActive && <Suggestions />}
     </div>

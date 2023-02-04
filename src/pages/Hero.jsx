@@ -10,7 +10,7 @@ import {
   getProductPopular,
 } from "../utils/controller";
 
-function Hero() {
+function Hero({iconList}) {
   const [dataMenu, setDataMenu] = useState([]);
   const [productPopular, setProductPopular] = useState([]);
   const [productTimeAdded, setProductTimeAdded] = useState([]);
@@ -42,6 +42,7 @@ function Hero() {
             productPopular={productPopular}
             productTimeAdded={productTimeAdded}
             setDataCart={setDataCart}
+            iconList={iconList}
           />
         </div>
         <div id="list" className="p-2 hidden md:block md:col-span-3">

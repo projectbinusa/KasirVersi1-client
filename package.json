@@ -16,13 +16,15 @@
     "aos": "^3.0.0-beta.6",
     "axios": "^1.2.2",
     "chart.js": "^4.2.0",
+    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
-    "react-select": "^5.7.0"
+    "react-select": "^5.7.0",
+    "react-to-print": "^2.14.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
