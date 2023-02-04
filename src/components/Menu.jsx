@@ -37,13 +37,13 @@ function Menu({
   return (
     <div id="menu" className="px-3 space-y-10">
       <div id="header-page">
-        <div className="container flex flex-wrap items-center justify-between mx-auto">
+        <div className="container md:flex flex-wrap items-center justify-between mx-auto">
           <div className="header-text">
             <h1 className="font-bold text-xl sm:text-2xl md:text-4xl">
               Order <span className="font-thin text-gray-500">Menu</span>
             </h1>
           </div>
-          <div className="header-search">
+          <div className="header-search md:mt-0 mt-3">
             <AutoComplete data={dataMenu} setDataCart={setDataCart}/>
           </div>
         </div>
@@ -61,16 +61,16 @@ function Menu({
               <div
                 className={
                   selectedCategory === `${data.name}`
-                    ? "rounded-2xl  py-3 px-3 w-24 sm:w-36 md:w-56 fill-blue-500 bg-[#ffe54f] "
-                    : "rounded-2xl py-3 px-3 w-24 sm:w-36 md:w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
+                    ? "rounded-2xl  py-5 sm:py-4 lg:py-3 md:py-3 px-5 sm:px-4 md:px-3 lg:px-3 w-24 sm:w-36 md:w-56 fill-blue-500 bg-[#ffe54f] "
+                    : "rounded-2xl py-5 sm:py-4 lg:py-3 md:py-3 px-5 sm:px-4 md:px-3 lg:px-3 w-24 sm:w-36 md:w-56 bg-white border hover:fill-blue-500 hover:bg-[#ffe54f]"
                 }
                 key={`tab-${index}`}
                 onClick={() => changeCategory(data.name)}
               >
-                <div className="bg-white p-3 rounded-2xl border">
+                <div className="bg-white p-1 lg:p-3 md:p-3 rounded-2xl border">
                   <FontAwesomeIcon icon={data.icon} className="w-3 sm:w-5 md:w-8 h-3 sm:h-5 md:h-8 " />
                 </div>
-                <div className="mt-5 text-xs">{data.name}</div>
+                <div className="mt-3 lg:mt-5 md:mt-5 text-sm sm:text-sm font-semibold">{data.name}</div>
               </div>
             </div>
           );
@@ -127,7 +127,7 @@ function Menu({
           </div>
         ) : (
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "All Product"}
           >
             {dataMenu.map((data, index) => (

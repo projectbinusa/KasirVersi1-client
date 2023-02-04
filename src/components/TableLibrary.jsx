@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useState } from "react";
 import { API_PRODUCT } from "../utils/baseURL";
@@ -102,18 +103,18 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
                       getProductId(item.id);
                     }}
                     type="button"
-                    className="w-16 md:w-20 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs md:text-sm py-2 text-center"
+                    className="w-16 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs md:text-sm py-2"
                   >
-                    Edit
+                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> 
                   </button>
                 </div>
                 <div className="p-1">
                   <button
                     onClick={() => deleteProduct(item.id)}
                     type="button"
-                    className="w-16 md:w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs md:text-sm py-2 text-center"
+                    className="w-16 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs md:text-sm py-2"
                   >
-                    Delete
+                    <FontAwesomeIcon icon="fa-solid fa-trash" />
                   </button>
                 </div>
               </td>

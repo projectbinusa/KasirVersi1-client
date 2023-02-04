@@ -10,7 +10,6 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
   const [icon, setIcon] = useState([]);
   const [nameCategory, setNameCategory] = useState("");
   const [categoryId, setCategoryId] = useState(0);
-  const [iconId, setIconId] = useState(0);
 
 
   const getCategoryId = async (id) => {
@@ -24,7 +23,6 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
         setNameCategory(res.data.nameCategory);
         setIcon(res.data.icon);
         setCategoryId(id);
-        setIconId(id);
       })
       .catch((err) => {
         console.log(err);
@@ -85,25 +83,25 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
                 <FontAwesomeIcon icon={item.icon} className="w-4 md:w-8 h-4 md:h-8 " />
               </td>
               <td className="flex justify-center">
-                <div className="p-2">
+                <div className="p-1">
                   <button
                     onClick={() => {
                       getCategoryId(item.id);
                       setShowModals(true)
                     }}
                     type="button"
-                    className="w-16 md:w-20 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs md:text-sm py-2 text-center"
+                    className="w-16 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs md:text-sm py-2"
                   >
-                    Edit
+                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" /> 
                   </button>
                 </div>
                 <div className="p-2">
                   <button
                     onClick={() => deleteCategory(item.id)}
                     type="button"
-                    className="w-16 md:w-20 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs md:text-sm py-2 text-center"
+                    className="w-16 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs md:text-sm py-2"
                   >
-                    Delete
+                   <FontAwesomeIcon icon="fa-solid fa-trash" />
                   </button>
                 </div>
               </td>
@@ -149,7 +147,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
                         id="category"
                         name="category"
                         autoComplete="category-name"
-                        defaultValue={iconId}
+                        defaultValue={icon}
                         onChange={(e) => setIcon(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                       >
@@ -184,7 +182,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
                         type="submit"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
-                        Edit Product
+                        
                       </button>
                       <button
                         onClick={() => setShowModals(false)}

@@ -116,8 +116,9 @@ const AutoComplete = ({ setDataCart }) => {
   };
 
   const Suggestions = () => {
-    return (
-      <ul className="suggestions absolute w-96 bg-white rounded-lg mt-1">
+    return (<>
+    <div classNam="absolute w-full">
+    <ul className="suggestions w-auto bg-white rounded-lg mt-1">
         {suggestions.map((suggestion, index) => {
           return (
             <div
@@ -126,7 +127,7 @@ const AutoComplete = ({ setDataCart }) => {
               onClick={handleClick}
             >
               <div
-                className="flex items-center cursor-pointer px-5 py-4 hover:bg-yellow-300 rounded-lg"
+                className="flex items-center cursor-pointer hover:bg-yellow-300 rounded-lg"
                 onClick={() => addToCart(suggestion.id)}
               >
                 <img
@@ -134,7 +135,7 @@ const AutoComplete = ({ setDataCart }) => {
                   height={35}
                   src={suggestion.image}
                   alt={suggestion.name}
-                  className="rounded-full object-cover mr-3"
+                  className="rounded-full h-auto object-cover mr-3"
                 />
                 <p>{suggestion.name}</p>
               </div>
@@ -142,6 +143,9 @@ const AutoComplete = ({ setDataCart }) => {
           );
         })}
       </ul>
+    </div>
+    
+      </>
     );
   };
 
@@ -152,8 +156,8 @@ const AutoComplete = ({ setDataCart }) => {
         value={value}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        className="p-2 w-96 rounded-xl border"
-        placeholder="🔍 Search for food, coffe, etc..."
+        className="p-2 w-full rounded-xl border"
+        placeholder="🔍 Cari Bakso, Esteh dll..."
       />
       {suggestionsActive && <Suggestions />}
     </div>
