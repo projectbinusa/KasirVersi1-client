@@ -9,10 +9,10 @@ function Card({ data, setDataCart }) {
   const addToCart = async (id) => {
     await axios
       .get(
-        `${API_CART}/search?product=${id}&user=${localStorage.getItem("id")}`,
+        `${API_CART}/search?product=${id}&user=${sessionStorage.getItem("id")}`,
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       )
@@ -25,7 +25,7 @@ function Card({ data, setDataCart }) {
           axios
             .post(`${API_CART}/add`, req, {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
             })
             .then(() => {
@@ -41,7 +41,7 @@ function Card({ data, setDataCart }) {
           axios
             .put(`${API_CART}/update/${res.data[0].id}`, req, {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
             })
             .then(() => {

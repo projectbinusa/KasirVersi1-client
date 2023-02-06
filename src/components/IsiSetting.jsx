@@ -23,7 +23,7 @@ function IsiSetting() {
     await axios
       .get(`${API_TOKO}/all`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then((res) => {
@@ -48,7 +48,7 @@ function IsiSetting() {
     await axios
       .post(`${API_TOKO}/add`, req, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -71,7 +71,7 @@ function IsiSetting() {
     await axios
       .put(`${API_TOKO}/${tokoId}`, req, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -85,7 +85,7 @@ function IsiSetting() {
 
   const getUserId = async () => {
     await axios
-      .get(`${API_AUTH}/${localStorage.getItem("id")}`)
+      .get(`${API_AUTH}/${sessionStorage.getItem("id")}`)
       .then((res) => {
         setTotalPesanan(res.data.totalPesanan);
       })
@@ -241,11 +241,11 @@ function IsiSetting() {
                       </div>
                       <div className="mt-10 py-10 border-t border-gray-300 text-center">
                         <div className="flex flex-wrap justify-center">
-                          <div className="w-full lg:w-9/12 px-4">
+                          {/* <div className="w-full lg:w-9/12 px-4">
                             <p className="mb-4 text-lg leading-relaxed text-gray-800 bg-gray-200 rounded-md p-2  shadow-md">
                               Hello World
                             </p>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

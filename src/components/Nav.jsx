@@ -6,7 +6,7 @@ function Nav({ dataSidebar }) {
     const navigate = useNavigate();
 
     const logout = () => {
-        localStorage.clear();
+        sessionStorage.clear();
         navigate("/");
     };
 
@@ -17,11 +17,11 @@ function Nav({ dataSidebar }) {
     };
     return (
         <div>
-            <div class="bg-gray-50 border-gray-200 rounded">
+            <div className="bg-gray-50 border-gray-200 rounded">
                 <div className='flex p-2 py-3 px-4 w-screen justify-between decoration-inherit'>
-                    {dataSidebar.map((data, i) => {
-                        return (<>
-                            <Link to={data.name} key={i}>
+                    {dataSidebar.map((data, index) => {
+                        return (
+                            <Link to={data.name} key={index}>
                                 <div>
                                     <div
                                         className={
@@ -37,13 +37,13 @@ function Nav({ dataSidebar }) {
                                                 className="w-8 h-8"
                                             />
                                         </div>
-                                        <span class="absolute flex justify-center -translate-x-3 -top-9 rounded bg-white border border-black px-2 py-1.5 text-xs font-medium text-black opacity-0 group-hover:opacity-100">
+                                        <span className="absolute flex justify-center -translate-x-3 -top-9 rounded bg-white border border-black px-2 py-1.5 text-xs font-medium text-black opacity-0 group-hover:opacity-100">
                                             {data.name}
                                         </span>
                                     </div>
                                 </div>
                             </Link>
-                        </>)
+                        )
                     })}
                 </div>
 

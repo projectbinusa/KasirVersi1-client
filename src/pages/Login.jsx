@@ -63,9 +63,8 @@ function Login() {
         },
       })
       .then((res) => {
-        localStorage.setItem("token", res.data.data.token);
-        localStorage.setItem("id", res.data.data.userId);
-
+        sessionStorage.setItem("token", res.data.data.token);
+        sessionStorage.setItem("id", res.data.data.userId);
         if (location.state) {
           navigate(`${location.state.from.pathname}`);
         } else {

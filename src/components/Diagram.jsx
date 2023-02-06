@@ -14,7 +14,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
 
   const getUserId = async () => {
     await axios
-      .get(`${API_AUTH}/${localStorage.getItem("id")}`)
+      .get(`${API_AUTH}/${sessionStorage.getItem("id")}`)
       .then((res) => {
         setTotalPesanan(res.data.totalPesanan);
       })
@@ -54,7 +54,6 @@ function Chart({ dataMenus, dataHistory, sum }) {
   const valuesBulan = [];
   for (let i = now.getMonth(); i <= now.getMonth(); i++) {
     valuesBulan.push(dataHistory.filter((x) => x.createdMonth === i).length);
-    console.log(valuesBulan);
     bulan.push(getMonthName(i));
   }
   

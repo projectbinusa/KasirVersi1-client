@@ -12,10 +12,10 @@ const AutoComplete = ({ setDataCart }) => {
   const addToCart = async (id) => {
     await axios
       .get(
-        `${API_CART}/search?product=${id}&user=${localStorage.getItem("id")}`,
+        `${API_CART}/search?product=${id}&user=${sessionStorage.getItem("id")}`,
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       )
@@ -28,7 +28,7 @@ const AutoComplete = ({ setDataCart }) => {
           axios
             .post(`${API_CART}/add`, req, {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
             })
             .then(() => {
@@ -44,7 +44,7 @@ const AutoComplete = ({ setDataCart }) => {
           axios
             .put(`${API_CART}/update/${res.data[0].id}`, req, {
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
             })
             .then(() => {
@@ -66,10 +66,10 @@ const AutoComplete = ({ setDataCart }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/product?name=${query}&user=${localStorage.getItem("id")}`,
+        `http://localhost:8080/api/product?name=${query}&user=${sessionStorage.getItem("id")}`,
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       );

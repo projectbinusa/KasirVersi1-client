@@ -47,7 +47,7 @@ function App({iconList}) {
           element={<Bils />}
         />
          <Route
-          path="Setting"
+          path="Profile"
           element={<Setting />}
         />
         </Route>

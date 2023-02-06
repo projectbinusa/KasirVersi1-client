@@ -6,7 +6,7 @@ function Sidebar({ dataSidebar }) {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
   };
 

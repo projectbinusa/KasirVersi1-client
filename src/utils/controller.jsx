@@ -37,7 +37,7 @@ export const getAllDataCategory = async (path, setPath) => {
   await axios
     .get(`${API_CATEGORY}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -52,7 +52,7 @@ export const getAllDataProduct = async (path, setPath) => {
   await axios
     .get(`${API_PRODUCT}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -67,7 +67,7 @@ export const getProductPopular = async (path, setPath) => {
   await axios
     .get(`${API_PRODUCT}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -82,7 +82,7 @@ export const getProductTimeAdded = async (path, setPath) => {
   await axios
     .get(`${API_PRODUCT}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -97,7 +97,7 @@ export const getAllHistoryOrder = async (path, setPath) => {
   await axios
     .get(`${API_HISTORY}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -112,7 +112,7 @@ export const getAllDataCart = async (path, setPath) => {
   await axios
     .get(`${API_CART}/${path}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
     .then((res) => {

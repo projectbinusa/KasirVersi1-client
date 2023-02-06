@@ -16,7 +16,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
     await axios
       .get(`${API_CATEGORY}/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then((res) => {
@@ -39,7 +39,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
     await axios
       .put(`${API_CATEGORY}/${categoryId}`, reqs, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -54,7 +54,7 @@ function TableCategory({ dataCategory, setDataCategory, iconList }) {
     await axios
       .delete(`${API_CATEGORY}/delete/${item}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {
