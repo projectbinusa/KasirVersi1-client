@@ -100,7 +100,7 @@ function Menu({
       <div id="menu">
         {selectedOption === "Populer" ? (
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "Popular"}
           >
             {productPopular.map((data, index) => (
@@ -110,7 +110,7 @@ function Menu({
             ))}
           </div>
         ) : selectedOption === "Terbaru" ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center" hidden={selectedOption !== "Time Added"}>
             {productTimeAdded.map((data, index) => (
               <section hidden={selectedCategory !== data.category.name}  key={index}>
                 <Card data={data} setDataCart={setDataCart} />
