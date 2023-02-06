@@ -1,10 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_AUTH, API_TOKO } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
 function IsiSetting() {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [tokoId, setTokoId] = useState(0);
@@ -18,6 +20,12 @@ function IsiSetting() {
   const result = dataMenu.map((x) => x.jumlahTerjual);
 
   const sum = result.reduce((a, b) => a + b, 0);
+
+  
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   const getToko = async () => {
     await axios
@@ -240,11 +248,13 @@ function IsiSetting() {
                         </div>
                       </div>
                       <div className="mt-10 py-10 border-t border-gray-300 text-center">
-                        <div className="flex flex-wrap justify-center">
-                          <div className="w-full lg:w-9/12 px-4">
-                            <p className="mb-4 text-lg leading-relaxed text-gray-800 bg-gray-200 rounded-md p-2  shadow-md">
-                              Hello World
-                            </p>
+                        <div className="flex justify-center">
+                          <div className="w-full px-4">
+                            <div onClick={logout} className="mb-2 block md:hidden">
+                             <button className="w-full bg-gray-200 text-lg">
+                              Log Out
+                             </button>
+                            </div>
                           </div>
                         </div>
                       </div>
