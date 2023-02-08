@@ -50,11 +50,13 @@ function Chart({ dataMenus, dataHistory, sum }) {
     hari.push(i);
   }
 
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
   const bulan = [];
   const valuesBulan = [];
-  for (let i = now.getMonth(); i <= now.getMonth(); i++) {
+  for (let i = 0; i <= now.getMonth(); i++) {
     valuesBulan.push(dataHistory.filter((x) => x.createdMonth === i).length);
-    bulan.push(getMonthName(i));
+    bulan.push(i);
   }
   
   const tahun = [];
@@ -70,7 +72,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
     labels: hari,
     datasets: [
       {
-        label:[''],
+        label:['product'],
         data: valuesHari,
         backgroundColor: [
           "#480032",
@@ -87,10 +89,10 @@ function Chart({ dataMenus, dataHistory, sum }) {
   };
 
   const perBulan = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: monthNames,
     datasets: [
       {
-        label:[''],
+        label:['product'],
         data: valuesBulan,
         backgroundColor: [
           "#CF0A0A",
@@ -117,7 +119,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
     labels: tahun,
     datasets: [
       {
-        label: '',
+        label:['product'],
         data: valuesTahun,
         backgroundColor: [
           "rgba(75,192,192,1)",
