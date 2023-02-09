@@ -5,6 +5,7 @@ import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import { getAllDataCategory, getAllDataProduct } from "../utils/controller";
 import moment from "moment";
 import Pagination from "./Padination";
+import Pagination2 from "./Padination2";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
 import ReactSelect from "react-select";
@@ -22,6 +23,84 @@ function Library({
     currency: "IDR",
   });
 
+  const ikon =[
+    {
+    id:1,
+    name: 'fa-wine-glass',
+    names:"minuman soda"
+  },
+    {
+    id:2,
+    name: 'fa-cookie',
+    names:"Snack"
+  },
+    {
+    id:3,
+    name: 'fa-bottle-water',
+    names:"minuman botol"
+  },
+    {
+    id:4,
+    name: 'fa-bowl-rice',
+    names:"nasi"
+  },
+    {
+    id:5,
+    name: 'fa-pizza-slice',
+    names:"pizza"
+  },
+    {
+    id:6,
+    name: 'fa-mug-hot',
+    names:"minuman panas"
+  },
+    {
+    id:7,
+    name: 'fa-burger-fries',
+    names:"paketan"
+  },
+    {
+    id:8,
+    name: 'fa-bread-slice',
+    names:"roti"
+  },
+    {
+    id:9,
+    name: 'fa-donut',
+    names:"donat  "
+  },
+    {
+    id:10,
+    name: 'fa-ice-cream',
+    names:"Es Krim"
+  },
+    {
+    id:11,
+    name: 'fa-drumstick',
+    names:"ayam"
+  },
+    {
+    id:12,
+    name: 'fa-lollipop',
+    names:"Permen"
+  },
+    {
+    id:13,
+    name: 'fa-pie',
+    names:"roti Pai"
+  },
+    {
+    id:14,
+    name: 'fa-bowl-hot',
+    names:"nasi panas"
+  },
+    {
+    id:15,
+    name: 'fa-burger',
+    names:"burger"
+  }
+]
+
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -36,16 +115,21 @@ function Library({
   const [categoryId, setCategoryId] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPages, setCurrentPages] = useState(1);
   const [recordsPerPage] = useState(5);
+  const [recordsPerPages] = useState(5);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfLastRecords = currentPages * recordsPerPages;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const indexOfFirstRecords = indexOfLastRecords - recordsPerPages;
   const currentRecords = dataMenu.slice(indexOfFirstRecord, indexOfLastRecord);
   const currentCategory = dataCategory.slice(
-    indexOfFirstRecord,
-    indexOfLastRecord
+    indexOfFirstRecords,
+    indexOfLastRecords
   );
   const nPages = Math.ceil(dataMenu.length / recordsPerPage);
+  const cPages = Math.ceil(dataCategory.length / recordsPerPages);
 
   const addCategory = async (e) => {
     e.preventDefault();
@@ -166,6 +250,11 @@ function Library({
             </table>
           </div>
         </div>
+          <Pagination2
+                  cPages={cPages}
+                  currentPages={currentPages}
+                  setCurrentPages={setCurrentPages}
+                />
         <div>
           <div className="my-5">
             <div className="flex justify-between py-5">
@@ -268,7 +357,7 @@ function Library({
                 <div className="p-6 space-y-6">
                   <form onSubmit={addCategory}>
                     <div className="relative z-0 w-full mb-6 group">
-                      {/* <select
+                      <select
                         id="category"
                         name="category"
                         autoComplete="category-name"
@@ -276,17 +365,19 @@ function Library({
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                       >
                         <option>Select Category</option>
-                        {iconList.map((icons, i) => (
-                          <option key={i} value={icons.iconName}>
-                            <p>fa-{icons.iconName}</p>
+                        {ikon.map((item, i) => (
+                          <option key={i} value={item.name}>
+                            <p>{item.names}</p>
+                            <div>
                               <FontAwesomeIcon
-                              icon={icons.iconName}
+                              icon={item.name}
                               className="w-4 h-4 text-gray-500"
                             />
+                            </div>
                           </option>
                         ))}
-                      </select> */}
-                      <ReactSelect
+                      </select>
+                      {/* <ReactSelect
                         onChange={(e) => setIcon(e.target.value)}
                         value={iconList.iconName}
                         options={iconList}
@@ -299,7 +390,7 @@ function Library({
                             </span>
                           </div>
                         )} 
-                      />
+                      /> */}
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
