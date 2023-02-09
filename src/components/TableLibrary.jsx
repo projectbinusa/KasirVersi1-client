@@ -21,7 +21,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
     await axios
       .get(`${API_PRODUCT}/${id}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
@@ -49,7 +49,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
     await axios
       .put(`${API_PRODUCT}/${productId}`, req, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -66,7 +66,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
     await axios
       .delete(`${API_PRODUCT}/delete/${item}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {

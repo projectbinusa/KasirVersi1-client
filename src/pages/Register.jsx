@@ -1,80 +1,52 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../actions/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
-import { API_AUTH } from "../utils/baseURL"; 
+import Alert from "../components/Alert";
 
-function Register() {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { message } = useSelector((state) => state.message);
+
   const [passwordType, setPasswordType] = useState("password");
   const [active, setActive] = useState("fa-solid fa-eye-slash");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({});
 
   const navigate = useNavigate();
 
-  const Alert = ({ setIsOpen }) => {
-    return (
-      <div className="darkBG" onClick={() => setIsOpen(false)}>
-        <div className="flex mt-10 justify-center items-center mx-auto">
-          <div
-            className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
-            role="alert"
-          >
-            <div className="flex">
-              <div className="py-1">
-                <svg
-                  className="fill-current h-6 w-6 text-teal-500 mr-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-bold">{errorMessage.data}</p>
-                <p className="text-sm">Make sure you fill out the form correctly</p>
-              </div>
-              <div onClick={() => setIsOpen(false)} className="mx-2">
-                <FontAwesomeIcon icon="fa-solid fa-xmark" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  const dispatch = useDispatch();
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
   };
 
-  const register = async (e) => {
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  const handleRegister = (e) => {
     e.preventDefault();
-    const req = {
-      username: username,
-      email: email,
-      password: password,
-    };
-    try {
-      await axios
-        .post(`${API_AUTH}/register`, req, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then(() => {
-          navigate("/login");
-        })
-        .catch((err) => {
-          setErrorMessage(err.response.data);
-          setIsOpen(true);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
+    dispatch(register(username, email, password))
+      .then(() => {
+        navigate("/login");
+      })
+      .catch(() => {
+        setIsOpen(true);
+      });
+  };
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -87,31 +59,35 @@ function Register() {
 
   return (
     <div id="login">
-      {isOpen && <Alert setIsOpen={setIsOpen} />}
+      {isOpen && <Alert setIsOpen={setIsOpen} message={message} />}
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
           <div className="md:w-1/2 px-8 md:px-16">
             <h2 className="font-bold text-2xl text-[#002D74]">Register</h2>
             <p className="text-xs mt-4 text-[#002D74]">
-              If you are already a member, easily log in
+              Silahkan isi form berikut untuk membuat akun
             </p>
 
-            <form action="" className="flex flex-col gap-4" onSubmit={register}>
+            <form
+              action=""
+              className="flex flex-col gap-4"
+              onSubmit={handleRegister}
+            >
               <input
                 className="p-2 mt-8 rounded-xl border  "
-                autoComplete="off"
                 type="text"
                 id="username"
                 placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                onChange={onChangeUsername}
               />
               <input
                 className="p-2 rounded-xl border  "
-                autoComplete="off"
                 type="email"
                 id="email"
                 placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={onChangeEmail}
               />
               <div className="relative">
                 <input
@@ -119,7 +95,8 @@ function Register() {
                   type={passwordType}
                   id="password"
                   placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  onChange={onChangePassword}
                 />
                 <FontAwesomeIcon
                   icon={active}
@@ -137,7 +114,7 @@ function Register() {
 
             <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
               <hr className="border-gray-400" />
-              <p className="text-center text-sm">OR</p>
+              <p className="text-center text-sm">ATAU</p>
               <hr className="border-gray-400" />
             </div>
 
@@ -165,11 +142,11 @@ function Register() {
                   d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 />
               </svg>
-              Register with Google
+              Register dengan Google
             </button>
 
             <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
-              <p>Already have an account?</p>
+              <p>Sudah punya akun?</p>
               <Link to="/login">
                 <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
                   Login
@@ -179,7 +156,7 @@ function Register() {
           </div>
 
           <div className="md:block hidden w-1/2">
-          <img
+            <img
               className="rounded-2xl"
               src="https://static.vecteezy.com/system/resources/previews/008/545/339/original/indonesian-famous-food-bakso-illustration-vector.jpg"
             />
@@ -188,6 +165,6 @@ function Register() {
       </section>
     </div>
   );
-}
+};
 
 export default Register;

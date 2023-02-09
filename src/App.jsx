@@ -10,7 +10,9 @@ import Hero from "./pages/Hero";
 import NotFound from "./pages/NotFound";
 import Libraryy from "./pages/Libraryy";
 import Bils from "./pages/Bils";
-import Setting from "./pages/Setting";
+import Profile from "./pages/Profile";
+import Tes from "./pages/Tes";
+import Huma from "./pages/Huma";
 
 function App({iconList}) {
   return (
@@ -48,8 +50,13 @@ function App({iconList}) {
         />
          <Route
           path="Profile"
-          element={<Setting />}
+          element={<Profile />}
         />
+        {/* <Route
+          path="Tes"
+          element={<Tes />}
+        />
+        <Route path="Huma" element={<Huma />}/> */}
         </Route>
         <Route path="/*" element={<NotFound/>} />
       </Routes>

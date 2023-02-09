@@ -8,6 +8,7 @@ import {
   getAllDataProduct,
   getAllDataCategory,
   getProductPopular,
+  getAllDatas,
 } from "../utils/controller";
 
 function Hero({iconList}) {
@@ -28,6 +29,7 @@ function Hero({iconList}) {
     getProductPopular("popular", setProductPopular);
     getProductPopular("time-added", setProductTimeAdded);
     getAllDataCart("list", setDataCart);
+    // getAllDatas(setDataMenu);
   }, []);
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import IsiSetting from "../components/IsiSetting";
+import IsiProfile from "../components/IsiProfile";
 
-function Setting({iconList}) {
+function Profile({iconList}) {
   return (
     <div>
       <div
@@ -9,11 +9,11 @@ function Setting({iconList}) {
         className="bg-gray-50 p-2 h-screen overflow-y-auto scroll-none"
       >
         <div className="">
-          <IsiSetting iconList={iconList}/>
+          <IsiProfile iconList={iconList}/>
         </div>
       </div>
     </div>
   );
 }
 
-export default Setting;
+export default Profile;

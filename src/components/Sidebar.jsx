@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Sidebar({ dataSidebar }) {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    sessionStorage.clear();
-    navigate("/");
-  };
-
+function Sidebar({ dataSidebar, logOut }) {
   const [activeTab, setActiveTab] = useState("Home");
+
+  const dataSidebars = [
+    {
+      id: 1,
+      name: "Home",
+      icon: "fa-store"
+    },
+    {
+      id: 2,
+      name: "Dashboard",
+      icon: "fa-store"
+    },
+    {
+      id: 3,
+      name: "About"
+    }
+  ]
 
   const handleTab = (tab) => {
     setActiveTab(tab);
   };
+
+
   return (
     <div id="sidebar">
       <div id="nav-logo">
@@ -46,7 +58,7 @@ function Sidebar({ dataSidebar }) {
                 </Link>
               );
             })}
-            <div onClick={logout} className="mt-24">
+            <div onClick={logOut} className="mt-24">
               <div className="text-gray-400 hover:fill-blue-500  hover:text-[#FFFFFF] hover:bg-[#FF2A77] hover:shadow-lg hover:shadow-red-300 rounded-2xl bottom-0 py-3">
                 <div className="flex justify-center">
                   <FontAwesomeIcon

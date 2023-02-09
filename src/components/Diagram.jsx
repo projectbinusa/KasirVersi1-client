@@ -14,7 +14,7 @@ function Chart({ dataMenus, dataHistory, sum }) {
 
   const getUserId = async () => {
     await axios
-      .get(`${API_AUTH}/${sessionStorage.getItem("id")}`)
+      .get(`${API_AUTH}/${localStorage.getItem("id")}`)
       .then((res) => {
         setTotalPesanan(res.data.totalPesanan);
       })

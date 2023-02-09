@@ -57,7 +57,7 @@ function Library({
     await axios
       .post(`${API_CATEGORY}/add`, req, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -82,7 +82,7 @@ function Library({
     await axios
       .post(`${API_PRODUCT}/add`, formData, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {

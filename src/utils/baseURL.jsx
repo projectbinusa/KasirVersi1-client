@@ -1,4 +1,5 @@
 export const API_DUMMY = "http://localhost:8080";
+export const API_URL = "http://localhost:8080/api/";
 export const API_AUTH = "http://localhost:8080/api/user" ;
 export const API_PRODUCT = "http://localhost:8080/api/product" ;
 export const API_TOKO = "http://localhost:8080/api/toko" ;

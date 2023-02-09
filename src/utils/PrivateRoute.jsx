@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 function PrivateRoute({ children }) {
   const location = useLocation();
 
-  if (!sessionStorage.getItem('token')) { 
+  if (!localStorage.getItem('token')) { 
     return <Navigate to='/login' state={{ from: location }} />
   }
 

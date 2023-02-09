@@ -18,7 +18,7 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
             id: carts.product.id,
           },
           user: {
-            id: sessionStorage.getItem("id"),
+            id: localStorage.getItem("id"),
           }, 
           totalPrice: carts.product.price * carts.quantity,
           totalProduct: carts.quantity,
@@ -44,14 +44,14 @@ function Receipt({name, phoneNumber, address, dataCart, cash, setModal, setShow,
         await axios
           .post(`${API_HISTORY}/add`, req, {
             headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .then(() => {
             axios
               .delete(`${API_CART}/delete`, {
                 headers: {
-                  Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
               })
               .then(() => {

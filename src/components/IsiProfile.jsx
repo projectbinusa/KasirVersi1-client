@@ -23,7 +23,7 @@ function IsiSetting() {
 
   
   const logout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     navigate("/");
   };
 
@@ -31,7 +31,7 @@ function IsiSetting() {
     await axios
       .get(`${API_TOKO}/all`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
@@ -56,7 +56,7 @@ function IsiSetting() {
     await axios
       .post(`${API_TOKO}/add`, req, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -79,7 +79,7 @@ function IsiSetting() {
     await axios
       .put(`${API_TOKO}/${tokoId}`, req, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -93,7 +93,7 @@ function IsiSetting() {
 
   const getUserId = async () => {
     await axios
-      .get(`${API_AUTH}/${sessionStorage.getItem("id")}`)
+      .get(`${API_AUTH}/${localStorage.getItem("id")}`)
       .then((res) => {
         setTotalPesanan(res.data.totalPesanan);
       })
