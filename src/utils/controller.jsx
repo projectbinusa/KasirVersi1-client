@@ -67,6 +67,7 @@ export const getAllDataCategory = async (path, setPath) => {
     })
     .then((res) => {
       setPath(res.data);
+      localStorage.setItem("category", res.data[0].name);
     })
     .catch((error) => {
       console.log(error);

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
 import AutoComplete from "./AutoComplete";
-import NotFound from "../pages/NotFound";
 import { Link } from "react-router-dom";
 
 function Menu({
@@ -12,7 +11,7 @@ function Menu({
   productPopular,
   productTimeAdded,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState("Food");
+  const [selectedCategory, setSelectedCategory] = useState();
   const [selectedOption, setSelectedOption] = useState("Semua");
 
   const changeCategory = (category) => setSelectedCategory(category);
@@ -31,6 +30,14 @@ function Menu({
       title: "Terbaru",
     },
   ];
+
+  useEffect(() => {
+    if (dataCategory) {
+      setSelectedCategory(localStorage.getItem("category"))
+    } else {
+      setSelectedCategory(0);
+    }
+  }, [])  
 
   return (
     <div id="menu" className="px-3 space-y-3">

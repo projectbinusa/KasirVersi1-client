@@ -22,7 +22,7 @@ function Hero({iconList}) {
   });
   const [dataCategory, setDataCategory] = useState([]);
 
-
+ 
   useEffect(() => {
     // getAllDataProduct("all", setDataMenu);
     getAllDataCategory("all", setDataCategory);
