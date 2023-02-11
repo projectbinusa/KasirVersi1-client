@@ -8,6 +8,7 @@ import {
   API_Sidebar,
 } from "./baseURL";
 import UserService from "../services/user.service";
+import EventBus from "../common/EventBus";
 
 export const getAllDatas = (setPath) => {
   UserService.getAllDataProduct().then(
@@ -23,6 +24,10 @@ export const getAllDatas = (setPath) => {
         error.toString();
 
       setPath(_content);
+
+      if (error.response && error.response.status === 401) {
+        EventBus.dispatch("logout");
+      }
     }
   );
 };

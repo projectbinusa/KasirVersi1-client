@@ -117,7 +117,7 @@ const AutoComplete = ({ setDataCart }) => {
 
   const Suggestions = () => {
     return (<>
-    <div classNam="absolute w-full">
+    <div className="absolute w-full">
     <ul className="suggestions w-full bg-white rounded-lg mt-1">
         {suggestions.map((suggestion, index) => {
           return (

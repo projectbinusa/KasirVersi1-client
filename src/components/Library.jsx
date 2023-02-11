@@ -8,8 +8,6 @@ import Pagination from "./Padination";
 import Pagination2 from "./Padination2";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
-import ReactSelect from "react-select";
-// import Select, { components } from "react-select";
 
 function Library({
   dataCategory,
@@ -26,80 +24,96 @@ function Library({
   const ikon =[
     {
     id:1,
-    name: 'fa-wine-glass',
-    names:"minuman soda"
+    prefix: "fas",
+    iconName: 'fa-wine-glass',
+    title:"minuman soda"
   },
     {
     id:2,
-    name: 'fa-cookie',
-    names:"Snack"
+    prefix: "fas",
+    iconName: 'fa-cookie',
+    title:"Snack"
   },
     {
     id:3,
-    name: 'fa-bottle-water',
-    names:"minuman botol"
+    prefix: "fas",
+    iconName: 'fa-bottle-water',
+    title:"minuman botol"
   },
     {
     id:4,
-    name: 'fa-bowl-rice',
-    names:"nasi"
+    prefix: "fas",
+    iconName: 'fa-bowl-rice',
+    title:"nasi"
   },
     {
     id:5,
-    name: 'fa-pizza-slice',
-    names:"pizza"
+    prefix: "fas",
+    iconName: 'fa-pizza-slice',
+    title:"pizza"
   },
     {
     id:6,
-    name: 'fa-mug-hot',
-    names:"minuman panas"
+    prefix: "fas",
+    iconName: 'fa-mug-hot',
+    title:"minuman panas"
   },
     {
     id:7,
-    name: 'fa-burger-fries',
-    names:"paketan"
+    prefix: "fas",
+    iconName: 'fa-burger-fries',
+    title:"paketan"
   },
     {
     id:8,
-    name: 'fa-bread-slice',
-    names:"roti"
+    prefix: "fas",
+    iconName: 'fa-bread-slice',
+    title:"roti"
   },
     {
     id:9,
-    name: 'fa-donut',
-    names:"donat  "
+    prefix: "fas",
+    iconName: 'fa-donut',
+    title:"donat  "
   },
     {
     id:10,
-    name: 'fa-ice-cream',
-    names:"Es Krim"
+    prefix: "fas",
+    iconName: 'fa-ice-cream',
+    title:"Es Krim"
   },
     {
     id:11,
-    name: 'fa-drumstick',
-    names:"ayam"
+    prefix: "fas",
+    iconName: 'fa-drumstick',
+    title:"ayam"
   },
     {
     id:12,
-    name: 'fa-lollipop',
-    names:"Permen"
+    prefix: "fas",
+    iconName: 'fa-lollipop',
+    title:"Permen"
   },
     {
     id:13,
-    name: 'fa-pie',
-    names:"roti Pai"
+    prefix: "fas",
+    iconName: 'fa-pie',
+    title:"roti Pai"
   },
     {
     id:14,
-    name: 'fa-bowl-hot',
-    names:"nasi panas"
+    prefix: "fas",
+    iconName: 'fa-bowl-hot',
+    title:"nasi panas"
   },
     {
     id:15,
-    name: 'fa-burger',
-    names:"burger"
+    prefix: "fas",
+    iconName: 'fa-burger',
+    title:"burger"
   }
 ]
+
 
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -135,7 +149,7 @@ function Library({
     e.preventDefault();
     const req = {
       name: nameCategory,
-      icon: icon,
+      icon: selectedItem,
     };
 
     await axios
@@ -147,6 +161,7 @@ function Library({
       .then(() => {
         getAllDataCategory("all", setDataCategory);
         setShowModal(false);
+        setSelectedItem(null);
       })
       .catch((error) => {
         console.log(error);
@@ -188,28 +203,25 @@ function Library({
     getAllDataCategory("all", setDataCategory);
   }, []);
 
-  const Placeholder = (props) => {
-    return <components.Placeholder {...props} />;
+  const data = [
+    { id: 0, label: "Istanbul, TR (AHL)" },
+    { id: 1, label: "Paris, FR (CDG)" },
+  ];
+
+  const [isOpen, setOpen] = useState(false);
+  const [items, setItem] = useState(ikon);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const toggleDropdown = () => setOpen(!isOpen);
+
+  const handleItemClick = (name) => {
+    setSelectedItem(name);
+    setOpen(false);
   };
 
-  const CaretDownIcon = () => {
-    return <FontAwesomeIcon icon="fa-caret-down" />;
-  };
-
-  const DropdownIndicator = (props) => {
-    return (
-      <components.DropdownIndicator {...props}>
-        <CaretDownIcon />
-      </components.DropdownIndicator>
-    );
-  };
   return (
     <div>
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
-        {/* <Select
-          components={{ Placeholder, DropdownIndicator }}
-          options={iconList}
-        /> */}
         <h1 className="font-bold text-2xl text-center md:text-left md:text-4xl">
           Library
         </h1>
@@ -246,15 +258,16 @@ function Library({
               <TableCategory
                 dataCategory={currentCategory}
                 setDataCategory={setDataCategory}
-                iconList={iconList}/>
+                iconList={iconList}
+              />
             </table>
           </div>
         </div>
-          <Pagination2
-                  cPages={cPages}
-                  currentPages={currentPages}
-                  setCurrentPages={setCurrentPages}
-                />
+        <Pagination2
+          cPages={cPages}
+          currentPages={currentPages}
+          setCurrentPages={setCurrentPages}
+        />
         <div>
           <div className="my-5">
             <div className="flex justify-between py-5">
@@ -306,7 +319,7 @@ function Library({
                     <TableLibrary
                       dataMenu={currentRecords}
                       dateEvent={dateEvent}
-                     setDataMenu={setDataMenu}
+                      setDataMenu={setDataMenu}
                     />
                   </table>
                 </div>
@@ -357,42 +370,6 @@ function Library({
                 <div className="p-6 space-y-6">
                   <form onSubmit={addCategory}>
                     <div className="relative z-0 w-full mb-6 group">
-                      <select
-                        id="category"
-                        name="category"
-                        autoComplete="category-name"
-                        onChange={(e) => setIcon(e.target.value)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                      >
-                        <option>Select Category</option>
-                        {ikon.map((item, i) => (
-                          <option key={i} value={item.name}>
-                            <p>{item.names}</p>
-                            <div>
-                              <FontAwesomeIcon
-                              icon={item.name}
-                              className="w-4 h-4 text-gray-500"
-                            />
-                            </div>
-                          </option>
-                        ))}
-                      </select>
-                      {/* <ReactSelect
-                        onChange={(e) => setIcon(e.target.value)}
-                        value={iconList.iconName}
-                        options={iconList}
-                        isSearchable
-                        formatOptionLabel={icons => (
-                          <div className="country-option flex">
-                            <span> 
-                            {icons.iconName}
-                            <FontAwesomeIcon icon={icons.iconName} className="w-4 h-4 text-gray-500" />
-                            </span>
-                          </div>
-                        )} 
-                      /> */}
-                    </div>
-                    <div className="relative z-0 w-full mb-6 group">
                       <input
                         type="text"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -404,6 +381,37 @@ function Library({
                       <label className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                         Category Name
                       </label>
+                    </div>
+                    <div className="relative z-0 w-full mb-6 group">
+                      <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <div
+                          className="dropdown-header cursor-pointer flex"
+                          onClick={toggleDropdown}
+                        >
+                          {selectedItem
+                            ? items.find((item) => item.iconName == selectedItem).title : "Select Category"}
+                          <i
+                            className={`fa fa-chevron-right icon ${
+                              isOpen && "open"
+                            }`}
+                          ></i>
+                        </div>
+                        <div className={`dropdown-body ${isOpen && "open"}`}>
+                          <ul className=" absolute grid grid-cols-4 gap-2 bg-white ">
+                            {items.map((item, i) => (
+                              <li
+                                className="dropdown-item hover:bg-blue-500 hover:text-white text-center"
+                                onClick={(e) => handleItemClick(item.iconName)}
+                                id={item.id}
+                                key={i}
+                              >
+                                <FontAwesomeIcon icon={item.iconName} size="2x" />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="flex justify-center"></div>
                     </div>
                     <div className="flex items-center justify-between space-x-2 rounded-b">
                       <button

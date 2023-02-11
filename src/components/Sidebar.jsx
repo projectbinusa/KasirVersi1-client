@@ -5,23 +5,6 @@ import { Link } from "react-router-dom";
 function Sidebar({ dataSidebar, logOut }) {
   const [activeTab, setActiveTab] = useState("Home");
 
-  const dataSidebars = [
-    {
-      id: 1,
-      name: "Home",
-      icon: "fa-store"
-    },
-    {
-      id: 2,
-      name: "Dashboard",
-      icon: "fa-store"
-    },
-    {
-      id: 3,
-      name: "About"
-    }
-  ]
-
   const handleTab = (tab) => {
     setActiveTab(tab);
   };

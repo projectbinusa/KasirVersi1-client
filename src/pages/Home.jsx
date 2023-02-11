@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../actions/auth";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
-import { getAllDataSidebar } from "../utils/controller";
 import { clearMessage } from "../actions/message";
-import AuthVerify from "../common/AuthVerify";
 
 function Home() {
-  const [dataSidebar, setDataSidebar] = useState([]);
-
-  useEffect(() => {
-    getAllDataSidebar("all", setDataSidebar);
-  }, []);
-
   const dispatch = useDispatch();
 
   let location = useLocation();
@@ -32,6 +24,34 @@ function Home() {
     navigate("/login");
   }, [dispatch]);
 
+  const dataSidebar = [
+    {
+      id: 1,
+      name: "Home",
+      icon: "fa-store"
+    },
+    {
+      id: 2,
+      name: "Dashboard",
+      icon: "fa-chart-pie"
+    },
+    {
+      id: 3,
+      name: "Library",
+      icon: "fa-book"
+    },
+    {
+      id: 4,
+      name: "Bills",
+      icon: "fa-file-invoice"
+    },
+    {
+      id: 5,
+      name: "Profile",
+      icon: "fa-user"
+    }
+  ]
+
   return (
     <>
       <div id="home" className="flex flex-col h-screen">
@@ -47,8 +67,6 @@ function Home() {
       <div className="fixed bottom-0 md:hidden">
         <Nav dataSidebar={dataSidebar} />
       </div>
-
-      <AuthVerify logOut={logOut}/>
     </>
   );
 }

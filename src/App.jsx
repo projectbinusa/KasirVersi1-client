@@ -1,5 +1,6 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useCallback, useEffect } from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,10 +12,30 @@ import NotFound from "./pages/NotFound";
 import Libraryy from "./pages/Libraryy";
 import Bils from "./pages/Bils";
 import Profile from "./pages/Profile";
-import Tes from "./pages/Tes";
-import Huma from "./pages/Huma";
+
+import { useDispatch } from "react-redux";
+import { logout } from "./actions/auth";
+import EventBus from "./common/EventBus";
 
 function App({iconList}) {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const logOut = useCallback(() => {
+    dispatch(logout());
+    navigate("/login");
+  }, [dispatch]);
+
+  useEffect(() => {
+    EventBus.on("logout", () => {
+      logOut();
+    });
+
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, [logOut]);
+
   return (
     <React.Fragment>
       <Routes>
@@ -52,11 +73,6 @@ function App({iconList}) {
           path="Profile"
           element={<Profile />}
         />
-        {/* <Route
-          path="Tes"
-          element={<Tes />}
-        />
-        <Route path="Huma" element={<Huma />}/> */}
         </Route>
         <Route path="/*" element={<NotFound/>} />
       </Routes>

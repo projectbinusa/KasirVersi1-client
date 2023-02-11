@@ -24,12 +24,12 @@ function Hero({iconList}) {
 
 
   useEffect(() => {
-    getAllDataProduct("all", setDataMenu);
+    // getAllDataProduct("all", setDataMenu);
     getAllDataCategory("all", setDataCategory);
     getProductPopular("popular", setProductPopular);
     getProductPopular("time-added", setProductTimeAdded);
     getAllDataCart("list", setDataCart);
-    // getAllDatas(setDataMenu);
+    getAllDatas(setDataMenu);
   }, []);
   return (
     <div>

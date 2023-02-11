@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 const iconList = Object.keys(Icons)
-  .filter((key) => key !== "far" && key !== "prefix")
+  .filter((key) => key !== "fas" && key !== "prefix")
   .map((icon) => Icons[icon]);
 
 library.add(...iconList);
