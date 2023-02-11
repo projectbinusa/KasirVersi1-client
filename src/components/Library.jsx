@@ -167,6 +167,10 @@ function Library({
         console.log(error);
       });
   };
+  
+function Alert() {
+  alert("tambahkan kategori dulu")
+}
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -274,7 +278,9 @@ function Library({
               <p className="grid grid-cols-1 content-center text-sm md:text-xl text-slate-700 uppercase">
                 add to product
               </p>
-              <button
+              <div>
+                {dataCategory.length !== 0? (<>
+                  <button
                 onClick={() => setModal(true)}
                 className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
               >
@@ -282,7 +288,18 @@ function Library({
                   icon="fa-plus"
                   className="w-5 md:w-7 h-5 md:h-7"
                 />
-              </button>
+              </button></>):(<>
+                <button
+                onClick={() =>Alert()}
+                className="bg-white cursor-not-allowed w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+              >
+                <FontAwesomeIcon
+                  icon="fa-plus"
+                  className="w-5 md:w-7 h-5 md:h-7"
+                />
+              </button></>)}
+             
+              </div>
             </div>
             <div className="mx-auto justify-center text-center">
               <section>

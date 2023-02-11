@@ -84,17 +84,17 @@ function Menu({
         ) : (
           <>
             <div className="lg:px-2 lg:py-2 md:py-20 md:px-44 px-1 py-1 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
-              <div className="w-full xl:w-1/2 relative pb-1 lg:pb-0">
+              <div className=" xl:w-1/2 relative pb-1 h-full lg:pb-0">
                 <div className="relative">
                   <div className="absolute">
                     <div className="">
-                      <h1 className="my-2 text-gray-800 font-bold text-2xl">
-                        Tidak ditemukan kategori
+                      <h1 className="my-2 text-gray-800 font-bold text-xl">
+                      Belum Ada Daftar Kategori
                       </h1>
                     </div>
                     <Link to="/library" >
                     <button
-                      className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+                      className="sm:w-full lg:w-auto my-1 border rounded md py-3 px-6 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
                     >
                       Buat Kategori                    
                     </button>
@@ -105,9 +105,7 @@ function Menu({
                   </div>
                 </div>
               </div>
-              <div>
-                <img src="https://i.ibb.co/ck1SGFJ/Group.png" className="w-10"/>
-              </div>
+             
             </div>
           </>
         )}
@@ -138,7 +136,11 @@ function Menu({
         </div>
       </div>
       <div id="menu">
-        {selectedOption === "Populer" ? (
+        <div>
+          {
+            dataMenu.length !== 0 ?
+            (<>
+             {selectedOption === "Populer" ? (
           <div
             className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center"
             hidden={selectedOption !== "Popular"}
@@ -180,7 +182,33 @@ function Menu({
               </section>
             ))}
           </div>
-        )}
+        )}</>):(<>
+         <div className="lg:px-2 lg:py-2 md:py-20 md:px-44 px-1 py-1 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
+              <div className="w-full h-full xl:w-1/2 relative pb-1 lg:pb-0">
+                <div className="relative">
+                  <div className="absolute">
+                    <div className="">
+                      <h1 className="my-2 text-gray-800 font-bold text-2xl">
+                       Belum Ada Daftar Menu
+                      </h1>
+                    </div>
+                    <Link to="/library" >
+                    <button
+                      className="sm:w-full lg:w-auto my-1 border rounded md py-3 px-6 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+                    >
+                      Buat Menu                   
+                    </button>
+                    </Link> 
+                  </div>
+                  <div>
+                    <img src="https://i.ibb.co/G9DC8S0/404-2.png" />
+                  </div>
+                </div>
+              </div>
+            </div></>)
+          }
+       
+         </div>
       </div>
     </div>
   );

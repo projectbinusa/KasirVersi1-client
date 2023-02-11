@@ -127,18 +127,21 @@ function IsiSetting() {
                         Sorry about that! Please create a new store
                       </p>
                     </div>
+                    <div className="flex w-full gap-5 justify-between">
+
                     <button
-                      className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+                      className="w-full lg:w-auto my-2 border rounded md py-4 px-4 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
                       onClick={() => setShowAdd(true)}
-                    >
+                      >
                       Create Store
                     </button>
                     <button
-                      className="sm:w-full lg:w-auto my-2 border md:hidden block rounded md py-4 px-8 text-center bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+                      className="w-full lg:w-auto my-2 border md:hidden block rounded md py-4 px-4 text-center bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
                       onClick={logout}
-                    >
+                      >
                       Logout
                     </button>
+                      </div>
                   </div>
                   <div>
                     <img src="https://i.ibb.co/G9DC8S0/404-2.png" />
