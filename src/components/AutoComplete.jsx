@@ -117,8 +117,7 @@ const AutoComplete = ({ setDataCart }) => {
 
   const Suggestions = () => {
     return (<>
-    <div className="absolute w-full">
-    <ul className="suggestions w-full bg-white rounded-lg mt-1">
+    <ul className="suggestions w-auto bg-white rounded-lg m-1">
         {suggestions.map((suggestion, index) => {
           return (
             <div
@@ -143,7 +142,6 @@ const AutoComplete = ({ setDataCart }) => {
           );
         })}
       </ul>
-    </div>
     
       </>
     );
