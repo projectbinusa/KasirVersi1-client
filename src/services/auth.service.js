@@ -30,6 +30,7 @@ const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
   localStorage.removeItem("id");
+  localStorage.removeItem("category");
 };
 
 export default {
