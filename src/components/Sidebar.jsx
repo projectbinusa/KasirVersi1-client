@@ -30,7 +30,7 @@ function Sidebar({ dataSidebar, logOut }) {
                       <div className="flex justify-center">
                         <FontAwesomeIcon
                           icon={data.icon}
-                          className="w-8 h-8 text=gray-500"
+                          className="w-8 h-8"
                         />
                       </div>
                       <div className="mt-4 text-center text-xs">
