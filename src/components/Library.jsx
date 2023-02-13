@@ -21,98 +21,105 @@ function Library({
     currency: "IDR",
   });
 
-  const ikon =[
+  const ikon = [
     {
-    id:1,
-    prefix: "fas",
-    iconName: 'fa-wine-glass',
-    title:"minuman soda"
-  },
+      id: 1,
+      prefix: "fas",
+      iconName: 'fa-glass-water',
+      title: "Minuman"
+    },
     {
-    id:2,
-    prefix: "fas",
-    iconName: 'fa-cookie',
-    title:"Snack"
-  },
+      id: 2,
+      prefix: "fas",
+      iconName: 'fa-mug-hot',
+      title: "Minuman Panas"
+    },
     {
-    id:3,
-    prefix: "fas",
-    iconName: 'fa-bottle-water',
-    title:"minuman botol"
-  },
+      id: 3,
+      prefix: "fas",
+      iconName: 'fa-bottle-water',
+      title: "Minuman Botol"
+    },
     {
-    id:4,
-    prefix: "fas",
-    iconName: 'fa-bowl-rice',
-    title:"nasi"
-  },
+      id: 4,
+      prefix: "fas",
+      iconName: "fa-beer-mug-empty",
+      title: "Minuman Jumbo  "
+    },
     {
-    id:5,
-    prefix: "fas",
-    iconName: 'fa-pizza-slice',
-    title:"pizza"
-  },
+      id: 5,
+      prefix: "fas",
+      iconName: 'fa-martini-glass-citrus',
+      title: " Minuman Penutup"
+    },
     {
-    id:6,
-    prefix: "fas",
-    iconName: 'fa-mug-hot',
-    title:"minuman panas"
-  },
+      id: 6,
+      prefix: "fas",
+      iconName: 'fa-ice-cream',
+      title: "Makanan Penutup"
+    },
     {
-    id:7,
-    prefix: "fas",
-    iconName: 'fa-burger-fries',
-    title:"paketan"
-  },
+      id: 7,
+      prefix: "fas",
+      iconName: 'fa-bowl-food',
+      title: "Makanan"
+    },
+
     {
-    id:8,
-    prefix: "fas",
-    iconName: 'fa-bread-slice',
-    title:"roti"
-  },
+      id: 8,
+      prefix: "fas",
+      iconName: 'fa-cookie',
+      title: "Snack"
+    },
     {
-    id:9,
-    prefix: "fas",
-    iconName: 'fa-donut',
-    title:"donat  "
-  },
+      id: 9,
+      prefix: "fas",
+      iconName: 'fa-bowl-rice',
+      title: "Nasi"
+    },
     {
-    id:10,
-    prefix: "fas",
-    iconName: 'fa-ice-cream',
-    title:"Es Krim"
-  },
+      id: 10,
+      prefix: "fas",
+      iconName: 'fa-pizza-slice',
+      title: "Makanan Berat"
+    },
     {
-    id:11,
-    prefix: "fas",
-    iconName: 'fa-drumstick',
-    title:"ayam"
-  },
+      id: 11,
+      prefix: "fas",
+      iconName: 'fa-bread-slice',
+      title: "Roti"
+    },
     {
-    id:12,
-    prefix: "fas",
-    iconName: 'fa-lollipop',
-    title:"Permen"
-  },
+      id: 12,
+      prefix: "fas",
+      iconName: 'fa-burger',
+      title: "Burger"
+    },
     {
-    id:13,
-    prefix: "fas",
-    iconName: 'fa-pie',
-    title:"roti Pai"
-  },
+      id: 13,
+      prefix: "fas",
+      iconName: 'fa-pepper-hot',
+      title: "Sambal"
+    },
     {
-    id:14,
-    prefix: "fas",
-    iconName: 'fa-bowl-hot',
-    title:"nasi panas"
-  },
+      id: 14,
+      prefix: "fas",
+      iconName: 'fa-cheese',
+      title: "Keju"
+    },
     {
-    id:15,
-    prefix: "fas",
-    iconName: 'fa-burger',
-    title:"burger"
-  }
-]
+      id: 15,
+      prefix: "fas",
+      iconName: 'fa-apple-whole',
+      title: "Buah"
+    },
+    {
+      id: 16,
+      prefix: "fas",
+      iconName: 'fa-ellipsis',
+      title: "Lainnya"
+    },
+  ]
 
 
   const [modal, setModal] = useState(false);
@@ -167,10 +174,10 @@ function Library({
         console.log(error);
       });
   };
-  
-function Alert() {
-  alert("tambahkan kategori dulu")
-}
+
+  function Alert() {
+    alert("tambahkan kategori dulu")
+  }
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -279,26 +286,26 @@ function Alert() {
                 add to product
               </p>
               <div>
-                {dataCategory.length !== 0? (<>
+                {dataCategory.length !== 0 ? (<>
                   <button
-                onClick={() => setModal(true)}
-                className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
-              >
-                <FontAwesomeIcon
-                  icon="fa-plus"
-                  className="w-5 md:w-7 h-5 md:h-7"
-                />
-              </button></>):(<>
-                <button
-                onClick={() =>Alert()}
-                className="bg-white cursor-not-allowed w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
-              >
-                <FontAwesomeIcon
-                  icon="fa-plus"
-                  className="w-5 md:w-7 h-5 md:h-7"
-                />
-              </button></>)}
-             
+                    onClick={() => setModal(true)}
+                    className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+                  >
+                    <FontAwesomeIcon
+                      icon="fa-plus"
+                      className="w-5 md:w-7 h-5 md:h-7"
+                    />
+                  </button></>) : (<>
+                    <button
+                      onClick={() => Alert()}
+                      className="bg-white cursor-not-allowed w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+                    >
+                      <FontAwesomeIcon
+                        icon="fa-plus"
+                        className="w-5 md:w-7 h-5 md:h-7"
+                      />
+                    </button></>)}
+
               </div>
             </div>
             <div className="mx-auto justify-center text-center">
@@ -408,9 +415,8 @@ function Alert() {
                           {selectedItem
                             ? items.find((item) => item.iconName == selectedItem).title : "Select Category"}
                           <i
-                            className={`fa fa-chevron-right icon ${
-                              isOpen && "open"
-                            }`}
+                            className={`fa fa-chevron-right icon ${isOpen && "open"
+                              }`}
                           ></i>
                         </div>
                         <div className={`dropdown-body ${isOpen && "open"}`}>
