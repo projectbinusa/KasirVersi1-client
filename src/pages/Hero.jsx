@@ -1,10 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../actions/auth";
 import Cart from "../components/Cart";
 import CartMobile from "../components/CartMobile";
 import Loading from "../components/Loading";
 import Menu from "../components/Menu";
+import userService from "../services/user.service";
 import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import {
   getAllDataCart,
@@ -27,6 +31,14 @@ function Hero({ iconList }) {
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOut = useCallback(() => {
+    dispatch(logout());
+    navigate("/login");
+  }, [dispatch]);
+
   const getAllDataProduct = async () => {
     await axios
       .get(`${API_PRODUCT}/all`, {
@@ -44,6 +56,28 @@ function Hero({ iconList }) {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const getAllDatas = (setPath) => {
+    userService.getAllDataProduct().then(
+      (response) => {
+        setPath(response.data);
+      },
+      (error) => {
+        const _content =
+          (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+  
+        setPath(_content);
+        setLoading(!loading);
+        setTimeout(() => {
+          setLoading(!loading);
+        }, 1000);
+  
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
   };
 
 
@@ -64,16 +98,19 @@ function Hero({ iconList }) {
       })
       .catch((error) => {
         console.log(error);
+        if (error.message === 'Request failed with status code 401') {
+          logOut();
+        }
       });
   };
 
   useEffect(() => {
-    getAllDataProduct();
+    // getAllDataProduct();
     getAllDataCategory();
     getProductPopular("popular", setProductPopular);
     getProductPopular("time-added", setProductTimeAdded);
     getAllDataCart("list", setDataCart);
-    // getAllDatas(setDataMenu);
+    getAllDatas(setDataMenu);
   }, []);
 
   useEffect(() => {

@@ -16,6 +16,9 @@ import Profile from "./pages/Profile";
 import { useDispatch } from "react-redux";
 import { logout } from "./actions/auth";
 import EventBus from "./common/EventBus";
+import { AuthContextProvider } from "./context/AuthContext";
+import AlertCheckout from "./components/AlertCheckout";
+import MakeProfile from "./pages/MakeProfile";
 
 function App({iconList}) {
   const dispatch = useDispatch();
@@ -38,9 +41,18 @@ function App({iconList}) {
 
   return (
     <React.Fragment>
+      <AuthContextProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          exact path="/makeprofile"
+          element={
+            <PrivateRoute>
+              <MakeProfile />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/"
           element={<Navigate to="/Home" />}
@@ -73,9 +85,14 @@ function App({iconList}) {
           path="Profile"
           element={<Profile />}
         />
+        <Route
+          path="Success"
+          element={<AlertCheckout />}
+        />
         </Route>
         <Route path="/*" element={<NotFound/>} />
       </Routes>
+      </AuthContextProvider>
     </React.Fragment>
   );
 }

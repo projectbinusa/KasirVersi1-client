@@ -17,11 +17,7 @@ export const getAllDatas = (setPath) => {
     },
     (error) => {
       const _content =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 
       setPath(_content);
 
@@ -146,5 +142,36 @@ export const getAllDataCart = async (path, setPath) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+
+export const deleteCategory = async (item, setPath) => {
+  await axios
+    .delete(`${API_CATEGORY}/delete/${item}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(() => {
+      getAllDataCategory("all", setPath);
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const deleteProduct = async (item, setPath) => {
+  await axios
+    .delete(`${API_PRODUCT}/delete/${item}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(() => {
+      getAllDataProduct("all", setPath);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

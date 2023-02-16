@@ -13,6 +13,7 @@ import { getAllDataCart } from "../utils/controller";
 import ReceiptMobile from "./ReceiptMobile";
 import html2canvas from "html2canvas";
 import { useReactToPrint } from "react-to-print";
+import { useNavigate } from 'react-router-dom';
 
 function CartMobile({ dataCart, setDataCart }) {
     const [show, setShow] = useState(false);
@@ -23,6 +24,8 @@ function CartMobile({ dataCart, setDataCart }) {
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [address, setAddress] = useState("");
+
+    const navigate = useNavigate();
 
     const titik = new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -187,7 +190,7 @@ function CartMobile({ dataCart, setDataCart }) {
           const handlePrint = useReactToPrint({
             content: () => refus.current,
             documentTitle: "struk",
-            onAfterPrint: () => alert("Success!"),
+            onAfterPrint: () => navigate("/success"),
           })
     
         const checkoutReceipt = (e) => {
@@ -245,7 +248,7 @@ function CartMobile({ dataCart, setDataCart }) {
                                                 <input
                                                     type="number"
                                                     id="Quantity"
-                                                    defaultValue={carts.quantity}
+                                                    value={carts.quantity}
                                                     autoComplete="off"
                                                     className="w-[30px] ml-2"
                                                     readOnly

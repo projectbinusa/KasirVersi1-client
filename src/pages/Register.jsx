@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../actions/auth";
+import { login, register } from "../actions/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "../components/Alert";
+import { Alert } from "../components/Alert";
+import { UserAuth } from "../context/AuthContext";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ const Register = () => {
   const [active, setActive] = useState("fa-solid fa-eye-slash");
 
   const [isOpen, setIsOpen] = useState(false);
+  const { user, googleSignIn } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -36,17 +38,43 @@ const Register = () => {
     setPassword(password);
   };
 
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+
+  //   dispatch(login(email, password))
+  //     .then(() => {
+  //       if (location.state) {
+  //         navigate(`${location.state.from.pathname}`);
+  //       } else {
+  //         navigate("/home");
+  //       }
+  //     })
+  //     .catch(() => {
+  //       setLoading(false);
+  //       setIsOpen(true);
+  //     });
+  // };
+
   const handleRegister = (e) => {
     e.preventDefault();
 
     dispatch(register(username, email, password))
       .then(() => {
-        navigate("/login");
+        setPassword(password);
+        setEmail(email);
+        dispatch(login(email, password))
+          .then(() => {
+              navigate("/makeprofile");
+          })
+          .catch(() => {
+            setIsOpen(true);
+          });
       })
       .catch(() => {
         setIsOpen(true);
       });
   };
+
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -57,8 +85,24 @@ const Register = () => {
     setActive("fa-solid fa-eye-slash");
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user != null) {
+      setUsername(user.displayName);
+      setEmail(user.email);
+      setPassword(user.password);
+    }
+  }, [user]);
+
   return (
-    <div id="login">
+    <div id="register">
       {isOpen && <Alert setIsOpen={setIsOpen} message={message} />}
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
@@ -78,7 +122,7 @@ const Register = () => {
                 type="text"
                 id="username"
                 placeholder="Username"
-                value={username}
+                value={username || ""}
                 onChange={onChangeUsername}
               />
               <input
@@ -86,7 +130,7 @@ const Register = () => {
                 type="email"
                 id="email"
                 placeholder="Email"
-                value={email}
+                value={email || ""}
                 onChange={onChangeEmail}
               />
               <div className="relative">
@@ -95,7 +139,7 @@ const Register = () => {
                   type={passwordType}
                   id="password"
                   placeholder="Password"
-                  value={password}
+                  value={password || ""}
                   onChange={onChangePassword}
                 />
                 <FontAwesomeIcon
@@ -118,7 +162,10 @@ const Register = () => {
               <hr className="border-gray-400" />
             </div>
 
-            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]">
+            <button
+              className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]"
+              onClick={handleGoogleSignIn}
+            >
               <svg
                 className="mr-3"
                 xmlns="http://www.w3.org/2000/svg"

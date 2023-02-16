@@ -5,7 +5,7 @@ export const SkeletonCategory = () => {
   return (
     <div
       id="category"
-      className="flex text-center space-x-3 mx-auto overflow-x-auto text-gray-400"
+      className="flex text-center space-x-3 mx-auto overflow-x-auto text-gray-400 animate-pulse"
     >
       {[1, 2].map((data, index) => (
         <div className="rounded-2xl mb-5" key={index}>
@@ -28,7 +28,7 @@ export const SkeletonCategory = () => {
 
 export const SkeletonProduct = () => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto justify-center text-center animate-pulse">
       {[1, 2, 3].map((index) => (
         <section key={index}>
           <div id="card">
@@ -45,5 +45,65 @@ export const SkeletonProduct = () => {
         </section>
       ))}
     </div>
+  );
+};
+
+export const SkeletonCart = () => {
+  return (
+    <div className="grid grid-cols-1 my-6 gap-4 cut animate-pulse">
+    {[1,2].map((index) => (
+      <div
+        key={index}
+        className="grid grid-cols-6 gap-4 items-center text-md"
+      >
+        <div className="grid justify-center col-span-2">
+          <div
+            // src={carts.product.image}
+            alt="product"
+            className="h-[75px] w-[80px] rounded-[20px] bg-gray-300"
+          ></div>
+        </div>
+        <div className="gird grid-cols-1 gap-4">
+          <div className="h-2 font-bold cut-text w-24">
+            {/* {carts.product.name} */}
+          </div>
+          <div className="grid grid-cols-3 text-gray-500 font-md">
+            <div className="flex items-center justify-center rounded cursor-pointer">
+              <FontAwesomeIcon
+                icon="fa-square-minus"
+                className="w-5 h-5 text-gray-400  hover:text-red-400"
+              />
+            </div>
+            <div className="px-1">
+              <input
+                type="number"
+                id="Quantity"
+                // value={carts.quantity}
+                autoComplete="off"
+                className=""
+                readOnly
+                disabled
+              />
+            </div>
+            <div className="flex items-center justify-center rounded cursor-pointer">
+              <FontAwesomeIcon
+                icon="fa-square-plus"
+                className="w-5 h-5 ml-3 text-gray-400 hover:text-green-400"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="text-end text-gray-500 font-semibold col-span-2">
+          {/* {titik.format(carts.product.price * carts.quantity)} */}
+        </div>
+        <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
+          <FontAwesomeIcon
+            icon='fa-trash-can'
+            className="w-4 h-5 text-red-500"
+          />
+        </div>
+      </div>
+    ))}
+  </div>
   );
 };

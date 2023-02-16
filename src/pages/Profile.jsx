@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import IsiProfile from "../components/IsiProfile";
 
 function Profile({iconList}) {

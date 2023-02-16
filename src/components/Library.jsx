@@ -8,6 +8,8 @@ import Pagination from "./Padination";
 import Pagination2 from "./Padination2";
 import TableLibrary from "./TableLibrary";
 import TableCategory from "./TableCategory";
+import { Alert, AlertConfirm, AlertConfirm2 } from "./Alert";
+import { Link } from "react-router-dom";
 
 function Library({
   dataCategory,
@@ -25,107 +27,105 @@ function Library({
     {
       id: 1,
       prefix: "fas",
-      iconName: 'fa-glass-water',
-      title: "Minuman"
+      iconName: "fa-glass-water",
+      title: "Minuman",
     },
     {
       id: 2,
       prefix: "fas",
-      iconName: 'fa-mug-hot',
-      title: "Minuman Panas"
+      iconName: "fa-mug-hot",
+      title: "Minuman Panas",
     },
     {
       id: 3,
       prefix: "fas",
-      iconName: 'fa-bottle-water',
-      title: "Minuman Botol"
+      iconName: "fa-bottle-water",
+      title: "Minuman Botol",
     },
     {
       id: 4,
       prefix: "fas",
       iconName: "fa-beer-mug-empty",
-      title: "Minuman Jumbo  "
+      title: "Minuman Jumbo  ",
     },
     {
       id: 5,
       prefix: "fas",
-      iconName: 'fa-martini-glass-citrus',
-      title: " Minuman Penutup"
+      iconName: "fa-martini-glass-citrus",
+      title: " Minuman Penutup",
     },
     {
       id: 6,
       prefix: "fas",
-      iconName: 'fa-ice-cream',
-      title: "Makanan Penutup"
+      iconName: "fa-ice-cream",
+      title: "Makanan Penutup",
     },
     {
       id: 7,
       prefix: "fas",
-      iconName: 'fa-bowl-food',
-      title: "Makanan"
+      iconName: "fa-bowl-food",
+      title: "Makanan",
     },
 
     {
       id: 8,
       prefix: "fas",
-      iconName: 'fa-cookie',
-      title: "Snack"
+      iconName: "fa-cookie",
+      title: "Snack",
     },
     {
       id: 9,
       prefix: "fas",
-      iconName: 'fa-bowl-rice',
-      title: "Nasi"
+      iconName: "fa-bowl-rice",
+      title: "Nasi",
     },
     {
       id: 10,
       prefix: "fas",
-      iconName: 'fa-pizza-slice',
-      title: "Makanan Berat"
+      iconName: "fa-pizza-slice",
+      title: "Makanan Berat",
     },
     {
       id: 11,
       prefix: "fas",
-      iconName: 'fa-bread-slice',
-      title: "Roti"
+      iconName: "fa-bread-slice",
+      title: "Roti",
     },
     {
       id: 12,
       prefix: "fas",
-      iconName: 'fa-burger',
-      title: "Burger"
+      iconName: "fa-burger",
+      title: "Burger",
     },
     {
       id: 13,
       prefix: "fas",
-      iconName: 'fa-pepper-hot',
-      title: "Sambal"
+      iconName: "fa-pepper-hot",
+      title: "Sambal",
     },
     {
       id: 14,
       prefix: "fas",
-      iconName: 'fa-cheese',
-      title: "Keju"
+      iconName: "fa-cheese",
+      title: "Keju",
     },
     {
       id: 15,
       prefix: "fas",
-      iconName: 'fa-apple-whole',
-      title: "Buah"
+      iconName: "fa-apple-whole",
+      title: "Buah",
     },
     {
       id: 16,
       prefix: "fas",
-      iconName: 'fa-ellipsis',
-      title: "Lainnya"
+      iconName: "fa-ellipsis",
+      title: "Lainnya",
     },
-  ]
-
+  ];
 
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const [icon, setIcon] = useState([]);
   const [nameCategory, setNameCategory] = useState("");
 
   const [image, setImage] = useState(null);
@@ -175,9 +175,9 @@ function Library({
       });
   };
 
-  function Alert() {
-    alert("tambahkan kategori dulu")
-  }
+  // function Alert() {
+  //   alert("tambahkan kategori dulu")
+  // }
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -214,14 +214,13 @@ function Library({
     getAllDataCategory("all", setDataCategory);
   }, []);
 
-  const data = [
-    { id: 0, label: "Istanbul, TR (AHL)" },
-    { id: 1, label: "Paris, FR (CDG)" },
-  ];
-
   const [isOpen, setOpen] = useState(false);
   const [items, setItem] = useState(ikon);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertConfirm, setShowAlertConfirm] = useState(false);
+  const [showAlertConfirm2, setShowAlertConfirm2] = useState(false);
 
   const toggleDropdown = () => setOpen(!isOpen);
 
@@ -230,8 +229,24 @@ function Library({
     setOpen(false);
   };
 
+  const [id, setId] = useState(0);
+
   return (
     <div>
+      {showAlertConfirm && (
+        <AlertConfirm
+          setIsOpen={setShowAlertConfirm}
+          id={id}
+          setDataCategory={setDataCategory}
+        />
+      )}
+      {showAlertConfirm2 && (
+        <AlertConfirm2
+          setIsOpen={setShowAlertConfirm2}
+          id={id}
+          setDataMenu={setDataMenu}
+        />
+      )}
       <div className="p-5 bg-gray-50 col-span-9 h-screen overflow-y-auto scroll-none">
         <h1 className="font-bold text-2xl text-center md:text-left md:text-4xl">
           Library
@@ -251,8 +266,8 @@ function Library({
               />
             </button>
           </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-center text-gray-500 ">
+          <div className=" overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-gray-500 ">
               <thead className="text-xs text-gray-700 bg-gray-200 ">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -266,11 +281,24 @@ function Library({
                   </th>
                 </tr>
               </thead>
-              <TableCategory
-                dataCategory={currentCategory}
-                setDataCategory={setDataCategory}
-                iconList={iconList}
-              />
+              {dataCategory.length == 0 ? (
+                  <tbody className="mx-auto text-center">
+                  <tr>
+                    <td>
+                      <p className="my-2 text-gray-800 font-bold text-xl">
+                        Belum Ada Daftar Kategori
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              ) : (
+                <TableCategory
+                  dataCategory={currentCategory}
+                  setDataCategory={setDataCategory}
+                  setShowAlertConfirm={setShowAlertConfirm}
+                  setId={setId}
+                  />
+              )}
             </table>
           </div>
         </div>
@@ -286,31 +314,42 @@ function Library({
                 add to product
               </p>
               <div>
-                {dataCategory.length !== 0 ? (<>
-                  <button
-                    onClick={() => setModal(true)}
-                    className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
-                  >
-                    <FontAwesomeIcon
-                      icon="fa-plus"
-                      className="w-5 md:w-7 h-5 md:h-7"
-                    />
-                  </button></>) : (<>
+                {dataCategory.length !== 0 ? (
+                  <>
                     <button
-                      onClick={() => Alert()}
+                      onClick={() => setModal(true)}
+                      className="bg-white w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
+                    >
+                      <FontAwesomeIcon
+                        icon="fa-plus"
+                        className="w-5 md:w-7 h-5 md:h-7"
+                      />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setShowAlert(true)}
                       className="bg-white cursor-not-allowed w-16 sm:w-24 md:w-36 rounded-xl border-gray-200 hover:bg-green-50 focus:outline-none hover:text-blue-700"
                     >
                       <FontAwesomeIcon
                         icon="fa-plus"
                         className="w-5 md:w-7 h-5 md:h-7"
                       />
-                    </button></>)}
-
+                    </button>
+                  </>
+                )}
               </div>
             </div>
             <div className="mx-auto justify-center text-center">
+              {showAlert && (
+                <Alert
+                  setIsOpen={setShowAlert}
+                  message={"Silahkan Tambahkan Kategori Dahulu!"}
+                />
+              )}
               <section>
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className=" overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full bg-white text-sm text-left text-gray-500 ">
                     <thead className="text-xs text-center text-gray-700 bg-gray-200  ">
                       <tr>
@@ -340,11 +379,25 @@ function Library({
                         </th>
                       </tr>
                     </thead>
-                    <TableLibrary
-                      dataMenu={currentRecords}
-                      dateEvent={dateEvent}
-                      setDataMenu={setDataMenu}
-                    />
+                    {dataMenu.length === 0 ? (
+                      <tbody className="mx-auto text-center">
+                      <tr>
+                        <td>
+                          <h1 className="my-2 text-gray-800 font-bold text-xl">
+                            Belum Ada Daftar Menu
+                          </h1>
+                        </td>
+                      </tr>
+                    </tbody>
+                    ) : (
+                      <TableLibrary
+                        dataMenu={currentRecords}
+                        dateEvent={dateEvent}
+                        setDataMenu={setDataMenu}
+                        setShowAlertConfirm={setShowAlertConfirm2}
+                        setId={setId}
+                      />
+                    )}
                   </table>
                 </div>
               </section>
@@ -413,10 +466,14 @@ function Library({
                           onClick={toggleDropdown}
                         >
                           {selectedItem
-                            ? items.find((item) => item.iconName == selectedItem).title : "Select Category"}
+                            ? items.find(
+                                (item) => item.iconName == selectedItem
+                              ).title
+                            : "Select Icon"}
                           <i
-                            className={`fa fa-chevron-right icon ${isOpen && "open"
-                              }`}
+                            className={`fa fa-chevron-right icon ${
+                              isOpen && "open"
+                            }`}
                           ></i>
                         </div>
                         <div className={`dropdown-body ${isOpen && "open"}`}>
@@ -428,7 +485,10 @@ function Library({
                                 id={item.id}
                                 key={i}
                               >
-                                <FontAwesomeIcon icon={item.iconName} size="2x" />
+                                <FontAwesomeIcon
+                                  icon={item.iconName}
+                                  size="2x"
+                                />
                               </li>
                             ))}
                           </ul>

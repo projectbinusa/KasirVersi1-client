@@ -5,7 +5,6 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../assets/Cart.css";
 import { API_CART, API_TOKO, API_HISTORY } from "../utils/baseURL";
 import axios from "axios";
 import { getAllDataCart } from "../utils/controller";
@@ -15,14 +14,17 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
 import { useReactToPrint } from "react-to-print";
+import AlertCheckout from "./AlertCheckout";
+import { useNavigate } from "react-router-dom";
 
 function Cart({ dataCart, setDataCart }) {
   const [show, setShow] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
   const [cash, setCash] = useState(0);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const navigate = useNavigate();
 
   const titik = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -239,7 +241,7 @@ function Cart({ dataCart, setDataCart }) {
   const handlePrint = useReactToPrint({
     content: () => refus.current,
     documentTitle: "struk",
-    onAfterPrint: () => alert("Success!"),
+    onAfterPrint: () => navigate("/success"),
   });
 
   const checkoutReceipt = (e) => {
@@ -545,7 +547,7 @@ function Cart({ dataCart, setDataCart }) {
                       -- {moment().format("L")}, {moment().format("LT")} --
                     </div>
                   </div>
-                  <div className="border-b border-dashed"></div>
+                  {/* <div className="border-b border-dashed"></div>
                   <div className="mt-4">
                     <div className="flex justify-between space-x-2 rounded-b">
                       <button
@@ -568,7 +570,7 @@ function Cart({ dataCart, setDataCart }) {
                         cetak struk
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -577,7 +579,7 @@ function Cart({ dataCart, setDataCart }) {
       ) : (
         <></>
       )}
-      {modal ? <></> : <></>}
+      {/* {modal ?  <AlertCheckout setModal={setModal}/>: <></>} */}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { API_PRODUCT } from "../utils/baseURL";
 import { getAllDataProduct } from "../utils/controller";
 
 
-function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
+function TableLibrary({ dataMenu, setDataMenu, dateEvent, setShowAlertConfirm, setId }) {
   const titik = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
 
   const [show, setShow] = useState(false);
@@ -62,20 +62,10 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
       });
   };
 
-  const deleteProduct = async (item) => {
-    await axios
-      .delete(`${API_PRODUCT}/delete/${item}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        getAllDataProduct("all", setDataMenu);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const deleteProduct = (id) => {
+    setShowAlertConfirm(true);
+    setId(id);
+   }
 
   return (
     <>
@@ -123,7 +113,9 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
         })}
       </tbody>
       {show ? (
-        <>
+        <tbody>
+          <tr>
+          <td>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
             <div className="relative w-full h-full max-w-2xl md:h-auto">
               <div className="relative bg-gray-100 rounded-lg shadow ">
@@ -161,7 +153,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="name"
-                        defaultValue={name}
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                       />
@@ -175,7 +167,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="price"
-                        defaultValue={price}
+                        value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         required
                       />
@@ -190,7 +182,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="stock"
-                          defaultValue={stock}
+                          value={stock}
                           onChange={(e) => setStock(e.target.value)}
                           required
                         />
@@ -205,7 +197,7 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                           id="description"
-                          defaultValue={description}
+                          value={description}
                           onChange={(e) => setDescription(e.target.value)}
                           required
                         />
@@ -236,7 +228,9 @@ function TableLibrary({ dataMenu, setDataMenu, dateEvent }) {
               </div>
             </div>
           </div>
-        </>
+          </td>
+          </tr>
+        </tbody>
       ) : (
         <></>
       )}

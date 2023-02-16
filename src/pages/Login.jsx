@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { login } from "../actions/auth";
-import Alert from "../components/Alert";
 import axios from "axios";
 import { API_AUTH } from "../utils/baseURL";
+import { UserAuth } from "../context/AuthContext";
+import { Alert } from "../components/Alert";
 
 const Login = () => {
   const location = useLocation();
@@ -22,8 +23,18 @@ const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [active, setActive] = useState("fa-solid fa-eye-slash");
   const [isOpen, setIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({});
 
+  const { user, googleSignIn } = UserAuth();
+
+  useEffect(() => {
+    if (user != null) {
+      setEmail(user.email);
+      setPassword(user.password);
+    } else {
+      setEmail('');
+      setPassword('');
+    }
+  }, [user]);
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -54,34 +65,34 @@ const Login = () => {
       });
   };
 
-  const logins = async (e) => {
-    e.preventDefault();
-    const req = {
-      email: email,
-      password: password,
-    };
+  // const logins = async (e) => {
+  //   e.preventDefault();
+  //   const req = {
+  //     email: email,
+  //     password: password,
+  //   };
 
-    await axios
-      .post(`${API_AUTH}/login`, req, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        localStorage.setItem("token", res.data.data.token);
-        localStorage.setItem("id", res.data.data.userId);
-        if (location.state) {
-          navigate(`${location.state.from.pathname}`);
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        setErrorMessage(err.response.data);
-        setIsOpen(true);
-      });
-  };
+  //   await axios
+  //     .post(`${API_AUTH}/login`, req, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       localStorage.setItem("token", res.data.data.token);
+  //       localStorage.setItem("id", res.data.data.userId);
+  //       if (location.state) {
+  //         navigate(`${location.state.from.pathname}`);
+  //       } else {
+  //         navigate("/");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       setErrorMessage(err.response.data);
+  //       setIsOpen(true);
+  //     });
+  // };
 
 
   if (isLoggedIn) {
@@ -96,6 +107,15 @@ const Login = () => {
     }
     setPasswordType("password");
     setActive("fa-solid fa-eye-slash");
+  };
+
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -119,7 +139,7 @@ const Login = () => {
                 type="email"
                 id="email"
                 placeholder="Email"
-                value={email}
+                value={email || ''}
                 onChange={onChangeEmail}
               />
               <div className="relative">
@@ -128,7 +148,7 @@ const Login = () => {
                   type={passwordType}
                   id="password"
                   placeholder="Password"
-                  value={password}
+                  value={password || ''}
                   onChange={onChangePassword}
                 />
                 <FontAwesomeIcon
@@ -151,7 +171,7 @@ const Login = () => {
               <hr className="border-gray-400" />
             </div>
 
-            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]">
+            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]" onClick={handleGoogleSignIn}>
               <svg
                 className="mr-3"
                 xmlns="http://www.w3.org/2000/svg"

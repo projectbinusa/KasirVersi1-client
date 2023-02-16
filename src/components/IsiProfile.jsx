@@ -121,10 +121,10 @@ function IsiSetting() {
                   <div className="absolute">
                     <div className="">
                       <h1 className="my-2 text-gray-800 font-bold text-2xl">
-                        There is no store description yet
+                        Belum ada deskripsi toko
                       </h1>
                       <p className="my-2 text-gray-800">
-                        Sorry about that! Please create a new store
+                        Mohon maaf, Silakan buat toko baru
                       </p>
                     </div>
                     <div className="flex w-full gap-5 justify-between">
@@ -133,7 +133,7 @@ function IsiSetting() {
                       className="w-full lg:w-auto my-2 border rounded md py-4 px-4 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
                       onClick={() => setShowAdd(true)}
                       >
-                      Create Store
+                      Buat Toko
                     </button>
                     <button
                       className="w-full lg:w-auto my-2 border md:hidden block rounded md py-4 px-4 text-center bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
@@ -156,13 +156,13 @@ function IsiSetting() {
         ) : (
           <>
             <main className="profile-page">
-              <section className="relative py-14 ">
+              <section className="relative md:py-44 py-14">
                 <div className="container mx-auto px-1">
                   <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg ">
                     <div className="px-6">
                       <div className="flex flex-wrap justify-center">
                         <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                          <div className="relative">
+                          <div className="">
                             <img
                               alt="..."
                               src="https://t3.ftcdn.net/jpg/02/40/93/66/360_F_240936643_lbL2jWTNXDuL3qB3IP6DdrrxAErjgn4I.jpg"
@@ -385,7 +385,7 @@ function IsiSetting() {
                         className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="name"
-                        defaultValue={name}
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                       />
@@ -399,7 +399,7 @@ function IsiSetting() {
                         className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                         id="phoneNumber"
-                        defaultValue={phoneNumber}
+                        value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         required
                       />

@@ -22,7 +22,9 @@ function IsiBils({ bils }) {
   };
   return (
     <div className="m-5">
-      <h1 className="font-bold text-xl text-center sm:text-center sm:text-2xl md:text-left md:text-4xl">Purchase History</h1>
+      <h1 className="font-bold text-xl text-center sm:text-center sm:text-2xl md:text-left md:text-4xl">
+        Purchase History
+      </h1>
       <div className='md:p-5 bg-gray-50 col-span-9 h-auto overflow-y-auto scroll-none"'>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 ">
@@ -45,11 +47,23 @@ function IsiBils({ bils }) {
                 </th>
               </tr>
             </thead>
-            <TableBills
-              dateEvent={dateEvent}
-              bils={currentRecords}
-              titik={titik}
-            />
+            {bils.length === 0 ? (
+              <tbody className="mx-auto text-center">
+                <tr>
+                  <td>
+                    <p className="my-2 text-gray-800 font-bold text-xl">
+                      Belum Ada History Penjualan
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            ) : (
+              <TableBills
+                dateEvent={dateEvent}
+                bils={currentRecords}
+                titik={titik}
+              />
+            )}
           </table>
         </div>
         <div className="py-6">
