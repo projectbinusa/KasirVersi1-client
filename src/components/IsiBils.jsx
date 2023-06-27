@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
-import Pagination from "./Padination";
+import Pagination from "./Pagination";
 import TableBills from "./TableBills";
 function IsiBils({ bils }) {
   const [currentPage, setCurrentPage] = useState(1);
