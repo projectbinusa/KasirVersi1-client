@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import {
+  faTrashCan,
+  faSquareMinus,
+  faSquarePlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const SkeletonCategory = () => {
   return (
@@ -50,60 +55,68 @@ export const SkeletonProduct = () => {
 
 export const SkeletonCart = () => {
   return (
-    <div className="grid grid-cols-1 my-6 gap-4 cut animate-pulse">
-    {[1,2].map((index) => (
-      <div
-        key={index}
-        className="grid grid-cols-6 gap-4 items-center text-md"
-      >
-        <div className="grid justify-center col-span-2">
+    <div>
+      <h1 className="font-bold text-3xl">
+        Keranjang <span className="font-thin text-gray-500">Pesanan</span>
+      </h1>
+      <div className="grid grid-cols-1 my-6 gap-4 cut animate-pulse">
+        {[1].map((index) => (
           <div
-            // src={carts.product.image}
-            alt="product"
-            className="h-[75px] w-[80px] rounded-[20px] bg-gray-300"
-          ></div>
-        </div>
-        <div className="gird grid-cols-1 gap-4">
-          <div className="h-2 font-bold cut-text w-24">
-            {/* {carts.product.name} */}
-          </div>
-          <div className="grid grid-cols-3 text-gray-500 font-md">
-            <div className="flex items-center justify-center rounded cursor-pointer">
+            key={index}
+            className="grid grid-cols-6 gap-4 items-center text-md"
+          >
+            <div className="grid justify-center col-span-2">
+              <div className="h-[75px] w-[80px] rounded-[20px] mb-1 shadow-lg mx-auto bg-gray-300"></div>
+            </div>
+            <div className="gird grid-cols-1 gap-4">
+              <div className="font-bold cut-text">
+                <p className="h-4 bg-gray-300 rounded-full w-16 mb-1"></p>
+              </div>
+              <div className="grid grid-cols-3 text-gray-500 font-md">
+                <div className="flex items-center justify-center rounded cursor-pointer">
+                  <FontAwesomeIcon
+                    icon={faSquareMinus}
+                    className="w-5 h-5 text-gray-400  hover:text-red-400"
+                  />
+                </div>
+                <div className="px-1">
+                  <input
+                    type="number"
+                    id="Quantity"
+                    value="0"
+                    autoComplete="off"
+                    className=""
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="flex items-center justify-center rounded cursor-pointer">
+                  <FontAwesomeIcon
+                    icon={faSquarePlus}
+                    className="w-5 h-5 ml-3 text-gray-400 hover:text-green-400"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="text-end text-gray-500 font-semibold col-span-2">
+              <p className="h-2 bg-gray-300 rounded-full w-32 ml-3"></p>
+            </div>
+            <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
               <FontAwesomeIcon
-                icon="fa-square-minus"
-                className="w-5 h-5 text-gray-400  hover:text-red-400"
-              />
-            </div>
-            <div className="px-1">
-              <input
-                type="number"
-                id="Quantity"
-                // value={carts.quantity}
-                autoComplete="off"
-                className=""
-                readOnly
-                disabled
-              />
-            </div>
-            <div className="flex items-center justify-center rounded cursor-pointer">
-              <FontAwesomeIcon
-                icon="fa-square-plus"
-                className="w-5 h-5 ml-3 text-gray-400 hover:text-green-400"
+                icon={faTrashCan}
+                className="w-4 h-5 text-red-500"
               />
             </div>
           </div>
-        </div>
-        <div className="text-end text-gray-500 font-semibold col-span-2">
-          {/* {titik.format(carts.product.price * carts.quantity)} */}
-        </div>
-        <div className="text-gray-500 flex items-center justify-center rounded cursor-pointer">
-          <FontAwesomeIcon
-            icon='fa-trash-can'
-            className="w-4 h-5 text-red-500"
-          />
+        ))}
+      </div>
+      <hr className="mx-6" />
+      <div className="flex justify-between items-center mx-6 my-4">
+        <div className="text-gray-400 font-semibold">Sub Total</div>
+        <div className="font-bold animate-pulse">
+          <p className="h-2 bg-gray-300 rounded-full w-36"></p>
         </div>
       </div>
-    ))}
-  </div>
+    </div>
   );
 };

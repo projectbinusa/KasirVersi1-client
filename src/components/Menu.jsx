@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
 import AutoComplete from "./AutoComplete";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
 import { SkeletonCategory, SkeletonProduct } from "./Skeleton";
 
 function Menu({
@@ -14,9 +13,8 @@ function Menu({
   productTimeAdded,
   loading,
   selectedCategory,
-  setSelectedCategory
+  setSelectedCategory,
 }) {
-  // const [selectedCategory, setSelectedCategory] = useState();
   const [selectedOption, setSelectedOption] = useState("Semua");
 
   const changeCategory = (category) => setSelectedCategory(category);

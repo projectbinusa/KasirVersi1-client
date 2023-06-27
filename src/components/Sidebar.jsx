@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 function Sidebar({ dataSidebar, logOut }) {
-  // const [activeTab, setActiveTab] = useState("Home");
   const activeTab = localStorage.getItem("activeTab");
 
   const handleTab = (tab) => {
-    // setActiveTab(tab);
     localStorage.setItem("activeTab", tab);
   };
 
@@ -29,10 +27,7 @@ function Sidebar({ dataSidebar, logOut }) {
                       onClick={() => handleTab(data.name)}
                     >
                       <div className="flex justify-center">
-                        <FontAwesomeIcon
-                          icon={data.icon}
-                          className="w-8 h-8"
-                        />
+                        <FontAwesomeIcon icon={data.icon} className="w-8 h-8" />
                       </div>
                       <div className="mt-4 text-center text-xs">
                         {data.name}

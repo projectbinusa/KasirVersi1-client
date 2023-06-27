@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 function Pagination2({ cPages, currentPages, setCurrentPages }) {
@@ -17,11 +18,11 @@ function Pagination2({ cPages, currentPages, setCurrentPages }) {
             onClick={prevPages}
             className="h-10 px-5 text-gray-600 bg-white border border-gray-600 hover:bg-gray-100"
           >
-            Prev
+            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
           </button>
         </li>
         {pageNumbers.map((pgNumber) => (
-          <li key={pgNumber}>
+          <li key={pgNumber} className="hidden lg:block">
             <button
               onClick={() => setCurrentPages(pgNumber)}
               className="h-10 px-5 text-gray-600 bg-white border border-gray-600 "
@@ -35,7 +36,7 @@ function Pagination2({ cPages, currentPages, setCurrentPages }) {
             onClick={nextPages}
             className="h-10 px-5 text-gray-600 bg-white border border-gray-600 hover:bg-gray-100"
           >
-            Next
+            <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
           </button>
         </li>
       </ul>

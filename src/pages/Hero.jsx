@@ -9,9 +9,9 @@ import CartMobile from "../components/CartMobile";
 import Loading from "../components/Loading";
 import Menu from "../components/Menu";
 import userService from "../services/user.service";
-import { API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
+import { API_CART, API_CATEGORY, API_PRODUCT } from "../utils/baseURL";
 import {
-  getAllDataCart,
+  // getAllDataCart,
   // getAllDataProduct,
   // getAllDataCategory,
   getProductPopular,
@@ -39,25 +39,6 @@ function Hero({ iconList }) {
     navigate("/login");
   }, [dispatch]);
 
-  const getAllDataProduct = async () => {
-    await axios
-      .get(`${API_PRODUCT}/all`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        setDataMenu(res.data);
-        setLoading(!loading);
-        setTimeout(() => {
-          setLoading(!loading);
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const getAllDatas = (setPath) => {
     userService.getAllDataProduct().then(
       (response) => {
@@ -65,21 +46,25 @@ function Hero({ iconList }) {
       },
       (error) => {
         const _content =
-          (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-  
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
         setPath(_content);
         setLoading(!loading);
         setTimeout(() => {
           setLoading(!loading);
         }, 1000);
-  
+
         if (error.response && error.response.status === 401) {
+          alert(error.response.status);
           EventBus.dispatch("logout");
         }
       }
     );
   };
-
 
   const getAllDataCategory = async () => {
     await axios
@@ -98,7 +83,31 @@ function Hero({ iconList }) {
       })
       .catch((error) => {
         console.log(error);
-        if (error.message === 'Request failed with status code 401') {
+        if (error.message === "Request failed with status code 401") {
+          alert(error.message);
+          logOut();
+        }
+      });
+  };
+
+  const getAllDataCart = async () => {
+    await axios
+      .get(`${API_CART}/list`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setDataCart(res.data);
+        setLoading(!loading);
+        setTimeout(() => {
+          setLoading(!loading);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.message === "Request failed with status code 401") {
+          alert(error.message);
           logOut();
         }
       });
@@ -109,7 +118,7 @@ function Hero({ iconList }) {
     getAllDataCategory();
     getProductPopular("popular", setProductPopular);
     getProductPopular("time-added", setProductTimeAdded);
-    getAllDataCart("list", setDataCart);
+    getAllDataCart();
     getAllDatas(setDataMenu);
   }, []);
 
@@ -128,20 +137,24 @@ function Hero({ iconList }) {
         className="bg-gray-50 p-2 grid grid-cols-9 h-screen overflow-y-auto scroll-none"
       >
         <div className="col-span-9 md:col-span-6">
-            <Menu
-              dataCategory={dataCategory}
-              dataMenu={dataMenu}
-              productPopular={productPopular}
-              productTimeAdded={productTimeAdded}
-              setDataCart={setDataCart}
-              iconList={iconList}
-              loading={loading}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />
+          <Menu
+            dataCategory={dataCategory}
+            dataMenu={dataMenu}
+            productPopular={productPopular}
+            productTimeAdded={productTimeAdded}
+            setDataCart={setDataCart}
+            iconList={iconList}
+            loading={loading}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
         </div>
         <div id="list" className="p-2 hidden md:block md:col-span-3">
-          <Cart dataCart={dataCart} setDataCart={setDataCart} />
+          <Cart
+            dataCart={dataCart}
+            setDataCart={setDataCart}
+            loading={loading}
+          />
         </div>
         <div className="fixed md:invisible bottom-20 right-0 pr-5">
           {dataCart.quantity !== 0 ? (
