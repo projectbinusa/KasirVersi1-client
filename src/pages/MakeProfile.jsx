@@ -9,6 +9,7 @@ const MakeProfile = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [image, setImage] = useState(null);
 
   const getToko = async () => {
     await axios
@@ -20,6 +21,7 @@ const MakeProfile = () => {
       .then((res) => {
         setTokoId(res.data.id);
         setName(res.data.name);
+        setImage(res.data.image);
         setPhoneNumber(res.data.phoneNumber);
         setAddress(res.data.address);
       })
@@ -30,14 +32,15 @@ const MakeProfile = () => {
 
   const addToko = async (e) => {
     e.preventDefault();
-    const req = {
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address,
-    };
+    const formData = new FormData();
+
+    formData.append("file", image);
+    formData.append("name", name);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("address", address);
 
     await axios
-      .post(`${API_TOKO}/add`, req, {
+      .post(`${API_TOKO}/add`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -71,8 +74,18 @@ const MakeProfile = () => {
                 className="flex flex-col gap-4"
                 onSubmit={addToko}
               >
+                <div className="mt-8">
+                <label>Foto Toko</label>
+                 <input
+                  type="file"
+                  id="foto"
+                  placeholder="Foto Toko"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  required
+                />
+                </div>
                 <input
-                  className="p-2 mt-8 rounded-xl border  "
+                  className="p-2 rounded-xl border  "
                   type="text"
                   id="name"
                   placeholder="Nama Toko"

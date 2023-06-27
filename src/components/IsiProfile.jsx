@@ -12,6 +12,7 @@ function IsiSetting() {
   const [tokoId, setTokoId] = useState(0);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [image, setImage] = useState(null);
   const [address, setAddress] = useState("");
 
   const [dataMenu, setDataMenu] = useState([]);
@@ -36,6 +37,7 @@ function IsiSetting() {
       })
       .then((res) => {
         setTokoId(res.data.id);
+        setImage(res.data.image);
         setName(res.data.name);
         setPhoneNumber(res.data.phoneNumber);
         setAddress(res.data.address);
@@ -47,14 +49,15 @@ function IsiSetting() {
 
   const addToko = async (e) => {
     e.preventDefault();
-    const req = {
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address,
-    };
+    const formData = new FormData();
+
+    formData.append("file", image);
+    formData.append("name", name);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("address", address);
 
     await axios
-      .post(`${API_TOKO}/add`, req, {
+      .post(`${API_TOKO}/add`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -70,14 +73,15 @@ function IsiSetting() {
 
   const updateToko = async (e) => {
     e.preventDefault();
-    const req = {
-      name: name,
-      phoneNumber: phoneNumber,
-      address: address,
-    };
+    const formData = new FormData();
+
+    formData.append("file", image);
+    formData.append("name", name);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("address", address);
 
     await axios
-      .put(`${API_TOKO}/${tokoId}`, req, {
+      .put(`${API_TOKO}/${tokoId}`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -165,7 +169,7 @@ function IsiSetting() {
                           <div className="">
                             <img
                               alt="..."
-                              src="https://t3.ftcdn.net/jpg/02/40/93/66/360_F_240936643_lbL2jWTNXDuL3qB3IP6DdrrxAErjgn4I.jpg"
+                              src={image}
                               className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                               style={{ maxWidth: "150px" }}
                             />
@@ -282,6 +286,19 @@ function IsiSetting() {
                   <form onSubmit={addToko}>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
+                        type="file"
+                        className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
+                        id="file"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        required
+                      />
+                      <label className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Image
+                      </label>
+                    </div>
+                    <div className="relative z-0 w-full mb-6 group">
+                      <input
                         type="text"
                         className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
@@ -379,6 +396,19 @@ function IsiSetting() {
                 </div>
                 <div className="p-6 space-y-6">
                   <form onSubmit={updateToko}>
+                  <div className="relative z-0 w-full mb-6 group">
+                      <input
+                        type="file"
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
+                        id="file"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        required
+                      />
+                      <label className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Image
+                      </label>
+                    </div>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
                         type="text"
